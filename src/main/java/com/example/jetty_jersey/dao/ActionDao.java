@@ -1,4 +1,4 @@
-package com.example.datanucleus.dao;
+package com.example.jetty_jersey.dao;
 
 import java.util.List;
 
