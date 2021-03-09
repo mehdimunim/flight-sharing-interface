@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1"/>
+<meta header="application/json">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+	    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<script>
+
+ready(function() {
+                                  //event handler for submit button
+                                  $("#btnSubmit").click(function () {
+                                                        //collect userName and password entered by users
+                                                        var userName = $("#username").val();
+                                                        var password = $("#password").val();
+                                                        authenticate(userName,password);
+
+
+                                                        });
+
+                });
+
+
+                function authenticate(userName, password1) {
+
+                    $.ajax
+                    ({
+                        type: "POST",
+                        //the url where you want to sent the userName and password to
+                        url: "http://localhost:8080/ws/PassengerResource/flight-sharing/LoginForm",
+                        dataType: 'json',
+                        async: false,
+                        //json object to sent to the authentication url
+                        //data: '{"username": "' + userName + '", "password" : "' + password + '"}',
+                      	data: {'username': userName, 'password': password1 },
+
+                        success: function (data) {
+                            //do any process for successful authentication here
+                            alert('Login status: ' + data.status);
+                        }
+                     })
+                };
+                
+</script>
+
+</head>
+<body>
+<form method="POST">
+    <fieldset style="text-align:right; width:300px">
+    <legend><b>Log in</b></legend>
+        Account ID <input type="text" id="username" name="userName"/><br/>
+        Password <input type="text" id="password" name="password"/><br/>
+         
+        <button id="button">Login</button>
+        <button id="button2">Forgot Login Details?</button>
+        <button id="button3">Register for free</button>
+    </fieldset>
+</form>
+</body>
+</html>
+                

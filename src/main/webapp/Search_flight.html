@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<body style="font-family:Arial">
+	
+		<script id="templateFlight" type="text/template">
+				<div>
+					<%= attribute %>
+				</div>
+		</script>
+	
+    	<table>
+        	<tr>
+            	<td>Departure Aerodrome</td>
+            	<td><input type="text" id="txtDepartureAerodrome" /></td>
+        	</tr>
+        	<tr>
+            	<td>Period of time</td>
+            	<td><input type="text" id="txtTime" /></td>
+        	</tr>
+    	</table>
+  	 	<input type="button" id="btnGetFlights" value="Get Flights">
+    	<br /><br />
+    	<div id="resultDiv">
+    	</div>
+
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+	    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+		<script type="text/javascript" src="Search_flight.js"></script>
+	</body>
+</html>

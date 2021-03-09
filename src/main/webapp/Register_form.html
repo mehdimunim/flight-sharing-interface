@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1"/>
+<meta header="application/json">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+	    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+		<script type="text/javascript" src="home.js"></script>
+<script>
+$(document).ready(function(){
+  $("#button").click(function(){
+ 
+  var customer = new Object();
+    customer.custName = $('#custName').val();
+    customer.custMobile = $('#custMobile').val();
+    customer.custEmail = $('#custEmail').val();
+    customer.custAddress = $('#custAddress').val();
+   
+                 $.ajax({
+                     url: 'http://localhost:8080/ws/PassengerResource//flight-sharing/RegisterForm',
+                     type: 'POST',
+                     dataType: 'json',
+                     data: customer,
+                     success: function () {
+                        alert('Added successfully');
+              
+                    },
+	});
+});
+});
+</script>
+
+</head>
+<body>
+<form method="POST">
+    <fieldset style="text-align:right; width:300px">
+    <legend><b>Registration Form</b></legend>
+        Name <input type="text" id="custName" name="custName"/><br/>
+        Mobile No <input type="text" id="custMobile" name="custMobile"/><br/>
+        Email <input type="text" id="custEmail" name="custEmail"/><br/>
+        Address <input type="text" id="custAddress" name="custAddress"/><br/>       
+        <button id="button">Save Data</button>
+    </fieldset>
+</form>
+</body>
+</html> 

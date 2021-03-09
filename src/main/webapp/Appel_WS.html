@@ -1,0 +1,133 @@
+<html>
+<head>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/jquery.dataTables.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.js"></script>
+    <script type = "text/javascript">
+    
+        $(document).ready(function () {
+            var flight = {};
+            var dynamicURL = "";
+            var methodName = "";
+            getAllFlights();
+            $('#btnAddFlight').click(function () {
+                flight.id = $('#txtId').val();
+                flight.departure_aerodrome = $('#txtDepartureAerodrome').val();
+                var flightId = $('#txtId').val();
+                if(flightId){
+                    //update it
+                    dynamicURL = "http://localhost:8080/ws/flightResource/flight-sharing/sign-in/pilot/{pilotId}/plane/{planeId}/flight/{flightId}"+flightId;
+                    methodName = "PUT";
+                }else{
+                    //save it
+                    dynamicURL = "http://localhost:8080/ws/flightResource/flight-sharing/pilot/{pilotId}/flight/{flightId}/booking/{bookingId}/information";
+                    methodName = "POST";
+                }
+                var flightObj = JSON.stringify(flight);
+                $.ajax({
+                    url: dynamicURL,
+                    method: methodName,
+                    data: flightObj,
+                    contentType: 'application/json; charset=utf-8',
+                    success: function () {
+                        alert('Added successfully');
+                        getAllFlights();
+                        reset();
+                    },
+                    error: function (error) {
+                        alert(error);
+                    }
+                })
+            })
+        })
+
+        function getAllFlights() {
+            $.ajax({
+                url: "http://localhost:8080/ws/flightResource/flight-sharing/flights",
+                method: "GET",
+                dataType: "json",
+                success: function (data) {
+                    var tableBody = $('#tblFlight tbody');
+                    tableBody.empty();
+                    $(data).each(function (index, element) {
+                        tableBody.append('<tr><td>'+element.id+'</td><td>'+element.departure_aerodrome+'</td><td><button onclick = "update('+element.id+')">Update</button> | <button onclick = "deleteFlight('+element.id+')">Delete</button></td></tr>');
+                    })
+                },
+                error: function (error) {
+                    alert(error);
+                }
+            })
+        }
+
+        function deleteFlight(id){
+            $.ajax({
+                url: 'http://localhost:8080/ws/flightResource/flight-sharing/sign-in/pilot/{pilotId}/edit-flight/plane/{planeId}/flight/{flightId}'+id,
+                method: 'DELETE',
+                success: function () {
+                    alert('Do you really want to cancel this flight ?');
+                    getAllFlights();
+                },
+                error: function (error) {
+                    alert(error);
+                }
+            })
+        }
+
+        function update(id){
+            $.ajax({
+                url: 'http://localhost:8080/ws/flightResource/flight-sharing/flights'+id,
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    $('#txtId').val(data.id);
+                    $('#txtDepartureAerodrome').val(data.departure_aerodrome);
+                    $('#txtId').val(data.id);
+                    getAllFlights();
+                },
+                error: function (error) {
+                    alert(error);
+                }
+            })
+        }
+
+        function reset(){
+            $('#txtId').val('');
+            $('#txtDepartureAerodrome').val('');
+            $('#txtId').val('');
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <table>
+            
+                <td><input type="text" id = "txtId" hidden></td>
+            
+            <tr>
+                <td>ID flight</td>
+                <td><input type="text" id = "txtId"></td>
+            </tr>
+            <tr>
+                <td>Departure Aerodrome</td>
+                <td><input type="text" id = "txtDepartureAerodrome"></td>
+            </tr>
+            <tr colspan = "2">
+                <td><input type="button" value="Add Flight" id="btnAddFlight"></td>
+            </tr>
+        </table>
+        <table border = "1" id = "tblFlight">
+            <thead>
+                <tr>
+                    <th>ID flight</th>
+                    <th>Departure Aerodrome</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
