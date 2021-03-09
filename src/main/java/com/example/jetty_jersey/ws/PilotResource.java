@@ -28,34 +28,7 @@ public class PilotResource {
 	List<Flight> plannedFlights = new ArrayList<Flight>();
 	Pilot pilotStub = new Pilot("Munim", "Mehdi", "Aucune", "Aucune", 1999);
 
-	/**
-	 * @return a list of flights to serve as a stub
-	 */
-	public List<Flight> stubFlights() {
-		// flight parameters
-		LocalDateTime dur = null;
-		int ap = 0;
-		double pr = 0; // will be changed further in the code
-		String mp = "";
-		String dep_a = "";
-		String dest_a = "";
-		LocalDateTime dep_t = null;
-		LocalDate ar_d = null;
-		LocalDateTime ar_t = null;
-		int id = 0;
-		Pilot pilot = pilotStub;
-		List<Passenger> passengers = null;
-		LocalDate dep_d = null;
-
-		List<Flight> stubListFlights = new ArrayList<Flight>();
-		stubListFlights
-				.add(new Flight(dur, ap, 10, mp, dep_a, dest_a, dep_t, ar_d, ar_t, id, pilot, passengers, dep_d));
-		stubListFlights
-				.add(new Flight(dur, ap, 100, mp, dep_a, dest_a, dep_t, ar_d, ar_t, id, pilot, passengers, dep_d));
-		stubListFlights
-				.add(new Flight(dur, ap, 1000, mp, dep_a, dest_a, dep_t, ar_d, ar_t, id, pilot, passengers, dep_d));
-		return stubListFlights;
-	}
+	
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -89,10 +62,9 @@ public class PilotResource {
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/{pilotId}/flight")
-	public List<Flight> getPlannedFlights(
+	public void getPlannedFlights(
 			@PathParam("pilotId") int pilotId
 			) {
-		return stubFlights();
 
 	}
 
