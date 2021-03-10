@@ -1,58 +1,44 @@
 package com.example.jetty_jersey.dao;
 
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.ArrayList;
 import java.util.List;
 
-public class DAO implements FlightDAO {
+import com.example.jetty_jersey.ws.Flight;
 
-	/////////////////// FLIGHT///////////////////////////
+public interface DAO {
 
-	@Override
-	public List<Flight> getFlighsFromCriteria(String departure_aerodrome, LocalDateTime departureDateTime,
-			LocalDateTime arrivalDateTime) {
 
-		List<Flight> flightsList = new ArrayList<Flight>();
+/**
+ * @return the list of booked flights
+ */
 
-		Flight f1 = new Flight();
-		f1.departure_aerodrome = "London";
-		f1.departureDateTime = LocalDateTime.of(2020, Month.MAY, 25, 19, 30);
-		f1.arrivalDateTime = LocalDateTime.of(2020, Month.MAY, 25, 20, 30);
-		flightsList.add(f1);
+List<Flight>  getBookedFlights();
 
-		Flight f2 = new Flight();
-		f2.departure_aerodrome = "Marseille";
-		f2.departureDateTime = LocalDateTime.of(2020, Month.JANUARY, 25, 14, 30);
-		f2.arrivalDateTime = LocalDateTime.of(2020, Month.JANUARY, 25, 15, 30);
-		flightsList.add(f2);
+/**
+ *@param user
+ * @return the list of booked flights for a spe@Override
+	cific user
+ */
 
-		return flightsList;
-	}
+List<Flight>  getFlights(String user);
 
-	@Override
-	public Flight getFlightInfo(int flightId) {
 
-		Flight flight = new Flight(1234, 150, "23 Street Neville", "London", "Manchester", 6, null, null,
-				LocalDateTime.of(2020, Month.MAY, 25, 13, 30), LocalDateTime.of(2020, Month.MAY, 25, 17, 30));
+/**
+ * @return the list of booked flights
+ */
 
-		return flight;
-	}
+	List<Flight>  getFlights();
 
-	@Override
-	public void editFlight(int flightId) {
-		System.out.println("Flight information has been changed. Flight ID :  " + flightId);
-	}
 
-	@Override
-	public void addFlight(int pilotId) {
-		System.out.println("The flight has been added successfully by the pilot " + pilotId);
-	}
+/**
+ *@param flight
+ * @return information about a flight
+ */
 
-	@Override
-	public void deleteFlight(int flightId) {
-		System.out.println("The flight " + flightId + " has been deleted successfully ! ");
+Flight  getFlightInformation(Flight flight);
 
-	}
 
 }
+
+	
+
+
