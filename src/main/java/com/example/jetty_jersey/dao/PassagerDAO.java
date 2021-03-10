@@ -1,5 +1,7 @@
 package com.example.jetty_jersey.dao;
 
+import com.example.jetty_jersey.ws.Flight;
+
 public interface PassagerDAO {
 
 	/**

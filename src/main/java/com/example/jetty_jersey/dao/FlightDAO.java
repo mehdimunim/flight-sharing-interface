@@ -2,6 +2,8 @@ package com.example.jetty_jersey.dao;
 
 import java.util.List;
 
+import com.example.jetty_jersey.ws.Flight;
+
 public interface FlightDAO {
 
 

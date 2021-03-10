@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.example.jetty_jersey.dao;
+package com.example.jetty_jersey.ws;
 
 import java.time.LocalDateTime;
 

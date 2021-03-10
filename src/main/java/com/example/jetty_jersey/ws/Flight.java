@@ -1,4 +1,4 @@
-package com.example.jetty_jersey.dao;
+package com.example.jetty_jersey.ws;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,6 +23,8 @@ public class Flight {
 	public LocalDate arrivalDate;
 	public LocalDateTime arrivalTime;
 	public LocalDateTime duration; //Duration
+	public LocalDateTime departureDateTime;
+	public LocalDateTime arrivalDateTime;
 
 	/**
 	 * @param price
