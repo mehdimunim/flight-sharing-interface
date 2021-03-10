@@ -1,6 +1,5 @@
 package com.example.jetty_jersey.ws;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -8,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -15,170 +15,177 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.example.jetty_jersey.dao.Flight;
-import com.example.jetty_jersey.dao.Passenger;
-import com.example.jetty_jersey.dao.Pilot;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-@Path("/PassengerResource")
+import com.example.jetty_jersey.ws.Booking;
+import com.example.jetty_jersey.ws.Passenger;
+
+@Path("/flight-sharing/PassengerResource")
 public class PassengerResource {
-	
-	
+	@JsonIgnoreProperties(ignoreUnknown = true)
 	public static class Login {
 		public String username;
 		public String password;
 	}
-	
-	public static class Register {
-		public String name;
-		public String mobile;
-		public String email;
-		public String address;
-	}
-	
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/flight")
-	
-	public List<Flight> getFlightsInfo(){
-		List<Flight> flights = new ArrayList<Flight>();
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/bookingFlights")
+
+	public void bookFlight(Booking booking) {
+		booking = new Booking();
+
+		LocalDate birthday = LocalDate.of(1960, Month.JANUARY, 07);
+		List<Flight> fleet = new ArrayList<Flight>();
 		Flight f1 = new Flight();
 		f1.departure_aerodrome = "Madrid";
 		f1.id = 124;
 		f1.destination_aerodrome = "Paris";
-		flights.add(f1);
+		fleet.add(f1);
 		Flight f2 = new Flight();
 		f2.departure_aerodrome = "London";
 		f2.id = 224;
 		f2.destination_aerodrome = "Madrid";
-		flights.add(f2);
-		Flight f3= new Flight();
+		fleet.add(f2);
+		Flight f3 = new Flight();
 		f3.departure_aerodrome = "London";
 		f3.id = 226;
 		f3.destination_aerodrome = "Paris";
-		flights.add(f3);
-		
-		
-		return flights;
+		fleet.add(f3);
+		LocalDateTime date = LocalDateTime.of(2021, 3, 9, 18, 25, 00);
+		Passenger passenger = new Passenger();
+		passenger.first_name = "Mamadou";
+		passenger.last_name = "DANSOKHO";
+		passenger.civil_statut = "M";
+		passenger.mail_adresse = "mamadou@email.com";
+		passenger.number = (long) 0753;
+		passenger.birthday = birthday;
+		passenger.bookedFlights = fleet;
+		booking.id = 10903;
+		booking.date_time = date;
+		booking.passenger = passenger;
+		System.out.println("Booking information:\n" + booking);
+
 	}
-	
-	
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/flight1")
+	@Path("/AllBookedFlights")
 
 	/**
 	 * @param f
-	 * @return a flight information
+	 * @return list of booked flights
 	 */
-	public Flight getAllIFlightInformation() {
-		Flight f = new Flight();
-		f.departureDate = LocalDate.of(2021,Month.MARCH,1);
-		f.arrivalDate= LocalDate.of(2021,Month.MARCH,1);
-		f.departureTime = LocalDateTime.of(2021,03,1,10,30,00);
-		f.arrivalTime = LocalDateTime.of(2021,03,1,12,30,00);
-		f.price = 100;
-		f.meeting_place = "EIDD flight meeting Place";
-		f.departure_aerodrome= "EIDD departure Aerodorme";
-		f.destination_aerodrome = " EIDD arrival aerodrome";
-		f.id= 930;
-		f.availabePlaces = 30;
-	//	f.duration = Duration.ofHours(2);
-		Pilot p1 = new Pilot("Dansokho","Mamadou","eidd fligh first shared flight");
-		f.pilot = p1;
-		List<Passenger> passengers1 = new ArrayList<Passenger>();
-		Passenger p11 = new Passenger("Hassna","Boudalil","F");
-		passengers1.add(p11);
-		Passenger p2 = new Passenger("Mamadou","Boudalil","M");
-		passengers1.add(p2);
-		Passenger p3 = new Passenger("Mehdi","Munim","M");
-		passengers1.add(p3);
-		f.passengers = passengers1;
-		
-		return f;
+	public List<Flight> getBookedFlights() {
 
-	}
-	
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/flight2")
-	
-	
-	public Flight getFlightWithSpecificInfo() {
-		
+		List<Flight> bookedflights = new ArrayList<Flight>();
+
 		Flight f1 = new Flight();
-		f1.departureTime = LocalDateTime.of(2021,03,1,10,30,00);
-		f1.arrivalTime = LocalDateTime.of(2021,03,1,12,30,00);
-		f1.price = 100;
-		
-		return f1;
-		
-	}
-	
-	@PUT
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/flight3")
-	
-	public void searchFlightWithSpecificInfo(Flight f2) {
-		f2.departureTime = LocalDateTime.of(2021,03,1,10,30,00);
-		f2.arrivalTime = LocalDateTime.of(2021,03,1,12,30,00);
-		f2.price = 100;
-		
-		System.out.println("Flight information:"+ f2.departureDate + f2.arrivalDate+f2.price);
-	}
-	
-	@PUT
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/flight4")
-	
-	public  void searchFlight(Flight f4) {
-		
-		System.out.print("Found flight:"+f4);
-		
-		}
-	
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/flight-sharing/flights")
-	public List<Flight> getFlight() {
-		List<Flight>  fleet = new ArrayList<Flight>();
-		 
-		 Flight f1 = new Flight();
-		 f1.id = 124;
-		 f1.departure_aerodrome = "London";
-		 fleet.add(f1);
-		
-		 Flight f2 = new Flight();
-		 f2.id = 255;
-		 f2.departure_aerodrome = "Marseille";
-		 fleet.add(f2);
+		Flight f2 = new Flight();
+		Flight f3 = new Flight();
 
-		return fleet;
+		f1.departure_aerodrome = "London";
+		f1.departureDateTime = LocalDateTime.of(2020, Month.MAY, 28, 19, 30, 00);
+		f1.arrivalDateTime = LocalDateTime.of(2020, Month.MAY, 28, 20, 30, 00);
+		f1.price = 100;
+		f1.meeting_place = "EIDD flight meeting Place";
+		f1.departure_aerodrome = "EIDD departure Aerodorme";
+		f1.destination_aerodrome = " EIDD arrival aerodrome";
+		f1.id = 930;
+		f1.availabePlaces = 30;
+		Pilot p1 = new Pilot("Dansokho", "Mamadou", "eidd fligh first shared flight");
+		f1.pilot = p1;
+
+		f2.departure_aerodrome = "London";
+		f2.departureDateTime = LocalDateTime.of(2020, Month.MAY, 25, 19, 30, 00);
+		f2.arrivalDateTime = LocalDateTime.of(2020, Month.MAY, 25, 20, 30, 00);
+		f2.price = 100;
+		f2.meeting_place = "EIDD flight meeting Place";
+		f2.departure_aerodrome = "EIDD departure Aerodorme";
+		f2.destination_aerodrome = " EIDD arrival aerodrome";
+		f2.id = 931;
+		f2.availabePlaces = 30;
+		Pilot p2 = new Pilot("Boudalil", "Hassna", "eidd fligh first shared flight");
+		f2.pilot = p2;
+
+		f3.departure_aerodrome = "London";
+		f3.departureDateTime = LocalDateTime.of(2020, Month.MAY, 20, 19, 30, 00);
+		f3.arrivalDateTime = LocalDateTime.of(2020, Month.MAY, 20, 20, 30, 00);
+		f3.price = 100;
+		f3.meeting_place = "EIDD flight meeting Place";
+		f3.departure_aerodrome = "EIDD departure Aerodorme";
+		f3.destination_aerodrome = " EIDD arrival aerodrome";
+		f3.id = 933;
+		f3.availabePlaces = 30;
+		Pilot p3 = new Pilot("Munim", "Mehdi", "eidd fligh first shared flight");
+		f3.pilot = p3;
+
+		List<Passenger> passengers1 = new ArrayList<>();
+		List<Passenger> passengers2 = new ArrayList<>();
+		List<Passenger> passengers3 = new ArrayList<>();
+
+		Passenger pass1 = new Passenger("Hassna", "Boudalil", "F");
+
+		Passenger pass2 = new Passenger("Mamadou", "Boudalil", "M");
+
+		Passenger pass3 = new Passenger("Mehdi", "Munim", "M");
+
+		passengers1.add(pass1);
+		passengers1.add(pass3);
+
+		passengers2.add(pass1);
+		passengers2.add(pass3);
+
+		passengers3.add(pass1);
+		passengers3.add(pass2);
+
+		f1.passengers = passengers1;
+		f2.passengers = passengers2;
+		f3.passengers = passengers3;
+
+		bookedflights.add(f1);
+		bookedflights.add(f2);
+		bookedflights.add(f3);
+
+		return bookedflights;
+
 	}
-	
-	@GET
+
+	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/Usernames")
-	public Login  getUsername() {
-		Login user = new Login();
-		user.username = "Munim";
-		return user;
+	@Path("/Registration")
+
+	public void register(Passenger passenger) {
+
+		passenger = new Passenger("Mamadou", "DANSOKHO", "M");
+
+		System.out.print("Hello" + "  " + passenger.first_name + " " + passenger.last_name + " "
+				+ " Your registration is succesfull!:");
+
 	}
-	
+
+	@DELETE
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/CancelBooking")
+
+	public void cancelBooking(Booking booking) {
+
+		Passenger passenger = new Passenger("Mamadou", "DANSOKHO", "M");
+
+		LocalDateTime date_time = LocalDateTime.of(2020, Month.MAY, 20, 19, 30, 00);
+
+		booking = new Booking(90321, date_time, passenger);
+
+		System.out.print("Hello " + " " + passenger.first_name + " " + " " + passenger.last_name + " your booking "
+				+ " " + booking.id + " has succesfully been deleted");
+
+	}
+
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/LoginForm")
 	public void PassengerLogin(Login login) {
 		System.out.println("Account ID :  " + login.username + "Password : " + login.password);
 	}
-	
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/RegisterForm")
-	public void PassengerRegister(Register register) {
-		System.out.println("Name :  " + register.name + "Mobile : "  + register.mobile + "Email : "+register.email);
-	}
-	
-	
-	
+
 }
