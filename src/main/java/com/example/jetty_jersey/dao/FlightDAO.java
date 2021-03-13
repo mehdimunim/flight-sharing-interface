@@ -3,46 +3,37 @@ package com.example.jetty_jersey.dao;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.example.jetty_jersey.ws.Flight;
-
 public interface FlightDAO {
 
+	/**
+	 * @param flightId
+	 * @return information of a specific flight (from its ID)
+	 */
+	public Flight getFlightInfo(int flightId);
 
-/**
- * @return the list of booked flights
- */
+	/**
+	 * @param Flight
+	 * @return returns flights based on specific criteria (departure aerodrome,
+	 *         desired period)
+	 */
+	public List<Flight> getFlighsFromCriteria(String departure_aerodrome, LocalDateTime departureDateTime,
+			LocalDateTime arrivalDateTime);
 
-List<Flight>  getBookedFlights();
+	/**
+	 * @param flightID edit information of a specific flight (from its ID)
+	 */
+	public void editFlight(int flightId);
 
-/**
- *@param user
- * @return the list of booked flights for a spe@Override
-	cific user
- */
+	/**
+	 * @param flightID //Addition of a flight in the database by the pilot
+	 */
+	public void addFlight(int pilotId);
 
-List<Flight>  getFlights(String user);
-
-
-/**
- * @return the list of booked flights
- */
-
-	List<Flight>  getFlights();
-
-
-/**
- *@param flight
- * @return information about a flight
- */
-
-Flight  getFlightInformation(Flight flight);
-
-List<Flight> getFlighsFromCriteria(String departure_aerodrome, LocalDateTime departureDateTime,
-		LocalDateTime arrivalDateTime);
-
+	/**
+	 * @param flightID //Delete a specific flight (from its ID
+	 */
+	public void deleteFlight(int flightId);
 
 }
-
-	
 
 
