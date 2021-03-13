@@ -1,44 +1,90 @@
 package com.example.jetty_jersey.dao;
 
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 
-import com.example.jetty_jersey.ws.Flight;
+public class DAO implements FlightDAO, PassengerDAO {
 
-public interface DAO {
+	/////////////////// FLIGHT///////////////////////////
 
+	@Override
+	public List<Flight> getFlighsFromCriteria(String departure_aerodrome, LocalDateTime departureDateTime,
+			LocalDateTime arrivalDateTime) {
 
-/**
- * @return the list of booked flights
- */
+		List<Flight> flightsList = new ArrayList<Flight>();
 
-List<Flight>  getBookedFlights();
+		Flight f1 = new Flight();
+		f1.departure_aerodrome = "London";
+		f1.departureDateTime = LocalDateTime.of(2020, Month.MAY, 25, 19, 30);
+		f1.arrivalDateTime = LocalDateTime.of(2020, Month.MAY, 25, 20, 30);
+		flightsList.add(f1);
 
-/**
- *@param user
- * @return the list of booked flights for a spe@Override
-	cific user
- */
+		Flight f2 = new Flight();
+		f2.departure_aerodrome = "Marseille";
+		f2.departureDateTime = LocalDateTime.of(2020, Month.JANUARY, 25, 14, 30);
+		f2.arrivalDateTime = LocalDateTime.of(2020, Month.JANUARY, 25, 15, 30);
+		flightsList.add(f2);
 
-List<Flight>  getFlights(String user);
+		return flightsList;
+	}
 
+	@Override
+	public Flight getFlightInfo(int flightId) {
 
-/**
- * @return the list of booked flights
- */
+		Flight flight = new Flight(1234, 150, "23 Street Neville", "London", "Manchester", 6, null, null,
+				LocalDateTime.of(2020, Month.MAY, 25, 13, 30), LocalDateTime.of(2020, Month.MAY, 25, 17, 30));
 
-	List<Flight>  getFlights();
+		return flight;
+	}
 
+	@Override
+	public void editFlight(int flightId) {
+		System.out.println("Flight information has been changed. Flight ID :  " + flightId);
+	}
 
-/**
- *@param flight
- * @return information about a flight
- */
+	@Override
+	public void addFlight(int pilotId) {
+		System.out.println("The flight has been added successfully by the pilot " + pilotId);
+	}
 
-Flight  getFlightInformation(Flight flight);
+	@Override
+	public void deleteFlight(int flightId) {
+		System.out.println("The flight " + flightId + " has been deleted successfully ! ");
 
+	}
+
+	/////////////////// PASSENGER ///////////////////////////
+
+	@Override
+	public void bookFlights(List<Flight> flights) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public List<Flight> getBookedFlight() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void register(Passenger passenger) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void cancelABooking(Booking booking) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void loging(Passenger passenger) {
+		// TODO Auto-generated method stub
+
+	}
 
 }
-
-	
-
-
