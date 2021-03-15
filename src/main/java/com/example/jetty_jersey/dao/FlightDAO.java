@@ -9,7 +9,7 @@ public interface FlightDAO {
 	 * @param flightId
 	 * @return information of a specific flight (from its ID)
 	 */
-	public Flight getFlightInfo(int flightId);
+	public List<Flight> getFlightInfo(int flightId);
 
 	/**
 	 * @param Flight
@@ -33,6 +33,8 @@ public interface FlightDAO {
 	 * @param flightID //Delete a specific flight (from its ID
 	 */
 	public void deleteFlight(int flightId);
+
+	void addFlight(Flight flight);
 
 }
 

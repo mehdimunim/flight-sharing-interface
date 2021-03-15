@@ -31,12 +31,14 @@ public class DAO implements FlightDAO, PassengerDAO {
 	}
 
 	@Override
-	public Flight getFlightInfo(int flightId) {
+	public List<Flight> getFlightInfo(int flightId) {
 
+		List<Flight> listFlights = new ArrayList<>();
 		Flight flight = new Flight(1234, 150, "23 Street Neville", "London", "Manchester", 6, null, null,
 				LocalDateTime.of(2020, Month.MAY, 25, 13, 30), LocalDateTime.of(2020, Month.MAY, 25, 17, 30));
-
-		return flight;
+		
+		listFlights.add(flight);
+		return listFlights;
 	}
 
 	@Override
@@ -85,6 +87,12 @@ public class DAO implements FlightDAO, PassengerDAO {
 	public void loging(Passenger passenger) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void addFlight(Flight flight) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

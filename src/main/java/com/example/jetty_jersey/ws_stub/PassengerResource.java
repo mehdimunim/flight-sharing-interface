@@ -15,9 +15,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.example.jetty_jersey.ws.Passenger;
-import com.example.jetty_jersey.ws.Flight;
-import com.example.jetty_jersey.ws.Pilot;
+import com.example.jetty_jersey.dao.Flight;
+import com.example.jetty_jersey.dao.Passenger;
+import com.example.jetty_jersey.dao.Pilot;
 
 @Path("/PassengerResource")
 public class PassengerResource {
@@ -73,10 +73,10 @@ public class PassengerResource {
 	 */
 	public Flight getAllIFlightInformation() {
 		Flight f = new Flight();
-		f.departureDate = LocalDate.of(2021,Month.MARCH,1);
-		f.arrivalDate= LocalDate.of(2021,Month.MARCH,1);
-		f.departureTime = LocalDateTime.of(2021,03,1,10,30,00);
-		f.arrivalTime = LocalDateTime.of(2021,03,1,12,30,00);
+//		f.departureDate = LocalDate.of(2021,Month.MARCH,1);
+//		f.arrivalDate= LocalDate.of(2021,Month.MARCH,1);
+//		f.departureTime = LocalDateTime.of(2021,03,1,10,30,00);
+//		f.arrivalTime = LocalDateTime.of(2021,03,1,12,30,00);
 		f.price = 100;
 		f.meeting_place = "EIDD flight meeting Place";
 		f.departure_aerodrome= "EIDD departure Aerodorme";
@@ -106,12 +106,13 @@ public class PassengerResource {
 	
 	public Flight getFlightWithSpecificInfo() {
 		
-		Flight f1 = new Flight();
-		f1.departureTime = LocalDateTime.of(2021,03,1,10,30,00);
-		f1.arrivalTime = LocalDateTime.of(2021,03,1,12,30,00);
-		f1.price = 100;
+//		Flight f1 = new Flight();
+//		f1.departureTime = LocalDateTime.of(2021,03,1,10,30,00);
+//		f1.arrivalTime = LocalDateTime.of(2021,03,1,12,30,00);
+//		f1.price = 100;
 		
-		return f1;
+//		return f1;
+		return null;
 		
 	}
 	
@@ -120,11 +121,11 @@ public class PassengerResource {
 	@Path("/flight3")
 	
 	public void searchFlightWithSpecificInfo(Flight f2) {
-		f2.departureTime = LocalDateTime.of(2021,03,1,10,30,00);
-		f2.arrivalTime = LocalDateTime.of(2021,03,1,12,30,00);
-		f2.price = 100;
-		
-		System.out.println("Flight information:"+ f2.departureDate + f2.arrivalDate+f2.price);
+//		f2.departureTime = LocalDateTime.of(2021,03,1,10,30,00);
+//		f2.arrivalTime = LocalDateTime.of(2021,03,1,12,30,00);
+//		f2.price = 100;
+//		
+//		System.out.println("Flight information:"+ f2.departureDate + f2.arrivalDate+f2.price);
 	}
 	
 	@PUT

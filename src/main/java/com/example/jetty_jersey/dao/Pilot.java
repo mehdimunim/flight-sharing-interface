@@ -1,13 +1,19 @@
-package com.example.jetty_jersey.ws;
+package com.example.jetty_jersey.dao;
 
 import java.util.List;
+
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.PrimaryKey;
 
 //extends passenger??
 // rajouter int numFlightHours
 // String flightInformation
 // List<Flight> flightList;
+@PersistenceCapable
 public class Pilot {
-	public int id;
+	@PrimaryKey
+	public long id;
+	
 	public String name;
 	public String surname;
 	public String qualifications;

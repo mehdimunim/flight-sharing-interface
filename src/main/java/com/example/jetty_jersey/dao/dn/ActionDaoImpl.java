@@ -28,8 +28,8 @@ public class ActionDaoImpl implements ActionDao {
 		try {
 			tx.begin();
 			Query q = pm.newQuery(Action.class);
-			q.declareParameters("String user");
-			q.setFilter("username == user");
+			q.declareParameters("Long flightId");
+			q.setFilter("id == flightId");
 
 			actions = (List<Action>) q.execute(username);
 			detached = (List<Action>) pm.detachCopyAll(actions);

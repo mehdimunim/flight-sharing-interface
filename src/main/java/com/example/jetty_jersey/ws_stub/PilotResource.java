@@ -16,11 +16,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.example.jetty_jersey.dao.Flight;
+import com.example.jetty_jersey.dao.Passenger;
+import com.example.jetty_jersey.dao.Pilot;
 import com.example.jetty_jersey.dao.PilotDAO;
-import com.example.jetty_jersey.ws.Flight;
-import com.example.jetty_jersey.ws.Pilot;
 import com.example.jetty_jersey.ws_stub.flightResource.Aircraft;
-import com.example.jetty_jersey.ws.Passenger;
 
 @Path("/pilotResource")
 public class PilotResource {
@@ -48,13 +48,14 @@ public class PilotResource {
 		LocalDate dep_d = null;
 
 		List<Flight> stubListFlights = new ArrayList<Flight>();
-		stubListFlights
-				.add(new Flight(dur, ap, 10, mp, dep_a, dest_a, dep_t, ar_d, ar_t, id, pilot, passengers, dep_d));
-		stubListFlights
-				.add(new Flight(dur, ap, 100, mp, dep_a, dest_a, dep_t, ar_d, ar_t, id, pilot, passengers, dep_d));
-		stubListFlights
-				.add(new Flight(dur, ap, 1000, mp, dep_a, dest_a, dep_t, ar_d, ar_t, id, pilot, passengers, dep_d));
-		return stubListFlights;
+//		stubListFlights
+//				.add(new Flight(dur, ap, 10, mp, dep_a, dest_a, dep_t, ar_d, ar_t, id, pilot, passengers, dep_d));
+//		stubListFlights
+//				.add(new Flight(dur, ap, 100, mp, dep_a, dest_a, dep_t, ar_d, ar_t, id, pilot, passengers, dep_d));
+//		stubListFlights
+//				.add(new Flight(dur, ap, 1000, mp, dep_a, dest_a, dep_t, ar_d, ar_t, id, pilot, passengers, dep_d));
+//		return stubListFlights;
+		return null;
 	}
 
 	@PUT

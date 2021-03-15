@@ -1,9 +1,13 @@
-package com.example.jetty_jersey.ws;
+package com.example.jetty_jersey.dao;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 
 //rajouter : int id; first name et last name?? ; LocalDate birthday
 // List<Flight> bookedFlights
@@ -13,7 +17,12 @@ import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
+@PersistenceCapable
 public class Passenger {
+	// define primary key id automatically
+	@PrimaryKey
+	@Persistent(valueStrategy=IdGeneratorStrategy.INCREMENT)
+	public long id;
 	
 	public String first_name;
 	public String last_name;
@@ -22,7 +31,7 @@ public class Passenger {
 	public Long number;
 	public LocalDate birthday;
 	public List<Flight> bookedFlights = new ArrayList<>();
-	public int id;
+	
 	
 	
 	/**
