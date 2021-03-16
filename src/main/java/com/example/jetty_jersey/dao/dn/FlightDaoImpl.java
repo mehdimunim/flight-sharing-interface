@@ -21,6 +21,7 @@ public class FlightDaoImpl implements FlightDAO {
 		this.pmf = pmf;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Flight> getFlightInfo(int flightId) {
 		List<Flight> flight = null;
