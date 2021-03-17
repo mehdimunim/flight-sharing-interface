@@ -30,7 +30,7 @@ public class Passenger {
 	public String mail_adresse;
 	public Long number;
 	public LocalDate birthday;
-	public List<Flight> bookedFlights = new ArrayList<>();
+	public List<Flight> bookedFlights = new ArrayList<Flight>();
 	
 	
 	

@@ -1,5 +1,7 @@
 package datanucleus;
 
+import java.util.List;
+
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManagerFactory;
 
@@ -18,17 +20,13 @@ public class FlightDaoImplTest {
 	public void test() {
 		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("Flight Sharing Interface");
 		FlightDAO flightDAO = new FlightDaoImpl(pmf);
-
-		Assert.assertEquals(0, flightDAO.getFlightInfo(0).size());
-
+		
 		Flight flight = new Flight();
-		flight.setMeeting_place("Drancy");
-		flight.setId(42);
-		flight.setAvailabePlaces(1);
-
+		flight.setAvailabePlaces(200);
+		flight.setId(100);
 		flightDAO.addFlight(flight);
-
-		Assert.assertEquals(1, flightDAO.getFlightInfo(flight.getId()).size());
+		List<Flight> list = flightDAO.getFlightInfo(100);
+		System.out.print(list);
 
 	}
 

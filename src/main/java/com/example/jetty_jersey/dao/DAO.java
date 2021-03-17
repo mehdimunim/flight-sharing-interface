@@ -9,7 +9,6 @@ public class DAO implements FlightDAO, PassengerDAO {
 
 	/////////////////// FLIGHT///////////////////////////
 
-	@Override
 	public List<Flight> getFlighsFromCriteria(String departure_aerodrome, LocalDateTime departureDateTime,
 			LocalDateTime arrivalDateTime) {
 
@@ -30,7 +29,6 @@ public class DAO implements FlightDAO, PassengerDAO {
 		return flightsList;
 	}
 
-	@Override
 	public List<Flight> getFlightInfo(int flightId) {
 
 		List<Flight> listFlights = new ArrayList<>();
@@ -41,7 +39,6 @@ public class DAO implements FlightDAO, PassengerDAO {
 		return listFlights;
 	}
 
-	@Override
 	public void editFlight(int flightId) {
 		System.out.println("Flight information has been changed. Flight ID :  " + flightId);
 	}

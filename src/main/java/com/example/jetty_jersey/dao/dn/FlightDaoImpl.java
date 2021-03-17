@@ -11,6 +11,7 @@ import javax.jdo.Transaction;
 
 import com.example.jetty_jersey.dao.Flight;
 import com.example.jetty_jersey.dao.FlightDAO;
+import com.example.jetty_jersey.dao.Pilot;
 
 public class FlightDaoImpl implements FlightDAO {
 
@@ -72,6 +73,9 @@ public class FlightDaoImpl implements FlightDAO {
 			tx.begin();
 			
 			Flight flight = new Flight();
+			Pilot pilot = new Pilot();
+			pilot.setId(pilotId);
+			flight.setPilot(pilot);
 			pm.makePersistent(flight);
 
 			tx.commit();

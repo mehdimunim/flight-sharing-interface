@@ -64,5 +64,69 @@ public class Pilot {
 		this.experience = experience;
 		this.id = id;
 	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	public String getQualifications() {
+		return qualifications;
+	}
+
+	public void setQualifications(String qualifications) {
+		this.qualifications = qualifications;
+	}
+
+	public String getExperience() {
+		return experience;
+	}
+
+	public void setExperience(String experience) {
+		this.experience = experience;
+	}
+
+	public int getNumberflightHour() {
+		return numberflightHour;
+	}
+
+	public void setNumberflightHour(int numberflightHour) {
+		this.numberflightHour = numberflightHour;
+	}
+
+	public String getFlightInformation() {
+		return flightInformation;
+	}
+
+	public void setFlightInformation(String flightInformation) {
+		this.flightInformation = flightInformation;
+	}
+
+	public List<Flight> getFlightList() {
+		return flightList;
+	}
+
+	public void setFlightList(List<Flight> flightList) {
+		this.flightList = flightList;
+	}
 	
 }
