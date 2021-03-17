@@ -122,9 +122,9 @@ public class PassengerResource {
 		Pilot p3 = new Pilot("Munim", "Mehdi", "eidd fligh first shared flight");
 		f3.pilot = p3;
 
-		List<Passenger> passengers1 = new ArrayList<>();
-		List<Passenger> passengers2 = new ArrayList<>();
-		List<Passenger> passengers3 = new ArrayList<>();
+		List<Passenger> passengers1 = new ArrayList<Passenger>();
+		List<Passenger> passengers2 = new ArrayList<Passenger>();
+		List<Passenger> passengers3 = new ArrayList<Passenger>();
 
 		Passenger pass1 = new Passenger("Hassna", "Boudalil", "F");
 

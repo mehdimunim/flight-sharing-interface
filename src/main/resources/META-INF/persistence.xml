@@ -4,7 +4,7 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd" version="1.0">
 
     <!-- Configuration -->
-    <persistence-unit name="Flight Sharing Interface">
+    <persistence-unit name= "flight-sharing-interface">
     	<class>com.example.datanucleus.dao.Action</class>
     	<class>com.example.datanucleus.dao.Flight</class>
     	<class>com.example.datanucleus.dao.Booking</class>
