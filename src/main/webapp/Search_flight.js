@@ -17,6 +17,6 @@ function callDone(resultDiv){
 
 $(function(){
 	$("#btnGetFlights").click(function(){
-		getServerData("ws/flightResource/flight",callDone);
+		getServerData("ws/FlightResource/",callDone);
 	});
 });

@@ -17,11 +17,11 @@
                 var flightId = $('#txtId').val();
                 if(flightId){
                     //update it
-                    dynamicURL = "http://localhost:8080/ws/flightResource/flight-sharing/sign-in/pilot/{pilotId}/plane/{planeId}/flight/{flightId}"+flightId;
+                    dynamicURL = '/ws/FlightResource/';
                     methodName = "PUT";
                 }else{
                     //save it
-                    dynamicURL = "http://localhost:8080/ws/flightResource/flight-sharing/pilot/{pilotId}/flight/{flightId}/booking/{bookingId}/information";
+                    dynamicURL = '/ws/FlightResource/';
                     methodName = "POST";
                 }
                 var flightObj = JSON.stringify(flight);
@@ -44,7 +44,7 @@
 
         function getAllFlights() {
             $.ajax({
-                url: "http://localhost:8080/ws/flightResource/flight-sharing/flights",
+                url: '/ws/FlightResource/',
                 method: "GET",
                 dataType: "json",
                 success: function (data) {
@@ -62,7 +62,7 @@
 
         function deleteFlight(id){
             $.ajax({
-                url: 'http://localhost:8080/ws/flightResource/flight-sharing/sign-in/pilot/{pilotId}/edit-flight/plane/{planeId}/flight/{flightId}'+id,
+                url: '/ws/FlightResource/'+id,
                 method: 'DELETE',
                 success: function () {
                     alert('Do you really want to cancel this flight ?');
@@ -76,7 +76,7 @@
 
         function update(id){
             $.ajax({
-                url: 'http://localhost:8080/ws/flightResource/flight-sharing/flights'+id,
+                url: '/ws/FlightResource/'+id,
                 method: 'GET',
                 dataType: 'json',
                 success: function (data) {
