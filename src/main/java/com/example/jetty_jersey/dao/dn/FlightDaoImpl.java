@@ -23,10 +23,9 @@ public class FlightDaoImpl implements FlightDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<Flight> getFlightInfo(int flightId) {
 		List<Flight> flight = null;
-		List<Flight> detached = new ArrayList<>();
+		List<Flight> detached = new ArrayList<Flight>();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -48,14 +47,12 @@ public class FlightDaoImpl implements FlightDAO {
 		return detached;
 	}
 
-	@Override
 	public List<Flight> getFlighsFromCriteria(String departure_aerodrome, LocalDateTime departureDateTime,
 			LocalDateTime arrivalDateTime) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public void editFlight(int flightId) {
 		// TODO Auto-generated method stub
 		
@@ -65,7 +62,6 @@ public class FlightDaoImpl implements FlightDAO {
  * Problem with addFlight() method
  * 
  */
-	@Override
 	public void addFlight(int pilotId) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
@@ -89,7 +85,6 @@ public class FlightDaoImpl implements FlightDAO {
 	}
 	
 	// New method created for a test
-	@Override
 	public void addFlight(Flight flight) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
@@ -108,7 +103,6 @@ public class FlightDaoImpl implements FlightDAO {
 		
 	}
 
-	@Override
 	public void deleteFlight(int flightId) {
 		Flight flight = null;
 		PersistenceManager pm = pmf.getPersistenceManager();

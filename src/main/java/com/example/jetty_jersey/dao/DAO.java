@@ -31,7 +31,7 @@ public class DAO implements FlightDAO, PassengerDAO {
 
 	public List<Flight> getFlightInfo(int flightId) {
 
-		List<Flight> listFlights = new ArrayList<>();
+		List<Flight> listFlights = new ArrayList<Flight>();
 		Flight flight = new Flight(1234, 150, "23 Street Neville", "London", "Manchester", 6, null, null,
 				LocalDateTime.of(2020, Month.MAY, 25, 13, 30), LocalDateTime.of(2020, Month.MAY, 25, 17, 30));
 		
@@ -43,12 +43,10 @@ public class DAO implements FlightDAO, PassengerDAO {
 		System.out.println("Flight information has been changed. Flight ID :  " + flightId);
 	}
 
-	@Override
 	public void addFlight(int pilotId) {
 		System.out.println("The flight has been added successfully by the pilot " + pilotId);
 	}
 
-	@Override
 	public void deleteFlight(int flightId) {
 		System.out.println("The flight " + flightId + " has been deleted successfully ! ");
 
@@ -56,40 +54,39 @@ public class DAO implements FlightDAO, PassengerDAO {
 
 	/////////////////// PASSENGER ///////////////////////////
 
-	@Override
 	public void bookFlights(List<Flight> flights) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public List<Flight> getBookedFlight() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public void register(Passenger passenger) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void cancelABooking(Booking booking) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void loging(Passenger passenger) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void addFlight(Flight flight) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public static ActionDao getActionDao() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
