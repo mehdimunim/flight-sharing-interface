@@ -1,16 +1,11 @@
 
-function updateRegistration(url, success){
-    var user = new Object();
-    user.userName = $('#userName').val();
-    user.userMobile = $('#userMobile').val();
-    user.userEmail = $('#userEmail').val();
-    user.userAddress = $('#userAddress').val();
-    
+function updateRegistration(url, data, success){
                  $.ajax({
                      url: url,
-                     type: 'POST',
+                     type: 'PUT',
                      dataType: 'json',
-                     data: customer
+					 contentType : 'application/json',
+                     data: data
                  }).done(success);
 }
 
@@ -27,6 +22,15 @@ function callDone(result){
 
 $(function(){
 	$("#button").click(function(){
-		updateRegistration("/ws/flight-sharing/PassengerResource/register",callDone);
+	
+		var user = {
+    		"userName" : $('#userName').val(),
+    		"userMobile" : $('#userMobile').val(),
+    		"userEmail" : $('#userEmail').val(),
+    		"userAddress" : $('#userAddress').val()
+		};
+		//var dataJson = JSON.stringify(user);
+
+		updateRegistration("ws/flight-sharing/PassengerResource/register",user, callDone);
 	});
 });

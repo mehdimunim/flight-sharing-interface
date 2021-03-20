@@ -30,6 +30,13 @@ public class PassengerResource {
 		public String password;
 	}
 
+	public static class RegisterUser {
+		public String userName;
+		public String userMobile;
+		public String userEmail;
+		public String userAddress;
+	}
+
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/bookingFlights")
@@ -188,6 +195,21 @@ public class PassengerResource {
 	@Path("/LoginForm")
 	public void PassengerLogin(Login login) {
 		System.out.println("Account ID :  " + login.username + "Password : " + login.password);
+	}
+
+	@PUT
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/register")
+	public void registration() {
+
+		RegisterUser user = new RegisterUser();
+		user.userName = "Hassna";
+		user.userMobile = "065182";
+		user.userEmail = "hassna.78";
+		user.userAddress = "61 rue";
+
+		System.out.println("User registered successfully");
+
 	}
 
 }
