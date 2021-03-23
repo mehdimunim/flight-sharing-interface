@@ -49,9 +49,12 @@ public class FlightDaoImpl implements FlightDAO {
 		return detached;
 	}
 
-	public List<Flight> getFlighsFromCriteria(String departure_aerodrome, LocalDateTime departureDateTime,
-			LocalDateTime arrivalDateTime) {
-		List<Flight> flight = null;
+	public List<Flight> getFlighsFromCriteria(String departure_aerodrome_, LocalDateTime departureDateTime_,
+			LocalDateTime arrivalDateTime_) {
+		/**
+		 * Selecting flights leaving the airport departure_aerodrome at departureDataTime_ and arriving a arrivalDateTime_ 
+		 */
+		List<Flight> flights = null;
 		List<Flight> detached = new ArrayList<Flight>();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
@@ -59,10 +62,11 @@ public class FlightDaoImpl implements FlightDAO {
 			tx.begin();
 			Query q = pm.newQuery(Flight.class);
 			q.declareParameters("int flightId");
-			q.setFilter("id == flightId");
+			// selecting flights by three criteria
+			q.setFilter("departure_aerodrome == departure_aerodrome_ && departureDateTime = departureDateTime_ && arrivalDateTime == arrivalDateTime_ ");
 
-			flight = (List<Flight>) q.execute(null);
-			detached = (List<Flight>) pm.detachCopyAll(flight);
+			flights = (List<Flight>) q.execute(flights);
+			detached = (List<Flight>) pm.detachCopyAll(flights);
 
 			tx.commit();
 		} finally {
@@ -73,8 +77,15 @@ public class FlightDaoImpl implements FlightDAO {
 		}
 		return detached;
 	}
+	
+	/**
+	 * Problem choosing what to edit 
+	 */
 
 	public void editFlight(int flightId) {
+		/**
+		 * Editing flight "flightId"
+		 */
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -96,12 +107,10 @@ public class FlightDaoImpl implements FlightDAO {
 
 	}
 
-	/**
-	 * 
-	 * Problem with addFlight() method
-	 * 
-	 */
 	public void addFlight(int pilotId) {
+		/**
+		 * Adding the flight with pilotId
+		 */
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -123,8 +132,10 @@ public class FlightDaoImpl implements FlightDAO {
 
 	}
 
-	// New method created for a test
 	public void addFlight(Flight flight) {
+		/**
+		 * Adding a flight
+		 */
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -143,6 +154,9 @@ public class FlightDaoImpl implements FlightDAO {
 	}
 
 	public void deleteFlight(int flightId) {
+		/**
+		 * Deleting flight with flightId
+		 */
 		Flight flight = null;
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
@@ -168,7 +182,6 @@ public class FlightDaoImpl implements FlightDAO {
 			}
 			pm.close();
 		}
-		// TODO Auto-generated method stub
 
 	}
 
