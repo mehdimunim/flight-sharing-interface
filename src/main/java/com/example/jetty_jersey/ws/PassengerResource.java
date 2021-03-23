@@ -21,6 +21,7 @@ import com.example.jetty_jersey.dao.Booking;
 import com.example.jetty_jersey.dao.Flight;
 import com.example.jetty_jersey.dao.Passenger;
 import com.example.jetty_jersey.dao.Pilot;
+import com.example.jetty_jersey.ws.PassengerResource.LoginUser;
 
 @Path("/flight-sharing/PassengerResource")
 public class PassengerResource {
@@ -28,6 +29,13 @@ public class PassengerResource {
 	public static class Login {
 		public String username;
 		public String password;
+	}
+
+	public static class RegisterUser {
+		public String userName;
+		public String userMobile;
+		public String userEmail;
+		public String userAddress;
 	}
 
 	@PUT
@@ -183,11 +191,30 @@ public class PassengerResource {
 
 	}
 
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/LoginForm")
-	public void PassengerLogin(Login login) {
-		System.out.println("Account ID :  " + login.username + "Password : " + login.password);
+	@PUT
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/Login")
+	public void PassengerLogin() {
+		LoginUser user = new LoginUser();
+		user.username = "hassna";
+		user.password = "motdepasse";
+		System.out.println("Logged successfully");
+
+	}
+
+	@PUT
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/register")
+	public void registration() {
+
+		RegisterUser user = new RegisterUser();
+		user.userName = "Hassna";
+		user.userMobile = "065182";
+		user.userEmail = "hassna.78";
+		user.userAddress = "61 rue";
+
+		System.out.println("User registered successfully");
+
 	}
 
 }
