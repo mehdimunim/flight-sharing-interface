@@ -14,7 +14,7 @@ public class ActionContainerTest {
 
 	@Test
 	public void test() {
-		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("Example");
+		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("flight-sharing-interface");
 		Long containerId = null;
 
 		// Save a container with 3 actions

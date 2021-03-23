@@ -5,7 +5,7 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DAO implements FlightDAO, PassengerDAO {
+public class DAO implements FlightDAO, PassengerDAO, ActionDao {
 
 	/////////////////// FLIGHT///////////////////////////
 
@@ -85,6 +85,16 @@ public class DAO implements FlightDAO, PassengerDAO {
 	}
 
 	public static ActionDao getActionDao() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void addAction(Action action) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public List<Action> getActions(String username) {
 		// TODO Auto-generated method stub
 		return null;
 	}
