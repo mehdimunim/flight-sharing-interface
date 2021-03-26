@@ -35,12 +35,12 @@ public class FlightDaoImplTest {
 			int id = (int) (price);
 			int places = (int) (100 * random);
 			int year = 2021;
-			int month = (int) (13 * random) + 1;
+			int month = (int) (12 * random) + 1;
 			int day = (int) (28 * random) + 1;
-			int hour_de = (int) (13 * random) + 1;
-			int hour_ar = (int) (13 * random) + 12;
-			int minutes_de = (int) (31 * random) + 1;
-			int minutes_ar = (int) (31 * random) + 30;
+			int hour_de = (int) (12 * random) + 1;
+			int hour_ar = (int) (12 * random) + 12;
+			int minutes_de = (int) (30 * random) + 1;
+			int minutes_ar = (int) (30 * random) + 30;
 
 			LocalDateTime departure = LocalDateTime.of(year, month, day, hour_de, minutes_de);
 			LocalDateTime arrival = LocalDateTime.of(year, month, day, hour_ar, minutes_ar);
@@ -54,6 +54,8 @@ public class FlightDaoImplTest {
 			flight.setArrivalDateTime(arrival);
 			flight.setDestination_aerodrome("arrival");
 
+			flights.add(flight);
+
 		}
 		return flights;
 	}
@@ -63,10 +65,10 @@ public class FlightDaoImplTest {
 		/**
 		 * Adding random flights to data base
 		 */
-		int nelements = (int) (20 * Math.random());
+		int nelements = (int) (20 * Math.random()) + 1;
 		flights = flightGenerator(nelements);
 		flights.addAll(flights);
-		for (Flight flight:flights) {
+		for (Flight flight : flights) {
 			flightDAO.addFlight(flight);
 		}
 	}
