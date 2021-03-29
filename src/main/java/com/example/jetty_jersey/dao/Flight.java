@@ -5,13 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable
 public class Flight {
-	@PrimaryKey
 	public int id;
-	
+
 	public double price;
 	public String meeting_place;
 	public String departure_aerodrome;

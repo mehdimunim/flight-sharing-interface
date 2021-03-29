@@ -26,18 +26,18 @@ public class FlightDaoImpl implements FlightDAO {
 		/**
 		 * Getting the flights corresponding to the given flightId
 		 */
-		List<Flight> flight = null;
+		List<Flight> flights = null;
 		List<Flight> detached = new ArrayList<Flight>();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
 			Query q = pm.newQuery(Flight.class);
-			q.declareParameters("int flightId");
-			q.setFilter("id == flightId");
+			q.declareParameters("int id");
+			q.setFilter("flightId == id");
 
-			flight = (List<Flight>) q.execute(flightId);
-			detached = (List<Flight>) pm.detachCopyAll(flight);
+			flights = (List<Flight>) q.execute(flightId);
+			detached = (List<Flight>) pm.detachCopyAll(flights);
 
 			tx.commit();
 		} finally {
@@ -52,7 +52,8 @@ public class FlightDaoImpl implements FlightDAO {
 	public List<Flight> getFlighsFromCriteria(String departure_aerodrome_, LocalDateTime departureDateTime_,
 			LocalDateTime arrivalDateTime_) {
 		/**
-		 * Selecting flights leaving the airport departure_aerodrome at departureDataTime_ and arriving a arrivalDateTime_ 
+		 * Selecting flights leaving the airport departure_aerodrome at
+		 * departureDataTime_ and arriving a arrivalDateTime_
 		 */
 		List<Flight> flights = null;
 		List<Flight> detached = new ArrayList<Flight>();
@@ -63,9 +64,10 @@ public class FlightDaoImpl implements FlightDAO {
 			Query q = pm.newQuery(Flight.class);
 			q.declareParameters("int flightId");
 			// selecting flights by three criteria
-			q.setFilter("departure_aerodrome == departure_aerodrome_ && departureDateTime = departureDateTime_ && arrivalDateTime == arrivalDateTime_ ");
+			q.setFilter(
+					"departure_aerodrome == departure_aerodrome_ && departureDateTime = departureDateTime_ && arrivalDateTime == arrivalDateTime_ ");
 
-			flights = (List<Flight>) q.execute(flights);
+			flights = (List<Flight>) q.execute();
 			detached = (List<Flight>) pm.detachCopyAll(flights);
 
 			tx.commit();
@@ -77,9 +79,9 @@ public class FlightDaoImpl implements FlightDAO {
 		}
 		return detached;
 	}
-	
+
 	/**
-	 * Problem choosing what to edit 
+	 * Problem choosing what to edit
 	 */
 
 	public void editFlight(int flightId) {
