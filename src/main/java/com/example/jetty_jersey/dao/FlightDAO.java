@@ -16,7 +16,7 @@ public interface FlightDAO {
 	 * @return returns flights based on specific criteria (departure aerodrome,
 	 *         desired period)
 	 */
-	public List<Flight> getFlighsFromCriteria(String departure_aerodrome, LocalDateTime departureDateTime,
+	public List<Flight> getFlightsFromCriteria(String departure_aerodrome, LocalDateTime departureDateTime,
 			LocalDateTime arrivalDateTime);
 
 	/**
@@ -37,5 +37,3 @@ public interface FlightDAO {
 	void addFlight(Flight flight);
 
 }
-
-

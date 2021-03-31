@@ -89,29 +89,44 @@ public class FlightDaoImplTest {
 	@Test
 	public void getFlightInfoTest() {
 
-		initDB();
-		int id = flights.get(0).getId();
-		List<Flight> list = flightDAO.getFlightInfo(id);
+		FlightDAO flightDAO = new FlightDaoImpl(pmf);
 
-		Assert.assertEquals(nelements, list.size());
+		Flight flight = new Flight();
+
+		flight.setAvailabePlaces(200);
+		flight.setId(100);
+
+		flightDAO.addFlight(flight);
+
+		List<Flight> list = flightDAO.getFlightInfo(100);
+		Assert.assertEquals(1, list.size());
 		for (Flight f : list) {
-			Assert.assertEquals("Neverland", f.getMeeting_place());
+			Assert.assertEquals(200, f.getAvailabePlaces());
 		}
-		clearDB();
 	}
 
-//	@Test
-//	public void getFlightsFromCriteria() {
-//
-//		LocalDateTime departure = flights.get(0).getDepartureDateTime();
-//		LocalDateTime arrival = flights.get(0).getArrivalDateTime();
-//		List<Flight> list = flightDAO.getFlighsFromCriteria("departure", departure, arrival);
-//		Assert.assertEquals(1, list.size());
-//		System.out.print("hello");
-//		for (Flight f : list) {
-//			Assert.assertEquals(200, f.getAvailabePlaces());
-//		}
-//
-//	}
+	@Test
+	public void getFlightsFromCriteria() {
+
+		FlightDAO flightDAO = new FlightDaoImpl(pmf);
+
+		Flight flight = new Flight();
+
+		flight.setAvailabePlaces(200);
+		flight.setId(100);
+
+		String departure_aerodrome = "Paris";
+		LocalDateTime departureDateTime = LocalDateTime.of(2021, 03, 20, 4, 0);
+		LocalDateTime arrivalDateTime = LocalDateTime.of(2021, 03, 20, 6, 0);
+
+		flightDAO.addFlight(flight);
+
+		List<Flight> list = flightDAO.getFlightsFromCriteria(departure_aerodrome, departureDateTime, arrivalDateTime);
+		Assert.assertEquals(1, list.size());
+		for (Flight f : list) {
+			Assert.assertEquals("Paris", f.getDeparture_aerodrome());
+		}
+
+	}
 
 }

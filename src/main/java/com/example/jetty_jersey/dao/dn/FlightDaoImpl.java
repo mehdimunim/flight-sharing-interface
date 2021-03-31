@@ -33,8 +33,8 @@ public class FlightDaoImpl implements FlightDAO {
 		try {
 			tx.begin();
 			Query q = pm.newQuery(Flight.class);
-			q.declareParameters("int id");
-			q.setFilter("flightId == id");
+			q.declareParameters("int flightId");
+			q.setFilter("id == flightId");
 
 			flights = (List<Flight>) q.execute(flightId);
 			detached = (List<Flight>) pm.detachCopyAll(flights);
@@ -49,7 +49,8 @@ public class FlightDaoImpl implements FlightDAO {
 		return detached;
 	}
 
-	public List<Flight> getFlighsFromCriteria(String departure_aerodrome_, LocalDateTime departureDateTime_,
+	@SuppressWarnings("unchecked")
+	public List<Flight> getFlightsFromCriteria(String departure_aerodrome_, LocalDateTime departureDateTime_,
 			LocalDateTime arrivalDateTime_) {
 		/**
 		 * Selecting flights leaving the airport departure_aerodrome at
@@ -62,12 +63,13 @@ public class FlightDaoImpl implements FlightDAO {
 		try {
 			tx.begin();
 			Query q = pm.newQuery(Flight.class);
-			q.declareParameters("int flightId");
+			q.declareParameters(
+					"String departure_aerodrome_, LocalDateTime departureDateTime_, LocalDateTime arrivalDateTime_");
 			// selecting flights by three criteria
 			q.setFilter(
 					"departure_aerodrome == departure_aerodrome_ && departureDateTime = departureDateTime_ && arrivalDateTime == arrivalDateTime_ ");
 
-			flights = (List<Flight>) q.execute();
+			flights = (List<Flight>) q.execute(departure_aerodrome_, departureDateTime_, arrivalDateTime_);
 			detached = (List<Flight>) pm.detachCopyAll(flights);
 
 			tx.commit();
