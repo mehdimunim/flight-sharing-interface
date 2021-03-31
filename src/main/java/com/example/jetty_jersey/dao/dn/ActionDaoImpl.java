@@ -20,7 +20,7 @@ public class ActionDaoImpl implements ActionDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Action> getActions(String user) {
+	public List<Action> getActions(String username) {
 		List<Action> actions = null;
 		List<Action> detached = new ArrayList<Action>();
 		PersistenceManager pm = pmf.getPersistenceManager();
@@ -31,7 +31,7 @@ public class ActionDaoImpl implements ActionDao {
 			q.declareParameters("String user");
 			q.setFilter("username == user");
 
-			actions = (List<Action>) q.execute(user);
+			actions = (List<Action>) q.execute(username);
 			detached = (List<Action>) pm.detachCopyAll(actions);
 
 			tx.commit();
