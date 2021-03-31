@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
 
 @PersistenceCapable
 public class Flight {
 	public int id;
-
 	public double price;
 	public String meeting_place;
 	public String departure_aerodrome;
@@ -17,7 +17,9 @@ public class Flight {
 	public int availabePlaces;
 	public Pilot pilot;
 	public List<Passenger> passengers = new ArrayList<Passenger>();
+	@Persistent
 	public LocalDateTime departureDateTime;
+	@Persistent
 	public LocalDateTime arrivalDateTime;
 
 	/**

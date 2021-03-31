@@ -31,8 +31,9 @@ public interface FlightDAO {
 
 	/**
 	 * @param flightID //Delete a specific flight (from its ID
+	 * @return
 	 */
-	public void deleteFlight(int flightId);
+	public List<Flight> deleteFlight(int flightId);
 
 	void addFlight(Flight flight);
 

@@ -8,7 +8,6 @@ import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManagerFactory;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import com.example.jetty_jersey.dao.Flight;
@@ -60,14 +59,12 @@ public class FlightDaoImplTest {
 		}
 	}
 
-	@Before
 	public void initDB() {
 		/**
 		 * Adding random flights to data base
 		 */
 		// generate nelements flights and add them to flights
-		// int nelements = (int) (20 * Math.random()) + 1;
-		nelements = 2;
+		nelements = (int) (20 * Math.random()) + 1;
 		flightGenerator(nelements);
 		for (Flight flight : flights) {
 			flightDAO.addFlight(flight);
@@ -88,9 +85,6 @@ public class FlightDaoImplTest {
 
 	@Test
 	public void getFlightInfoTest() {
-
-		FlightDAO flightDAO = new FlightDaoImpl(pmf);
-
 		Flight flight = new Flight();
 
 		flight.setAvailabePlaces(200);
@@ -103,17 +97,28 @@ public class FlightDaoImplTest {
 		for (Flight f : list) {
 			Assert.assertEquals(200, f.getAvailabePlaces());
 		}
+		flights.addAll(list);
+		clearDB();
+	}
+
+	@Test
+	public void complexFlightInfoTest() {
+		initDB();
+
+		Flight flight = flights.get(0);
+		List<Flight> list = flightDAO.getFlightInfo(flight.getId());
+		for (Flight f : list) {
+			Assert.assertEquals("Neverland", f.getMeeting_place());
+		}
+		clearDB();
 	}
 
 	@Test
 	public void getFlightsFromCriteria() {
-
-		FlightDAO flightDAO = new FlightDaoImpl(pmf);
-
 		Flight flight = new Flight();
 
 		flight.setAvailabePlaces(200);
-		flight.setId(100);
+		flight.setId(101);
 
 		String departure_aerodrome = "Paris";
 		LocalDateTime departureDateTime = LocalDateTime.of(2021, 03, 20, 4, 0);
@@ -126,6 +131,7 @@ public class FlightDaoImplTest {
 		for (Flight f : list) {
 			Assert.assertEquals("Paris", f.getDeparture_aerodrome());
 		}
+		clearDB();
 
 	}
 
