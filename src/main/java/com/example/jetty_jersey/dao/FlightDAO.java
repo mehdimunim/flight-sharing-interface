@@ -16,7 +16,7 @@ public interface FlightDAO {
 	 * @return returns flights based on specific criteria (departure aerodrome,
 	 *         desired period)
 	 */
-	public List<Flight> getFlighsFromCriteria(String departure_aerodrome, LocalDateTime departureDateTime,
+	public List<Flight> getFlightsFromCriteria(String departure_aerodrome, LocalDateTime departureDateTime,
 			LocalDateTime arrivalDateTime);
 
 	/**
@@ -31,11 +31,10 @@ public interface FlightDAO {
 
 	/**
 	 * @param flightID //Delete a specific flight (from its ID
+	 * @return
 	 */
-	public void deleteFlight(int flightId);
+	public List<Flight> deleteFlight(int flightId);
 
 	void addFlight(Flight flight);
 
 }
-
-

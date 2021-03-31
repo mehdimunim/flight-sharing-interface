@@ -21,7 +21,7 @@ import com.example.jetty_jersey.dao.Booking;
 import com.example.jetty_jersey.dao.Flight;
 import com.example.jetty_jersey.dao.Passenger;
 import com.example.jetty_jersey.dao.Pilot;
-import com.example.jetty_jersey.ws.PassengerResource.LoginUser;
+//import com.example.jetty_jersey.ws.PassengerResource.LoginUser;
 
 @Path("/flight-sharing/PassengerResource")
 public class PassengerResource {
@@ -195,9 +195,9 @@ public class PassengerResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/Login")
 	public void PassengerLogin() {
-		LoginUser user = new LoginUser();
-		user.username = "hassna";
-		user.password = "motdepasse";
+		//LoginUser user = new LoginUser();
+		//user.username = "hassna";
+		//user.password = "motdepasse";
 		System.out.println("Logged successfully");
 
 	}

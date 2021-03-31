@@ -26,7 +26,7 @@ public class FlightDaoImpl implements FlightDAO {
 		/**
 		 * Getting the flights corresponding to the given flightId
 		 */
-		List<Flight> flight = null;
+		List<Flight> flights = null;
 		List<Flight> detached = new ArrayList<Flight>();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
@@ -36,36 +36,7 @@ public class FlightDaoImpl implements FlightDAO {
 			q.declareParameters("int flightId");
 			q.setFilter("id == flightId");
 
-			flight = (List<Flight>) q.execute(flightId);
-			detached = (List<Flight>) pm.detachCopyAll(flight);
-
-			tx.commit();
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-			pm.close();
-		}
-		return detached;
-	}
-
-	public List<Flight> getFlighsFromCriteria(String departure_aerodrome_, LocalDateTime departureDateTime_,
-			LocalDateTime arrivalDateTime_) {
-		/**
-		 * Selecting flights leaving the airport departure_aerodrome at departureDataTime_ and arriving a arrivalDateTime_ 
-		 */
-		List<Flight> flights = null;
-		List<Flight> detached = new ArrayList<Flight>();
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Transaction tx = pm.currentTransaction();
-		try {
-			tx.begin();
-			Query q = pm.newQuery(Flight.class);
-			q.declareParameters("int flightId");
-			// selecting flights by three criteria
-			q.setFilter("departure_aerodrome == departure_aerodrome_ && departureDateTime = departureDateTime_ && arrivalDateTime == arrivalDateTime_ ");
-
-			flights = (List<Flight>) q.execute(flights);
+			flights = (List<Flight>) q.execute(flightId);
 			detached = (List<Flight>) pm.detachCopyAll(flights);
 
 			tx.commit();
@@ -77,9 +48,43 @@ public class FlightDaoImpl implements FlightDAO {
 		}
 		return detached;
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	public List<Flight> getFlightsFromCriteria(String departure_aerodrome_, LocalDateTime departureDateTime_,
+			LocalDateTime arrivalDateTime_) {
+		/**
+		 * Selecting flights leaving the airport departure_aerodrome at
+		 * departureDataTime_ and arriving a arrivalDateTime_
+		 */
+		List<Flight> flights = null;
+		List<Flight> detached = new ArrayList<Flight>();
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			Query q = pm.newQuery(Flight.class);
+			q.declareImports("import java.time.LocalDateTime");
+			q.declareParameters(
+					"String departure_aerodrome_, LocalDateTime departureDateTime_, LocalDateTime arrivalDateTime_");
+			// selecting flights by three criteria
+			q.setFilter(
+					"departure_aerodrome == departure_aerodrome_ && departureDateTime == departureDateTime_ && arrivalDateTime == arrivalDateTime_ ");
+
+			flights = (List<Flight>) q.execute(departure_aerodrome_, departureDateTime_, arrivalDateTime_);
+			detached = (List<Flight>) pm.detachCopyAll(flights);
+
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return detached;
+	}
+
 	/**
-	 * Problem choosing what to edit 
+	 * Problem choosing what to edit
 	 */
 
 	public void editFlight(int flightId) {
@@ -153,11 +158,12 @@ public class FlightDaoImpl implements FlightDAO {
 
 	}
 
-	public void deleteFlight(int flightId) {
+	@SuppressWarnings("unchecked")
+	public List<Flight> deleteFlight(int flightId) {
 		/**
 		 * Deleting flight with flightId
 		 */
-		Flight flight = null;
+		List<Flight> flights = null;
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 
@@ -168,8 +174,8 @@ public class FlightDaoImpl implements FlightDAO {
 			q.declareParameters("int flightId");
 			q.setFilter("id == flightId");
 
-			flight = (Flight) q.execute(flightId);
-			pm.deletePersistent(flight);
+			flights = (List<Flight>) q.execute(flightId);
+			pm.deletePersistentAll(flights);
 
 			tx.commit();
 
@@ -182,6 +188,7 @@ public class FlightDaoImpl implements FlightDAO {
 			}
 			pm.close();
 		}
+		return flights;
 
 	}
 
