@@ -15,7 +15,7 @@ public class ActionDaoImplTest {
 
 	@Test
 	public void test() {
-		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("Example");
+		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("flight-sharing-interface");
 		ActionDao actionDao = new ActionDaoImpl(pmf);
 
 		Assert.assertEquals(0, actionDao.getActions("user1").size());
@@ -29,7 +29,7 @@ public class ActionDaoImplTest {
 
 		Assert.assertEquals(1, actionDao.getActions("user1").size());
 
-		DAO.getActionDao().getActions("user1");
+		System.out.print("Hello");
 	}
 
 }
