@@ -21,32 +21,50 @@ public class FlightDaoImpl implements FlightDAO {
 		this.pmf = pmf;
 	}
 
+	// CHANGEMENT DE HASSNA : la fonction return Flight et qlqs autres petit details
+	// pr faire fonctionner
+	// pcq j'ai rencontré des problèmes avec detached
 	@SuppressWarnings("unchecked")
-	public List<Flight> getFlightInfo(int flightId) {
+	public Flight getFlightInfo(int flightId) {
 		/**
 		 * Getting the flights corresponding to the given flightId
 		 */
-		List<Flight> flights = null;
-		List<Flight> detached = new ArrayList<Flight>();
+		Flight flight;
+
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
-			Query q = pm.newQuery(Flight.class);
-			q.declareParameters("int flightId");
-			q.setFilter("id == flightId");
 
-			flights = (List<Flight>) q.execute(flightId);
-			detached = (List<Flight>) pm.detachCopyAll(flights);
+			flight = pm.getObjectById(Flight.class, flightId);
 
 			tx.commit();
+
 		} finally {
 			if (tx.isActive()) {
 				tx.rollback();
 			}
 			pm.close();
 		}
-		return detached;
+
+		return flight;
+
+		/*
+		 * MEHDI'S VERSION : public Flight getFlightInfo(int flightId) { List<Flight>
+		 * flights = null; List<Flight> detached = new ArrayList<Flight>();
+		 * PersistenceManager pm = pmf.getPersistenceManager(); Transaction tx =
+		 * pm.currentTransaction(); try { tx.begin(); Query q =
+		 * pm.newQuery(Flight.class); q.declareParameters("int flightId");
+		 * q.setFilter("id == flightId");
+		 * 
+		 * flights = (List<Flight>) q.execute(flightId); detached = (List<Flight>)
+		 * pm.detachCopyAll(flights);
+		 * 
+		 * tx.commit(); } finally { if (tx.isActive()) { tx.rollback(); } pm.close(); }
+		 * return detached;
+		 * 
+		 * 
+		 */
 	}
 
 	@SuppressWarnings("unchecked")
@@ -81,6 +99,7 @@ public class FlightDaoImpl implements FlightDAO {
 			pm.close();
 		}
 		return detached;
+
 	}
 
 	/**
@@ -109,6 +128,7 @@ public class FlightDaoImpl implements FlightDAO {
 			}
 			pm.close();
 		}
+		System.out.println("flight information has been changed. Flight ID :  " + flightId);
 
 	}
 
@@ -158,8 +178,9 @@ public class FlightDaoImpl implements FlightDAO {
 
 	}
 
+	// CHANGEMENT HASSNA : du return en void
 	@SuppressWarnings("unchecked")
-	public List<Flight> deleteFlight(int flightId) {
+	public void deleteFlight(int flightId) {
 		/**
 		 * Deleting flight with flightId
 		 */
@@ -188,7 +209,8 @@ public class FlightDaoImpl implements FlightDAO {
 			}
 			pm.close();
 		}
-		return flights;
+		System.out.println("The flight " + flightId + " has been deleted");
+		// return flights;
 
 	}
 
