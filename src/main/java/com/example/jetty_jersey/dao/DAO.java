@@ -3,6 +3,7 @@ package com.example.jetty_jersey.dao;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManagerFactory;
 
+import com.example.jetty_jersey.dao.dn.AircraftDaoImpl;
 import com.example.jetty_jersey.dao.dn.FlightDaoImpl;
 
 public class DAO {
@@ -13,6 +14,10 @@ public class DAO {
 		return new FlightDaoImpl(pmf);
 	}
 
+	public static AircraftDAO getAircraftDao() {
+		return new AircraftDaoImpl(pmf);
+	}
+
 	/*
 	 * 
 	 * public static PassengerDAO getPassengerDao() { return new
@@ -20,7 +25,7 @@ public class DAO {
 	 * 
 	 * public static PilotDAO getPilotDao() { return new PilotDaoImpl(pmf); }
 	 * 
-	 * public static AircraftDAO getAircraftDao() { return new PilotDaoImpl(pmf); }
+	 *
 	 * 
 	 */
 }

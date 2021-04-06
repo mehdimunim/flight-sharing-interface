@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Aircraft</title>
+</head>
+
+<link rel="shortcut icon" href="#">
+<body>
+
+		<script id="templateRow" type="text/template">
+			<tr><td><%= model %></td><td><%= numberOfPlaces %></td><td><%flightHours %></td><td><%= owner %></td</tr>
+		</script>
+
+		<h1>Aircraft Information</h1>
+		
+		<textarea id="inputAdd" rows="10" cols="80"></textarea>
+		<button id="buttonAdd">Add aircraft</button>
+
+		<hr />
+		
+		<input id="inputGet"> </input>
+		<button id="buttonGet">Get Information Aircraft </button>
+		<table style="border: 1px solid black" id="result"></table>
+		
+
+	    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+	    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+		<script type="text/javascript" src="aircraft.js"></script>
+</body>
+</html>
