@@ -3,12 +3,16 @@ package com.example.jetty_jersey.dao;
 import java.time.Duration;
 import java.util.List;
 
+import com.example.jetty_jersey.dao.objects.Booking;
+import com.example.jetty_jersey.dao.objects.Flight;
+import com.example.jetty_jersey.dao.objects.Passenger;
+
 /**
  * @author DANSO
  *
  */
 
-public interface PassengerDAO {
+public interface PassengerDao {
 
 	
 	/**

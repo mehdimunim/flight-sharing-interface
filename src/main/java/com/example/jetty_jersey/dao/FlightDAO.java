@@ -3,13 +3,15 @@ package com.example.jetty_jersey.dao;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface FlightDAO {
+import com.example.jetty_jersey.dao.objects.Flight;
+
+public interface FlightDao {
 
 	/**
 	 * @param flightId
 	 * @return information of a specific flight (from its ID)
 	 */
-	public List<Flight> getFlightInfo(int flightId);
+	public Flight getFlightInfo(int flightId);
 
 	/**
 	 * @param Flight

@@ -17,11 +17,10 @@ import javax.ws.rs.core.MediaType;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
-import com.example.jetty_jersey.dao.Booking;
-import com.example.jetty_jersey.dao.Flight;
-import com.example.jetty_jersey.dao.Passenger;
-import com.example.jetty_jersey.dao.Pilot;
-//import com.example.jetty_jersey.ws.PassengerResource.LoginUser;
+import com.example.jetty_jersey.dao.objects.Booking;
+import com.example.jetty_jersey.dao.objects.Flight;
+import com.example.jetty_jersey.dao.objects.Passenger;
+import com.example.jetty_jersey.dao.objects.Pilot;
 
 @Path("/flight-sharing/PassengerResource")
 public class PassengerResource {

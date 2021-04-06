@@ -1,6 +1,8 @@
 package com.example.jetty_jersey.dao;
 
-public interface PilotDAO {
+import com.example.jetty_jersey.dao.objects.Flight;
+
+public interface PilotDao {
 
 	/**
 	 * @param flight

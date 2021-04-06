@@ -10,14 +10,14 @@ import javax.jdo.PersistenceManagerFactory;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.example.jetty_jersey.dao.Flight;
-import com.example.jetty_jersey.dao.FlightDAO;
+import com.example.jetty_jersey.dao.FlightDao;
 import com.example.jetty_jersey.dao.dn.FlightDaoImpl;
+import com.example.jetty_jersey.dao.objects.Flight;
 
 public class FlightDaoImplTest {
 	PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("flight-sharing-interface");
 	static List<Flight> flights = new ArrayList<Flight>();
-	FlightDAO flightDAO = new FlightDaoImpl(pmf);
+	FlightDao flightDAO = new FlightDaoImpl(pmf);
 	static int nelements;
 
 	public static void flightGenerator(int nelements) {
@@ -92,12 +92,9 @@ public class FlightDaoImplTest {
 
 		flightDAO.addFlight(flight);
 
-		List<Flight> list = flightDAO.getFlightInfo(100);
-		Assert.assertEquals(1, list.size());
-		for (Flight f : list) {
-			Assert.assertEquals(200, f.getAvailabePlaces());
-		}
-		flights.addAll(list);
+		Flight flightOutput = flightDAO.getFlightInfo(100);
+		Assert.assertEquals(200, flightOutput.getAvailabePlaces());
+		flights.add(flightOutput);
 		clearDB();
 	}
 
@@ -106,10 +103,8 @@ public class FlightDaoImplTest {
 		initDB();
 
 		Flight flight = flights.get(0);
-		List<Flight> list = flightDAO.getFlightInfo(flight.getId());
-		for (Flight f : list) {
-			Assert.assertEquals("Neverland", f.getMeeting_place());
-		}
+		Flight flightOuput = flightDAO.getFlightInfo(flight.getId());
+		Assert.assertEquals("Neverland", flightOuput.getMeeting_place());
 		clearDB();
 	}
 

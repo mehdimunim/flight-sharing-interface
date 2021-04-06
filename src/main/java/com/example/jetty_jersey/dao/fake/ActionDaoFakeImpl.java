@@ -3,8 +3,8 @@ package com.example.jetty_jersey.dao.fake;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.jetty_jersey.dao.Action;
 import com.example.jetty_jersey.dao.ActionDao;
+import com.example.jetty_jersey.dao.objects.Action;
 
 public class ActionDaoFakeImpl implements ActionDao {
 

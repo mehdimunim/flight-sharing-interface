@@ -16,10 +16,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.example.jetty_jersey.dao.Flight;
-import com.example.jetty_jersey.dao.Passenger;
-import com.example.jetty_jersey.dao.Pilot;
-import com.example.jetty_jersey.dao.PilotDAO;
+import com.example.jetty_jersey.dao.PilotDao;
+import com.example.jetty_jersey.dao.objects.Flight;
+import com.example.jetty_jersey.dao.objects.Passenger;
+import com.example.jetty_jersey.dao.objects.Pilot;
 import com.example.jetty_jersey.ws_stub.flightResource.Aircraft;
 
 @Path("/pilotResource")

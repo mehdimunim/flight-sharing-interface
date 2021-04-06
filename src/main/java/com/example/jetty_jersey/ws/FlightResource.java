@@ -15,7 +15,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.example.jetty_jersey.dao.Flight;
+import com.example.jetty_jersey.dao.objects.Flight;
 
 @Path("/FlightResource")
 public class FlightResource {

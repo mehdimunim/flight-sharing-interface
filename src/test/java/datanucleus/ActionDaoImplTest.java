@@ -6,10 +6,10 @@ import javax.jdo.PersistenceManagerFactory;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.example.jetty_jersey.dao.Action;
 import com.example.jetty_jersey.dao.ActionDao;
 import com.example.jetty_jersey.dao.DAO;
 import com.example.jetty_jersey.dao.dn.ActionDaoImpl;
+import com.example.jetty_jersey.dao.objects.Action;
 
 public class ActionDaoImplTest {
 

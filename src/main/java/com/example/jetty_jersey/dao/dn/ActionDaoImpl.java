@@ -8,8 +8,8 @@ import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import com.example.jetty_jersey.dao.Action;
 import com.example.jetty_jersey.dao.ActionDao;
+import com.example.jetty_jersey.dao.objects.Action;
 
 public class ActionDaoImpl implements ActionDao {
 
