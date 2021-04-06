@@ -41,7 +41,6 @@ public class FlightDaoImpl implements FlightDao {
 
 			List<Flight> list = (List<Flight>) q.execute(flightId);
 			if (list.size() != 0) {
-				System.out.println(list);
 				flight = list.get(0);
 			}
 
@@ -77,15 +76,15 @@ public class FlightDaoImpl implements FlightDao {
 			// q.declareParameters(
 			// "String departure_aerodrome_, LocalDateTime departureDateTime_, LocalDateTime
 			// arrivalDateTime_");
-			q.declareParameters("LocalDateTime departureDateTime_");
+			q.declareParameters("String departure_aerodrome_");
 			// selecting flights by three criteria
 			// q.setFilter(
 			// "departure_aerodrome == departure_aerodrome_ && departureDateTime ==
 			// departureDateTime_ && arrivalDateTime == arrivalDateTime_ ");
-			q.setFilter("departureDateTime == departureDateTime_");
+			q.setFilter("departure_aerodrome == departure_aerodrome_ ");
 			// flights = (List<Flight>) q.execute(departure_aerodrome_, departureDateTime_,
 			// arrivalDateTime_);
-			flights = (List<Flight>) q.execute(departureDateTime_);
+			flights = (List<Flight>) q.execute(departure_aerodrome_);
 			detached = (List<Flight>) pm.detachCopyAll(flights);
 
 			tx.commit();
