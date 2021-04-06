@@ -37,8 +37,15 @@ public class FlightDaoImpl implements FlightDao {
 			q.declareParameters("int flightId");
 			q.setFilter("id == flightId");
 
-			flight = ((List<Flight>) q.execute(flightId)).get(0);
-			detached = (Flight) pm.detachCopy(flight);
+			// unable to cast directly q.exectute(...) in Flight
+
+			List<Flight> list = (List<Flight>) q.execute(flightId);
+			if (list.size() != 0) {
+				System.out.println(list);
+				flight = list.get(0);
+			}
+
+			detached = pm.detachCopy(flight);
 
 			tx.commit();
 		} finally {
@@ -67,13 +74,18 @@ public class FlightDaoImpl implements FlightDao {
 			tx.begin();
 			Query q = pm.newQuery(Flight.class);
 			q.declareImports("import java.time.LocalDateTime");
-			q.declareParameters(
-					"String departure_aerodrome_, LocalDateTime departureDateTime_, LocalDateTime arrivalDateTime_");
+			// q.declareParameters(
+			// "String departure_aerodrome_, LocalDateTime departureDateTime_, LocalDateTime
+			// arrivalDateTime_");
+			q.declareParameters("LocalDateTime departureDateTime_");
 			// selecting flights by three criteria
-			q.setFilter(
-					"departure_aerodrome == departure_aerodrome_ && departureDateTime == departureDateTime_ && arrivalDateTime == arrivalDateTime_ ");
-
-			flights = (List<Flight>) q.execute(departure_aerodrome_, departureDateTime_, arrivalDateTime_);
+			// q.setFilter(
+			// "departure_aerodrome == departure_aerodrome_ && departureDateTime ==
+			// departureDateTime_ && arrivalDateTime == arrivalDateTime_ ");
+			q.setFilter("departureDateTime == departureDateTime_");
+			// flights = (List<Flight>) q.execute(departure_aerodrome_, departureDateTime_,
+			// arrivalDateTime_);
+			flights = (List<Flight>) q.execute(departureDateTime_);
 			detached = (List<Flight>) pm.detachCopyAll(flights);
 
 			tx.commit();
@@ -114,9 +126,12 @@ public class FlightDaoImpl implements FlightDao {
 
 	/**
 	 * Adding a flight
+	 * 
+	 * Seems to destroy the entry
+	 * 
+	 * Unable to make persistent a deep copy of entry
 	 */
 	public void addFlight(Flight flight) {
-
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -170,7 +185,24 @@ public class FlightDaoImpl implements FlightDao {
 	}
 
 	public void addFlight(int pilotId) {
-		// TODO Auto-generated method stub
+		// avoid destroying flight
+		Flight flight = new Flight();
+		flight.setPilot(new Pilot());
+
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+
+			pm.makePersistent(flight);
+
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
 
 	}
 

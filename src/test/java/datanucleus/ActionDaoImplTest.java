@@ -7,7 +7,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.flight_sharing_interface.jetty_jersey.dao.ActionDao;
-import com.flight_sharing_interface.jetty_jersey.dao.DAO;
 import com.flight_sharing_interface.jetty_jersey.dao.dn.ActionDaoImpl;
 import com.flight_sharing_interface.jetty_jersey.dao.objects.Action;
 
@@ -28,8 +27,6 @@ public class ActionDaoImplTest {
 		actionDao.addAction(action);
 
 		Assert.assertEquals(1, actionDao.getActions("user1").size());
-
-		System.out.print("Hello");
 	}
 
 }

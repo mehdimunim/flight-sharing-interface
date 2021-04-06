@@ -16,7 +16,7 @@ import com.flight_sharing_interface.jetty_jersey.dao.objects.Flight;
 
 public class FlightDaoImplTest {
 	PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("flight-sharing-interface");
-	static List<Flight> flights = new ArrayList<Flight>();
+	static List<Integer> flightsId = new ArrayList<Integer>();
 	FlightDao flightDAO = new FlightDaoImpl(pmf);
 	static int nelements;
 
@@ -52,64 +52,70 @@ public class FlightDaoImplTest {
 			flight.setArrivalDateTime(arrival);
 			flight.setDestination_aerodrome("arrival");
 
-			flights.add(flight);
-			// debug
-			System.out.println(flight.getAvailabePlaces());
+			flightsId.add(flight.getId());
 
 		}
 	}
 
-	public void initDB() {
-		/**
-		 * Adding random flights to data base
-		 */
-		// generate nelements flights and add them to flights
-		nelements = (int) (20 * Math.random()) + 1;
-		flightGenerator(nelements);
-		for (Flight flight : flights) {
-			flightDAO.addFlight(flight);
-		}
-	}
+//	public void initDB() {
+//		/**
+//		 * Adding random flights to data base
+//		 */
+//		// generate nelements flights and add them to flights
+//		nelements = 30;
+//		flightGenerator(nelements);
+//		for (int id : flightsId) {
+//			flightDAO.addFlight(flight);
+//			System.out.println("done");
+//		}
+//	}
 
 	public void clearDB() {
 		/**
 		 * Removing all flights form data base
 		 */
-		if (flights != null) {
-			for (Flight flight : flights) {
+		if (flightsId != null) {
+			for (int id : flightsId) {
 
-				flightDAO.deleteFlight(flight.getId());
+				flightDAO.deleteFlight(id);
 			}
 		}
 	}
 
 	@Test
-	public void getFlightInfoTest() {
+	public void basicTest() {
 		Flight flight = new Flight();
-
 		flight.setAvailabePlaces(200);
 		flight.setId(100);
 
+		// testing adding and getting from ID
 		flightDAO.addFlight(flight);
 
 		Flight flightOutput = flightDAO.getFlightInfo(100);
 		Assert.assertEquals(200, flightOutput.getAvailabePlaces());
-		flights.add(flightOutput);
+
+		// testing clearing from DB
+		flightDAO.deleteFlight(100);
+		Assert.assertNull(flightDAO.getFlightInfo(100));
+	}
+
+	@Test
+	public void complexTest() {
+		Flight flightInput = new Flight();
+		flightInput.setId(1);
+		flightInput.setMeeting_place("Neverland");
+
+		flightsId.add(flightInput.getId());
+		flightDAO.addFlight(flightInput);
+
+		System.out.println(flightInput.getId());
+		Flight flightOutput = flightDAO.getFlightInfo(flightsId.get(0));
+		Assert.assertEquals("Neverland", flightOutput.getMeeting_place());
 		clearDB();
 	}
 
 	@Test
-	public void complexFlightInfoTest() {
-		initDB();
-
-		Flight flight = flights.get(0);
-		Flight flightOuput = flightDAO.getFlightInfo(flight.getId());
-		Assert.assertEquals("Neverland", flightOuput.getMeeting_place());
-		clearDB();
-	}
-
-	@Test
-	public void getFlightsFromCriteria() {
+	public void getFromCriteriaTest() {
 		Flight flight = new Flight();
 
 		flight.setAvailabePlaces(200);
@@ -119,12 +125,16 @@ public class FlightDaoImplTest {
 		LocalDateTime departureDateTime = LocalDateTime.of(2021, 03, 20, 4, 0);
 		LocalDateTime arrivalDateTime = LocalDateTime.of(2021, 03, 20, 6, 0);
 
+		flight.setDeparture_aerodrome(departure_aerodrome);
+		flight.setDepartureDateTime(departureDateTime);
+		flight.setArrivalDateTime(arrivalDateTime);
+
 		flightDAO.addFlight(flight);
 
 		List<Flight> list = flightDAO.getFlightsFromCriteria(departure_aerodrome, departureDateTime, arrivalDateTime);
 		Assert.assertEquals(1, list.size());
 		for (Flight f : list) {
-			Assert.assertEquals("Paris", f.getDeparture_aerodrome());
+			Assert.assertEquals(departureDateTime, f.getDepartureDateTime());
 		}
 		clearDB();
 
