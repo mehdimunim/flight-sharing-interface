@@ -10,9 +10,10 @@ import com.flight_sharing_interface.jetty_jersey.dao.objects.Flight;
 import com.flight_sharing_interface.jetty_jersey.dao.objects.Passenger;
 
 public class PassengerDaoImpl implements PassengerDao {
+	private PersistenceManagerFactory pmf;
 
 	public PassengerDaoImpl(PersistenceManagerFactory pmf) {
-		// TODO Auto-generated constructor stub
+		this.pmf = pmf;
 	}
 
 	public void bookFlights(List<Flight> flights) {

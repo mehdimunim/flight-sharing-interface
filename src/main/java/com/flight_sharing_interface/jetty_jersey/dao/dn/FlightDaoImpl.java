@@ -73,18 +73,21 @@ public class FlightDaoImpl implements FlightDao {
 			tx.begin();
 			Query q = pm.newQuery(Flight.class);
 			q.declareImports("import java.time.LocalDateTime");
+
 			// q.declareParameters(
 			// "String departure_aerodrome_, LocalDateTime departureDateTime_, LocalDateTime
 			// arrivalDateTime_");
-			q.declareParameters("String departure_aerodrome_");
+			q.declareParameters("LocalDateTime departureDateTime_");
+
 			// selecting flights by three criteria
 			// q.setFilter(
 			// "departure_aerodrome == departure_aerodrome_ && departureDateTime ==
 			// departureDateTime_ && arrivalDateTime == arrivalDateTime_ ");
-			q.setFilter("departure_aerodrome == departure_aerodrome_ ");
+			q.setFilter("departureDateTime == departureDateTime_");
+
 			// flights = (List<Flight>) q.execute(departure_aerodrome_, departureDateTime_,
 			// arrivalDateTime_);
-			flights = (List<Flight>) q.execute(departure_aerodrome_);
+			flights = (List<Flight>) q.execute(departureDateTime_);
 			detached = (List<Flight>) pm.detachCopyAll(flights);
 
 			tx.commit();
@@ -152,7 +155,7 @@ public class FlightDaoImpl implements FlightDao {
 	 * Deleting flight with flightId
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Flight> deleteFlight(int flightId) {
+	public void deleteFlight(int flightId) {
 
 		List<Flight> flights = null;
 		PersistenceManager pm = pmf.getPersistenceManager();
@@ -179,7 +182,6 @@ public class FlightDaoImpl implements FlightDao {
 			}
 			pm.close();
 		}
-		return flights;
 
 	}
 
@@ -204,5 +206,4 @@ public class FlightDaoImpl implements FlightDao {
 		}
 
 	}
-
 }

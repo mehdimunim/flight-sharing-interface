@@ -133,7 +133,7 @@ public class FlightDaoImplTest {
 		List<Flight> list = flightDAO.getFlightsFromCriteria(departure_aerodrome, departureDateTime, arrivalDateTime);
 		Assert.assertEquals(1, list.size());
 		for (Flight f : list) {
-			Assert.assertEquals("Paris", f.getDeparture_aerodrome());
+			Assert.assertEquals(departureDateTime, f.getDepartureDateTime());
 		}
 		clearDB();
 
