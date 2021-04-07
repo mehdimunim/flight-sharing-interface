@@ -43,7 +43,7 @@ public class PilotDaoImpl implements PilotDao {
 
 	/**
 	 * 
-	 * No difference with putFlight?
+	 * Post a flight
 	 * 
 	 */
 

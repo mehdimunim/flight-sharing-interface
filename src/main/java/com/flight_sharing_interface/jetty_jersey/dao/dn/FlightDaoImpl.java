@@ -101,28 +101,9 @@ public class FlightDaoImpl implements FlightDao {
 	}
 
 	/**
-	 * Editing flight "flightId"
+	 * Editing flight
 	 */
-	public void editFlight(int flightId) {
-
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Transaction tx = pm.currentTransaction();
-		try {
-			tx.begin();
-
-			Flight flight = new Flight();
-			Pilot pilot = new Pilot();
-			pilot.setId(0);
-			flight.setPilot(pilot);
-			pm.makePersistent(flight);
-
-			tx.commit();
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-			pm.close();
-		}
+	public void editFlight(Flight newFlight) {
 
 	}
 

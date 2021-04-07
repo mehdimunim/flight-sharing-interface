@@ -10,7 +10,7 @@ public interface PilotDao {
 	void putFlight(Flight flight);
 
 	/**
-	 * @ modify or update a information of flight
+	 * @ modify or update a flight information
 	 * 
 	 */
 	void postFlightInformation(Flight flight);

@@ -5,11 +5,11 @@
 
     <!-- Configuration -->
     <persistence-unit name= "flight-sharing-interface">
-    	<class>com.flight_sharing_interface.datanucleus.dao.Action</class>
-    	<class>com.flight_sharing_interface.datanucleus.dao.Flight</class>
-    	<class>com.flight_sharing_interface.datanucleus.dao.Booking</class>
-    	<class>com.flight_sharing_interface.datanucleus.dao.Passenger</class>
-    	<class>com.flight_sharing_interface.datanucleus.dao.Pilot</class>
+    	<class>com.flight_sharing_interface.jetty_jersey.dao.Action</class>
+    	<class>com.flight_sharing_interface.jetty_jersey.dao.Flight</class>
+    	<class>com.flight_sharing_interface.jetty_jersey.dao.Booking</class>
+    	<class>com.flight_sharing_interface.jetty_jersey.dao.Passenger</class>
+    	<class>com.flight_sharing_interface.jetty_jersey.dao.Pilot</class>
         <exclude-unlisted-classes/>
         
         <properties>
