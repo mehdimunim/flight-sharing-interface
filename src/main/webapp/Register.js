@@ -24,10 +24,12 @@ $(function(){
 	$("#button").click(function(){
 	
 		var user = {
-    		"userName" : $('#userName').val(),
-    		"userMobile" : $('#userMobile').val(),
-    		"userEmail" : $('#userEmail').val(),
-    		"userAddress" : $('#userAddress').val()
+    		"firstname" : $('#firstname').val(),
+    		"lastname" : $('#lastname').val(),
+    		"email" : $('#email').val(),
+    		"email" : $('#confirmemail').val(),
+    		"password" : $('#password').val(),
+    		"email" : $('#repeatpassword').val(),
 		};
 		//var dataJson = JSON.stringify(user);
 

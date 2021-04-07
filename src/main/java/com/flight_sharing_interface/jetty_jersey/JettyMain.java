@@ -54,6 +54,8 @@ public class JettyMain {
 
 		// Start server
 		server.start();
+		
+		System.out.println("Welcome to our project");
 
 	}
 

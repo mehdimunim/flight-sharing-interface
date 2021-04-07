@@ -33,7 +33,7 @@ $(function(){
 	$("#button").click(function(){
 	
 		var user = {
-    		"userName" : $("#username").val(),
+    		"email" : $("#email").val(),
     		"password" : $("#password").val(),
 		};
 		//var dataJson = JSON.stringify(user);
