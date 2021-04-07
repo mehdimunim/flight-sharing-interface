@@ -7,8 +7,8 @@ import javax.jdo.PersistenceManagerFactory;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.example.jetty_jersey.dao.Action;
-import com.example.jetty_jersey.dao.ActionContainer;
+import com.flight_sharing_interface.jetty_jersey.dao.objects.Action;
+import com.flight_sharing_interface.jetty_jersey.dao.objects.ActionContainer;
 
 public class ActionContainerTest {
 

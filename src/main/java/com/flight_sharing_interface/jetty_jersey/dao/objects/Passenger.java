@@ -1,4 +1,4 @@
-package com.example.jetty_jersey.dao;
+package com.flight_sharing_interface.jetty_jersey.dao.objects;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

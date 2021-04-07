@@ -1,6 +1,8 @@
-package com.example.jetty_jersey.dao;
+package com.flight_sharing_interface.jetty_jersey.dao;
 
 import java.util.List;
+
+import com.flight_sharing_interface.jetty_jersey.dao.objects.Action;
 
 public interface ActionDao {
 

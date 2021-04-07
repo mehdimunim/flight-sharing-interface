@@ -1,4 +1,5 @@
-package com.example.jetty_jersey.ws_stub;
+package com.flight_sharing_interface.jetty_jersey.ws;
+
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -39,12 +40,13 @@ public class ExampleResource {
 	public void putExample(ExampleClass instance) {
 		instance.field = "Test";
 	}
-
+	
 	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/aircraft")
 	public void deleteExample(ExampleClass instance) {
 		System.out.println("this user was deleted");
 	}
+
 
 }

@@ -1,10 +1,10 @@
-package com.example.jetty_jersey.dao.fake;
+package com.flight_sharing_interface.jetty_jersey.dao.fake;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.jetty_jersey.dao.Action;
-import com.example.jetty_jersey.dao.ActionDao;
+import com.flight_sharing_interface.jetty_jersey.dao.ActionDao;
+import com.flight_sharing_interface.jetty_jersey.dao.objects.Action;
 
 public class ActionDaoFakeImpl implements ActionDao {
 

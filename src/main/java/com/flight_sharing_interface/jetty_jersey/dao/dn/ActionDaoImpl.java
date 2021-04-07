@@ -1,4 +1,4 @@
-package com.example.jetty_jersey.dao.dn;
+package com.flight_sharing_interface.jetty_jersey.dao.dn;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +8,8 @@ import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import com.example.jetty_jersey.dao.Action;
-import com.example.jetty_jersey.dao.ActionDao;
+import com.flight_sharing_interface.jetty_jersey.dao.ActionDao;
+import com.flight_sharing_interface.jetty_jersey.dao.objects.Action;
 
 public class ActionDaoImpl implements ActionDao {
 

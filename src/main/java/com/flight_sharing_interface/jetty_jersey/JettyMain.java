@@ -1,4 +1,4 @@
-package com.example.jetty_jersey;
+package com.flight_sharing_interface.jetty_jersey;
 
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;

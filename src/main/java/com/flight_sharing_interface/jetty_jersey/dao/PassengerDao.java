@@ -1,14 +1,18 @@
-package com.example.jetty_jersey.dao;
+package com.flight_sharing_interface.jetty_jersey.dao;
 
 import java.time.Duration;
 import java.util.List;
+
+import com.flight_sharing_interface.jetty_jersey.dao.objects.Booking;
+import com.flight_sharing_interface.jetty_jersey.dao.objects.Flight;
+import com.flight_sharing_interface.jetty_jersey.dao.objects.Passenger;
 
 /**
  * @author DANSO
  *
  */
 
-public interface PassengerDAO {
+public interface PassengerDao {
 
 	
 	/**
