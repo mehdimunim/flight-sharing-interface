@@ -1,37 +1,36 @@
-<!DOCTYPE html>
-<html>
 
-    <script id="templateExample" type="text/template">
-        <div>
-            <%= attribute %>
-        </div>
-    </script>
+ <!DOCTYPE html>
+ <html>
+    <body>
 
-</head>
-<meta charset="ISO-8859-1"/>
-<link rel="shortcut icon" href="#">
-<body>
-	<div class = "form-example">
-    <fieldset style="text-align:right; width:300px">
+<link rel="stylesheet" href="log_in.css">
 
-    <legend><b>Log in</b></legend>
-        Username <input type="text" id="username" name="userName"/><br/>
-        Password <input type="text" id="password" name="password"/><br/>
-         
-        <button id="button">Login</button>
-        <button id="button2">Forgot Login Details?</button>
-        <button id="button3">Register for free</button>
-   
+<div id="registration-form">
+	<div class='fieldset'>
+    <legend>Log In</legend>
+		<form action="#" method="post" data-validate="parsley">
+		
+        
+			<div class='row'>
+				<label for="email"></label>
+				<input type="text" placeholder="E-mail"  name='email' id = 'email' data-required="true" data-type="email" data-error-message="Your E-mail is required">
+			</div>
+  
+       		<div class='row'>
+				<label for='password'></label>
+				<input type="text" placeholder="Password" name='password' id='password' data-required="true" data-error-message="Your password is required"> 
+      </div>
+        <label>
+ 	<input type="submit" value="Log in">
+      <input type="checkbox" checked="checked" name="remember"> Remember me
+    </label>
+   <div class="row" style="background-color:#f1f1f1">
 
-	 <div id="result"></div>
-       
- </fieldset>
+    <button type="button" class="cancelbtn">Cancel</button>
+    <span class="psw">Forgot <a href="#">password?</a></span>
+  </div>
+		</form>
 	</div>
-</body>
-
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-<script type="text/javascript" src="Log_in.js"></script>
+</div>
 </body>
 </html>
-         

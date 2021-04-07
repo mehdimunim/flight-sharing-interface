@@ -1,36 +1,50 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
-
-    <script id="templateExample" type="text/template">
-        <div>
-            <%= attribute %>
-        </div>
-    </script>
-
-</head>
-<meta charset="ISO-8859-1"/>
-<link rel="shortcut icon" href="#">
+<link rel="stylesheet" href="register.css">
 <body>
-	<div class = "form-example">
-    <fieldset style="text-align:right; width:300px">
-   
-    <legend><b>Registration Form</b></legend>
-        Name <input type="text" id="userName" name="userName"/><br/>
-        Mobile No <input type="text" id="userMobile" name="userMobile"/><br/>
-        Email <input type="text" id="userEmail" name="userEmail"/><br/>
-        Address <input type="text" id="userAddress" name="userAddress"/><br/>   
-   
-        <button id="button">Save Data</button>
-	
-        <div id="result"></div>
-       
-    </fieldset>
+
+
+		<script id="templateModifyExample" type="text/template">
+			<div>
+				<%= attribute %>
+			</div>
+		</script>
+		
+<div id="registration-form">
+	<div class='fieldset'>
+    <legend>Welcome!</legend>
+		<form action="#" method="post" data-validate="parsley">
+			<div class='row'>
+				<label for='firstname'>First Name</label>
+				<input type="text" placeholder="First Name" name='firstname' id='firstname' data-required="true" data-error-message="Your First Name is required">
+        
+        		<div class='row'>
+				<label for='firstname'>Last Name</label>
+				<input type="text" placeholder="Last Name" name='firstname' id='lastname' data-required="true" data-error-message="Your Last Name is required">
+			</div>
+        
+			<div class='row'>
+				<label for="email">E-mail</label>
+				<input type="text" placeholder="E-mail"  name='email'  id = 'email' data-required="true" data-type="email" data-error-message="Your E-mail is required">
+			</div>
+  
+			<div class='row'>
+				<label for="cemail">Confirm your E-mail</label>
+				<input type="text" placeholder="Confirm your E-mail" name='email' id = 'confirmemail' data-required="true" data-error-message="Your E-mail must correspond">
+			</div>
+        		<div class='row'>
+				<label for='password'>Password</label>
+				<input type="text" placeholder="Password" name='password' id='password' data-required="true" data-error-message="Your password is required">
+              		<div class='row'>
+				<label for='firstname'>Confirm password</label>
+				<input type="text" placeholder="Confirm Password" name='repeat password' id='repeatpassword' data-required="true" data-error-message=" confirming your password is required">
+			<input type="submit" value="Register">
+		</form>
 	</div>
-
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-<script type="text/javascript" src="Register.js"></script>
-</body>
+</div>
+      
+ <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+	    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+		<script type="text/javascript" src="test2.js"></script>     
+ </body>
 </html>
-
-
