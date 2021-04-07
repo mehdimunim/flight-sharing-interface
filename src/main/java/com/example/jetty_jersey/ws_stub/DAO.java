@@ -8,11 +8,9 @@ import java.util.List;
 import com.example.jetty_jersey.dao.ActionDao;
 import com.example.jetty_jersey.dao.Booking;
 import com.example.jetty_jersey.dao.Flight;
-import com.example.jetty_jersey.dao.FlightDAO;
 import com.example.jetty_jersey.dao.Passenger;
-import com.example.jetty_jersey.dao.PassengerDAO;
 
-public class DAO implements FlightDAO, PassengerDAO, ActionDao {
+public class DAO {
 
 	/////////////////// FLIGHT///////////////////////////
 
@@ -92,16 +90,6 @@ public class DAO implements FlightDAO, PassengerDAO, ActionDao {
 	}
 
 	public static ActionDao getActionDao() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void addAction(Action action) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public List<Action> getActions(String username) {
 		// TODO Auto-generated method stub
 		return null;
 	}

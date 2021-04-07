@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import com.example.jetty_jersey.dao.Action;
 import com.example.jetty_jersey.dao.ActionDao;
-import com.example.jetty_jersey.dao.DAO;
 import com.example.jetty_jersey.dao.dn.ActionDaoImpl;
 
 public class ActionDaoImplTest {

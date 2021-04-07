@@ -15,8 +15,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
 import com.example.jetty_jersey.dao.Booking;
 import com.example.jetty_jersey.dao.Flight;
 import com.example.jetty_jersey.dao.Passenger;
@@ -25,7 +23,8 @@ import com.example.jetty_jersey.dao.Pilot;
 
 @Path("/flight-sharing/PassengerResource")
 public class PassengerResource {
-	@JsonIgnoreProperties(ignoreUnknown = true)
+
+	// @JsonIgnoreProperties(ignoreUnknown = true)
 	public static class Login {
 		public String username;
 		public String password;
@@ -195,9 +194,9 @@ public class PassengerResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/Login")
 	public void PassengerLogin() {
-		//LoginUser user = new LoginUser();
-		//user.username = "hassna";
-		//user.password = "motdepasse";
+		// LoginUser user = new LoginUser();
+		// user.username = "hassna";
+		// user.password = "motdepasse";
 		System.out.println("Logged successfully");
 
 	}

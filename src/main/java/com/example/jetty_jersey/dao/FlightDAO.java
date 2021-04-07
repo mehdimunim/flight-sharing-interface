@@ -25,7 +25,7 @@ public interface FlightDAO {
 	void editFlight(int flightId);
 
 	/**
-	 * @param flightID //Addition of a flight in the database by the pilot
+	 * @param flightID //Add a flight in the database by the pilot
 	 */
 	void addFlight(int pilotId);
 

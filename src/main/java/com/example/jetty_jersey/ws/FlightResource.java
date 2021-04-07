@@ -1,5 +1,6 @@
 package com.example.jetty_jersey.ws;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -18,13 +19,19 @@ import com.example.jetty_jersey.dao.Flight;
 @Path("/FlightResource")
 public class FlightResource {
 
+	public static class flightsFromCriteria {
+		public String departure_aerodrome;
+		public LocalDateTime departureDateTime;
+		public LocalDateTime arrivalDateTime;
+	}
+
 	/**
 	 * return information of a specific flight (from its ID)
 	 *
 	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/{id}")
+	@Path("/flight-info/{id}")
 	public Flight getFlightInfo(@PathParam("id") int flightId) {
 		return DAO.getFlightDao().getFlightInfo(flightId);
 	}
@@ -38,10 +45,8 @@ public class FlightResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@GET
 	@Path("/search-flight/flights")
-	public List<Flight> getFlighsFromCriteria() {
-		List<Flight> flights;
-		flights = DAO.getFlightDao().getFlightsFromCriteria(null, null, null);
-		return flights;
+	public List<Flight> getFlighsFromCriteria(flightsFromCriteria flights) {
+		return DAO.getFlightDao().getFlightsFromCriteria(null, null, null);
 	}
 
 	/**
@@ -50,7 +55,7 @@ public class FlightResource {
 	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/{id}")
+	@Path("/edit-flight/{id}")
 	public void editFlight(@PathParam("id") int flightId) {
 		DAO.getFlightDao().editFlight(flightId);
 	}
@@ -61,7 +66,7 @@ public class FlightResource {
 	 */
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/{pilotId}")
+	@Path("/add-flight/{pilotId}")
 	public void addFlight(@PathParam("pilotId") int pilotId) {
 		DAO.getFlightDao().addFlight(pilotId);
 		System.out.println("The flight has been added successfully !");
@@ -74,7 +79,7 @@ public class FlightResource {
 
 	@Consumes(MediaType.APPLICATION_JSON)
 	@DELETE
-	@Path("deleteflight/{id}")
+	@Path("delete-flight/{id}")
 	public void deleteAFlight(@PathParam("id") int id) {
 		DAO.getFlightDao().deleteFlight(id);
 	}

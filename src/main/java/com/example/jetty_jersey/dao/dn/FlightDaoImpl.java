@@ -21,8 +21,26 @@ public class FlightDaoImpl implements FlightDAO {
 		this.pmf = pmf;
 	}
 
+	/**
+	 * MEHDI'S VERSION @SuppressWarnings("unchecked") public List<Flight>
+	 * getFlightInfo(int flightId) {
+	 * 
+	 * // Getting the flights corresponding to the given flightId
+	 * 
+	 * List<Flight> flights = null; List<Flight> detached = new ArrayList<Flight>();
+	 * PersistenceManager pm = pmf.getPersistenceManager(); Transaction tx =
+	 * pm.currentTransaction(); try { tx.begin(); Query q =
+	 * pm.newQuery(Flight.class); q.declareParameters("int flightId");
+	 * q.setFilter("id == flightId");
+	 * 
+	 * flights = (List<Flight>) q.execute(flightId); detached = (List<Flight>)
+	 * pm.detachCopyAll(flights);
+	 * 
+	 * tx.commit(); } finally { if (tx.isActive()) { tx.rollback(); } pm.close(); }
+	 * return detached; }
+	 **/
+
 	// CHANGEMENT DE HASSNA : la fonction return Flight et qlqs autres petit details
-	// pr faire fonctionner
 	// pcq j'ai rencontré des problèmes avec detached
 	@SuppressWarnings("unchecked")
 	public Flight getFlightInfo(int flightId) {
@@ -48,23 +66,6 @@ public class FlightDaoImpl implements FlightDAO {
 		}
 
 		return flight;
-
-		/*
-		 * MEHDI'S VERSION : public Flight getFlightInfo(int flightId) { List<Flight>
-		 * flights = null; List<Flight> detached = new ArrayList<Flight>();
-		 * PersistenceManager pm = pmf.getPersistenceManager(); Transaction tx =
-		 * pm.currentTransaction(); try { tx.begin(); Query q =
-		 * pm.newQuery(Flight.class); q.declareParameters("int flightId");
-		 * q.setFilter("id == flightId");
-		 * 
-		 * flights = (List<Flight>) q.execute(flightId); detached = (List<Flight>)
-		 * pm.detachCopyAll(flights);
-		 * 
-		 * tx.commit(); } finally { if (tx.isActive()) { tx.rollback(); } pm.close(); }
-		 * return detached;
-		 * 
-		 * 
-		 */
 	}
 
 	@SuppressWarnings("unchecked")
