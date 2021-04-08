@@ -1,4 +1,4 @@
-package com.example.jetty_jersey.ws;
+package com.flight_sharing_interface.jetty_jersey.ws;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,8 +13,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.example.jetty_jersey.dao.DAO;
-import com.example.jetty_jersey.dao.Flight;
+import com.flight_sharing_interface.jetty_jersey.dao.DAO;
+import com.flight_sharing_interface.jetty_jersey.dao.objects.Flight;
 
 @Path("/FlightResource")
 public class FlightResource {

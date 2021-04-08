@@ -6,10 +6,10 @@ import javax.jdo.PersistenceManagerFactory;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.example.jetty_jersey.dao.Aircraft;
-import com.example.jetty_jersey.dao.AircraftDAO;
-import com.example.jetty_jersey.dao.DAO;
-import com.example.jetty_jersey.dao.dn.AircraftDaoImpl;
+import com.flight_sharing_interface.jetty_jersey.dao.AircraftDao;
+import com.flight_sharing_interface.jetty_jersey.dao.DAO;
+import com.flight_sharing_interface.jetty_jersey.dao.dn.AircraftDaoImpl;
+import com.flight_sharing_interface.jetty_jersey.dao.objects.Aircraft;
 
 public class AircraftDaoImplTest {
 
@@ -17,7 +17,7 @@ public class AircraftDaoImplTest {
 	public void testAircraft() {
 
 		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("flight-sharing-interface");
-		AircraftDAO aircraftDao = new AircraftDaoImpl(pmf);
+		AircraftDao aircraftDao = new AircraftDaoImpl(pmf);
 
 		Assert.assertNull(aircraftDao.getAircraftInfo(0));
 

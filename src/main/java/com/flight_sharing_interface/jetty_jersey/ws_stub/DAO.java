@@ -1,14 +1,14 @@
-package com.example.jetty_jersey.ws_stub;
+package com.flight_sharing_interface.jetty_jersey.ws_stub;
 
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.jetty_jersey.dao.ActionDao;
-import com.example.jetty_jersey.dao.Booking;
-import com.example.jetty_jersey.dao.Flight;
-import com.example.jetty_jersey.dao.Passenger;
+import com.flight_sharing_interface.jetty_jersey.dao.ActionDao;
+import com.flight_sharing_interface.jetty_jersey.dao.objects.Booking;
+import com.flight_sharing_interface.jetty_jersey.dao.objects.Flight;
+import com.flight_sharing_interface.jetty_jersey.dao.objects.Passenger;
 
 public class DAO {
 

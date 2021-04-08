@@ -1,4 +1,4 @@
-package com.example.jetty_jersey.ws;
+package com.flight_sharing_interface.jetty_jersey.ws;
 
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
@@ -9,8 +9,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.example.jetty_jersey.dao.Aircraft;
-import com.example.jetty_jersey.dao.DAO;
+import com.flight_sharing_interface.jetty_jersey.dao.DAO;
+import com.flight_sharing_interface.jetty_jersey.dao.objects.Aircraft;
 
 @Path("/AircraftResource")
 public class AircraftResource {

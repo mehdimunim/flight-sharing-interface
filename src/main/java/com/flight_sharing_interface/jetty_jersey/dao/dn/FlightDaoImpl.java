@@ -103,7 +103,8 @@ public class FlightDaoImpl implements FlightDao {
 	/**
 	 * Editing flight
 	 */
-	public void editFlight(Flight newFlight) {
+	public void editFlight(int flightId) {
+		// TODO Auto-generated method stub
 
 	}
 
@@ -187,4 +188,5 @@ public class FlightDaoImpl implements FlightDao {
 		}
 
 	}
+
 }

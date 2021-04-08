@@ -1,4 +1,4 @@
-package com.example.jetty_jersey.ws_stub;
+package com.flight_sharing_interface.jetty_jersey.ws_stub;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +13,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.example.jetty_jersey.dao.Flight;
-import com.example.jetty_jersey.dao.Pilot;
+import com.flight_sharing_interface.jetty_jersey.dao.objects.Flight;
+import com.flight_sharing_interface.jetty_jersey.dao.objects.Pilot;
 
 @Path("/pilotResource")
 public class PilotResource {

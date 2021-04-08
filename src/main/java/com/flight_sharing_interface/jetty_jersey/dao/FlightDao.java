@@ -1,9 +1,11 @@
-package com.example.jetty_jersey.dao;
+package com.flight_sharing_interface.jetty_jersey.dao;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface FlightDAO {
+import com.flight_sharing_interface.jetty_jersey.dao.objects.Flight;
+
+public interface FlightDao {
 
 	/**
 	 * @param flightId

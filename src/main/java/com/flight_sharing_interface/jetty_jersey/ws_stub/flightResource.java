@@ -1,4 +1,4 @@
-package com.example.jetty_jersey.ws_stub;
+package com.flight_sharing_interface.jetty_jersey.ws_stub;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -15,10 +15,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.example.jetty_jersey.dao.Flight;
+import com.flight_sharing_interface.jetty_jersey.dao.objects.Flight;
 
 @Path("/FlightResource")
-public class FlightResource {
+public class flightResource {
 
 	public static class flightsFromCriteria {
 		public String departure_aerodrome;
