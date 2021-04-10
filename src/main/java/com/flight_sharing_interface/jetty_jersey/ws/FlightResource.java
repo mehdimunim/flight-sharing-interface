@@ -1,8 +1,9 @@
 package com.flight_sharing_interface.jetty_jersey.ws;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -21,8 +22,9 @@ public class FlightResource {
 
 	public static class flightsFromCriteria {
 		public String departure_aerodrome;
-		public LocalDateTime departureDateTime;
-		public LocalDateTime arrivalDateTime;
+		public String destination_aerodrome;
+		public LocalDate departureDate;
+		public LocalDate arrivalDate;
 	}
 
 	/**
@@ -42,11 +44,11 @@ public class FlightResource {
 	 *
 	 */
 
-	@Produces(MediaType.APPLICATION_JSON)
-	@GET
+	@Consumes(MediaType.APPLICATION_JSON)
+	@POST
 	@Path("/search-flight/flights")
 	public List<Flight> getFlighsFromCriteria(flightsFromCriteria flights) {
-		return DAO.getFlightDao().getFlightsFromCriteria(null, null, null);
+		return DAO.getFlightDao().getFlightsFromCriteria(flights);
 	}
 
 	/**
@@ -61,15 +63,31 @@ public class FlightResource {
 	}
 
 	/**
+	 * 
 	 * Add flight in the database by the pilot (pilotId)
 	 *
-	 */
+	 * 
+	 * @PUT
+	 * @Produces(MediaType.APPLICATION_JSON) @Path("/add-flight/{pilotId}") public
+	 *                                       void addFlight(@PathParam("pilotId")
+	 *                                       int pilotId) {
+	 *                                       DAO.getFlightDao().addFlight(pilotId);
+	 *                                       System.out.println("The flight has been
+	 *                                       added successfully !"); }
+	 **/
+
 	@PUT
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/add-flight/{pilotId}")
-	public void addFlight(@PathParam("pilotId") int pilotId) {
-		DAO.getFlightDao().addFlight(pilotId);
-		System.out.println("The flight has been added successfully !");
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/add-flight")
+	public int addFlight(Flight flight) {
+
+		if (flight == null) {
+			throw new BadRequestException("Missing payload");
+		}
+		if (DAO.getFlightDao() == null) {
+			throw new BadRequestException("Missing actions in the container");
+		}
+		return DAO.getFlightDao().addFlight(flight);
 	}
 
 	/**
