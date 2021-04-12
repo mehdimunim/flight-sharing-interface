@@ -21,7 +21,7 @@ public class DAO {
 	private static AircraftDao aircraftDAO = null;
 	private static PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("flight-sharing-interface");
 
-	public static FlightDao getFlightDAO() {
+	public static FlightDao getFlightDao() {
 
 		if (flightDAO == null) {
 			flightDAO = new FlightDaoImpl(pmf);
@@ -29,7 +29,7 @@ public class DAO {
 		return flightDAO;
 	}
 
-	public static PassengerDao getPassengerDAO() {
+	public static PassengerDao getPassengerDao() {
 
 		if (passengerDAO == null) {
 			passengerDAO = new PassengerDaoImpl(pmf);
@@ -37,7 +37,7 @@ public class DAO {
 		return passengerDAO;
 	}
 
-	public static PilotDao getPilotDAO() {
+	public static PilotDao getPilotDao() {
 
 		if (pilotDAO == null) {
 			pilotDAO = new PilotDaoImpl(pmf);
@@ -45,7 +45,7 @@ public class DAO {
 		return pilotDAO;
 	}
 
-	public static AircraftDao getAircraftDAO() {
+	public static AircraftDao getAircraftDao() {
 
 		if (aircraftDAO == null) {
 			aircraftDAO = new AircraftDaoImpl(pmf);

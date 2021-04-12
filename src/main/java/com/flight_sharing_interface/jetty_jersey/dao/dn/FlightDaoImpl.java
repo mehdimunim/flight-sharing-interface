@@ -12,6 +12,7 @@ import javax.jdo.Transaction;
 import com.flight_sharing_interface.jetty_jersey.dao.FlightDao;
 import com.flight_sharing_interface.jetty_jersey.dao.objects.Flight;
 import com.flight_sharing_interface.jetty_jersey.dao.objects.Pilot;
+import com.flight_sharing_interface.jetty_jersey.ws.FlightResource;
 
 public class FlightDaoImpl implements FlightDao {
 
@@ -100,10 +101,18 @@ public class FlightDaoImpl implements FlightDao {
 		return detached;
 	}
 
+//HASSNA :
+
+	public List<Flight> getFlightsFromCriteria(FlightResource.flightsFromCriteria flights) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	/**
 	 * Editing flight
 	 */
-	public void editFlight(Flight newFlight) {
+	public void editFlight(int flightId) {
+		// TODO Auto-generated method stub
 
 		Flight flight = null;
 		Flight detached = null;
@@ -143,9 +152,10 @@ public class FlightDaoImpl implements FlightDao {
 	 * 
 	 * Unable to make persistent a deep copy of entry
 	 */
-	public void addFlight(Flight flight) {
+	public int addFlight(Flight flight) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
+		int flightId = flight.getId();
 		try {
 			tx.begin();
 
@@ -156,8 +166,10 @@ public class FlightDaoImpl implements FlightDao {
 			if (tx.isActive()) {
 				tx.rollback();
 			}
+
 			pm.close();
 		}
+		return flightId;
 
 	}
 
@@ -216,4 +228,5 @@ public class FlightDaoImpl implements FlightDao {
 		}
 
 	}
+
 }

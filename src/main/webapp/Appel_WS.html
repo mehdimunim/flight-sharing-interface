@@ -17,11 +17,11 @@
                 var flightId = $('#txtId').val();
                 if(flightId){
                     //update it
-                    dynamicURL = '/ws/FlightResource/';
+                    dynamicURL = '/ws/FlightResource/add-flight';
                     methodName = "PUT";
                 }else{
                     //save it
-                    dynamicURL = '/ws/FlightResource/';
+                    dynamicURL = '/ws/FlightResource/edit-flight';
                     methodName = "POST";
                 }
                 var flightObj = JSON.stringify(flight);
@@ -44,7 +44,7 @@
 
         function getAllFlights() {
             $.ajax({
-                url: '/ws/FlightResource/',
+                url: '/ws/FlightResource/flight-info',
                 method: "GET",
                 dataType: "json",
                 success: function (data) {
@@ -62,7 +62,7 @@
 
         function deleteFlight(id){
             $.ajax({
-                url: '/ws/FlightResource/'+id,
+                url: '/ws/FlightResource/delete-flight'+id,
                 method: 'DELETE',
                 success: function () {
                     alert('Do you really want to cancel this flight ?');
@@ -76,7 +76,7 @@
 
         function update(id){
             $.ajax({
-                url: '/ws/FlightResource/'+id,
+                url: '/ws/FlightResource/flight-info'+id,
                 method: 'GET',
                 dataType: 'json',
                 success: function (data) {
