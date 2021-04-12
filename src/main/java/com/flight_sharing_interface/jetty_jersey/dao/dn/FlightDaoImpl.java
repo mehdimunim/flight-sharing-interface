@@ -105,6 +105,35 @@ public class FlightDaoImpl implements FlightDao {
 	 */
 	public void editFlight(Flight newFlight) {
 
+		Flight flight = null;
+		Flight detached = null;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+
+			int flightId = newFlight.getId();
+			Query q = pm.newQuery(Flight.class);
+			q.declareParameters("int flightId");
+			q.setFilter("id == flightId");
+
+			List<Flight> list = (List<Flight>) q.execute(flightId);
+			if (list.size() != 0) {
+				flight = list.get(0);
+			}
+
+			detached = pm.detachCopy(flight);
+
+			pm.makePersistent(flight);
+
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+
 	}
 
 	/**
