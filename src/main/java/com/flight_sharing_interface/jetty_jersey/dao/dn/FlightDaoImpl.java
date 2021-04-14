@@ -130,7 +130,7 @@ public class FlightDaoImpl implements FlightDao {
 		try {
 			tx.begin();
 
-			pm.makePersistent(flight);
+			flight = pm.makePersistent(flight);
 
 			tx.commit();
 		} finally {
