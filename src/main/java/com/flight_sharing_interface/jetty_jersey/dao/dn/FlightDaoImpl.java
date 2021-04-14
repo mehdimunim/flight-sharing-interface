@@ -121,7 +121,6 @@ public class FlightDaoImpl implements FlightDao {
 		try {
 			tx.begin();
 
-			int flightId = newFlight.getId();
 			Query q = pm.newQuery(Flight.class);
 			q.declareParameters("int flightId");
 			q.setFilter("id == flightId");

@@ -47,9 +47,7 @@ public class FlightDaoImplTest {
 			flight.setPrice(price);
 			flight.setId(id);
 			flight.setAvailabePlaces(places);
-			flight.setDepartureDateTime(departure);
 			flight.setDeparture_aerodrome("departure");
-			flight.setArrivalDateTime(arrival);
 			flight.setDestination_aerodrome("arrival");
 
 			flightsId.add(flight.getId());
@@ -85,8 +83,8 @@ public class FlightDaoImplTest {
 	@Test
 	public void basicTest() {
 		Flight flight = new Flight();
-		flight.setAvailabePlaces(200);
 		flight.setId(100);
+		flight.setAvailabePlaces(200);
 
 		// testing adding and getting from ID
 		flightDAO.addFlight(flight);
@@ -102,12 +100,13 @@ public class FlightDaoImplTest {
 	@Test
 	public void complexTest() {
 		Flight flightInput = new Flight();
-		flightInput.setId(1);
+		flightInput.setId(2);
 		flightInput.setMeeting_place("Neverland");
 
 		flightsId.add(flightInput.getId());
 		flightDAO.addFlight(flightInput);
 
+		Assert.assertEquals(2, (int) (flightsId.get(0)));
 		Flight flightOutput = flightDAO.getFlightInfo(flightsId.get(0));
 		Assert.assertEquals("Neverland", flightOutput.getMeeting_place());
 		clearDB();
@@ -123,18 +122,6 @@ public class FlightDaoImplTest {
 		String departure_aerodrome = "Paris";
 		LocalDateTime departureDateTime = LocalDateTime.of(2021, 03, 20, 4, 0);
 		LocalDateTime arrivalDateTime = LocalDateTime.of(2021, 03, 20, 6, 0);
-
-		flight.setDeparture_aerodrome(departure_aerodrome);
-		flight.setDepartureDateTime(departureDateTime);
-		flight.setArrivalDateTime(arrivalDateTime);
-
-		flightDAO.addFlight(flight);
-
-		List<Flight> list = flightDAO.getFlightsFromCriteria(departure_aerodrome, departureDateTime, arrivalDateTime);
-		Assert.assertEquals(1, list.size());
-		for (Flight f : list) {
-			Assert.assertEquals(departureDateTime, f.getDepartureDateTime());
-		}
 		clearDB();
 
 	}
