@@ -155,10 +155,11 @@ public class FlightDaoImpl implements FlightDao {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		int flightId = flight.getId();
+		;
 		try {
 			tx.begin();
 
-			pm.makePersistent(flight);
+			flight = pm.makePersistent(flight);
 
 			tx.commit();
 		} finally {

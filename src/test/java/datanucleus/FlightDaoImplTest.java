@@ -100,13 +100,13 @@ public class FlightDaoImplTest {
 	@Test
 	public void complexTest() {
 		Flight flightInput = new Flight();
-		flightInput.setId(2);
+		flightInput.setId(1);
 		flightInput.setMeeting_place("Neverland");
 
 		flightsId.add(flightInput.getId());
 		flightDAO.addFlight(flightInput);
 
-		Assert.assertEquals(2, (int) (flightsId.get(0)));
+		Assert.assertEquals(1, (int) (flightsId.get(0)));
 		Flight flightOutput = flightDAO.getFlightInfo(flightsId.get(0));
 		Assert.assertEquals("Neverland", flightOutput.getMeeting_place());
 		clearDB();

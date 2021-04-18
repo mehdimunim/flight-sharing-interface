@@ -14,7 +14,7 @@ public class Flight {
 
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.NATIVE)
-	protected int id = 0;
+	protected int id;
 
 	@Persistent(defaultFetchGroup = "true")
 	protected List<Flight> flights = null;
@@ -46,11 +46,11 @@ public class Flight {
 	public Flight(int id, double price, String meeting_place, String departure_aerodrome, String destination_aerodrome,
 			int availabePlaces, Pilot pilot, List<Passenger> passengers, LocalDate departureDate,
 			LocalDate arrivalDate) {
+		this.id = id;
 		this.price = price;
 		this.meeting_place = meeting_place;
 		this.departure_aerodrome = departure_aerodrome;
 		this.destination_aerodrome = destination_aerodrome;
-		this.id = id;
 		this.availabePlaces = availabePlaces;
 		this.pilot = pilot;
 		this.passengers = passengers;
