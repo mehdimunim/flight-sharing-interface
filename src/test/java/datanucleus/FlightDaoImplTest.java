@@ -1,5 +1,6 @@
 package datanucleus;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,31 +56,6 @@ public class FlightDaoImplTest {
 		}
 	}
 
-//	public void initDB() {
-//		/**
-//		 * Adding random flights to data base
-//		 */
-//		// generate nelements flights and add them to flights
-//		nelements = 30;
-//		flightGenerator(nelements);
-//		for (int id : flightsId) {
-//			flightDAO.addFlight(flight);
-//			System.out.println("done");
-//		}
-//	}
-
-	public void clearDB() {
-		/**
-		 * Removing all flights form data base
-		 */
-		if (flightsId != null) {
-			for (int id : flightsId) {
-
-				flightDAO.deleteFlight(id);
-			}
-		}
-	}
-
 	@Test
 	public void basicTest() {
 		Flight flight = new Flight();
@@ -110,20 +86,51 @@ public class FlightDaoImplTest {
 		Assert.assertEquals(1, (int) (flightsId.get(0)));
 		Flight flightOutput = flightDAO.getFlightInfo(flightsId.get(0));
 		Assert.assertEquals("Neverland", flightOutput.getMeeting_place());
-		clearDB();
+		flightDAO.clearDB();
 	}
 
 	@Test
 	public void getFromCriteriaTest() {
-		Flight flight = new Flight();
+		String paris = "Paris";
+		String london = "London";
+		String berlin = "Berlin";
 
-		flight.setAvailabePlaces(200);
-		flight.setId(101);
+		LocalDate departureDate1 = LocalDate.of(2021, 03, 20);
+		LocalDate departureDate2 = LocalDate.of(2021, 04, 20);
+		LocalDate departureDate3 = LocalDate.of(2021, 05, 20);
 
-		String departure_aerodrome = "Paris";
-		LocalDateTime departureDateTime = LocalDateTime.of(2021, 03, 20, 4, 0);
-		LocalDateTime arrivalDateTime = LocalDateTime.of(2021, 03, 20, 6, 0);
-		clearDB();
+		LocalDate arrivalDate1 = LocalDate.of(2021, 03, 21);
+		LocalDate arrivalDate2 = LocalDate.of(2021, 04, 21);
+		LocalDate arrivalDate3 = LocalDate.of(2021, 05, 21);
+
+		Flight flight1 = new Flight();
+
+		flight1.setId(1);
+		flight1.setDepartureDate(departureDate1);
+		flight1.setArrivalDate(arrivalDate1);
+		flight1.setDeparture_aerodrome(paris);
+
+		Flight flight2 = new Flight();
+
+		flight2.setId(2);
+		flight2.setDepartureDate(departureDate2);
+		flight2.setArrivalDate(arrivalDate2);
+		flight2.setDeparture_aerodrome(london);
+
+		Flight flight3 = new Flight();
+
+		flight3.setId(3);
+		flight3.setDepartureDate(departureDate3);
+		flight3.setArrivalDate(arrivalDate3);
+		flight3.setDeparture_aerodrome(london);
+
+		flightDAO.addFlight(flight1);
+		flightDAO.addFlight(flight2);
+		flightDAO.addFlight(flight3);
+
+		// Testing clearing DB
+		List<Flight> output = flightDAO.clearDB();
+		Assert.assertEquals(3, output.size());
 
 	}
 

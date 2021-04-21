@@ -38,4 +38,6 @@ public interface FlightDao {
 
 	int addFlight(Flight flight);
 
+	List<Flight> clearDB();
+
 }
