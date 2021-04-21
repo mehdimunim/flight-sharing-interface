@@ -91,6 +91,38 @@ public class FlightDaoImpl implements FlightDao {
 		return detached;
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Flight> getFlightsFromCriteria(String departure_aerodrome_, LocalDate departureDateTime_,
+			LocalDate arrivalDateTime_) {
+
+		List<Flight> flights = new ArrayList<Flight>();
+		List<Flight> detached = new ArrayList<Flight>();
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			Query q = pm.newQuery(Flight.class);
+			q.declareImports("import java.time.LocalDate");
+
+			q.declareParameters("String departure_aerodrome_, LocalDate departureDate_, LocalDate arrivalDate_");
+
+			// selecting flights by three criteria
+			q.setFilter(
+					"departure_aerodrome == departure_aerodrome_ && departureDate == departureDate_ && arrivalDate == arrivalDate_ ");
+
+			flights = (List<Flight>) q.execute(departure_aerodrome_, departureDateTime_, arrivalDateTime_);
+			detached = (List<Flight>) pm.detachCopyAll(flights);
+
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return detached;
+	}
+
 	/**
 	 * Editing flight
 	 */

@@ -1,5 +1,6 @@
 package com.flight_sharing_interface.jetty_jersey.dao;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.flight_sharing_interface.jetty_jersey.dao.objects.Flight;
@@ -19,6 +20,9 @@ public interface FlightDao {
 	 *         destination_aerodrome, desired period (departure and arrival date))
 	 */
 	List<Flight> getFlightsFromCriteria(FlightResource.flightsFromCriteria flights);
+
+	List<Flight> getFlightsFromCriteria(String departure_aerodrome_, LocalDate departureDateTime_,
+			LocalDate arrivalDateTime_);
 
 	/**
 	 * @param flightID edit information of a specific flight (from its ID)
