@@ -37,14 +37,9 @@ public class FlightDaoImpl implements FlightDao {
 			Query q = pm.newQuery(Flight.class);
 			q.declareParameters("int flightId");
 			q.setFilter("id == flightId");
+			q.setUnique(true);
 
-			// unable to cast directly q.exectute(...) in Flight
-
-			List<Flight> list = (List<Flight>) q.execute(flightId);
-			if (list.size() != 0) {
-				flight = list.get(0);
-			}
-
+			flight = (Flight) q.execute(flightId);
 			detached = pm.detachCopy(flight);
 
 			tx.commit();

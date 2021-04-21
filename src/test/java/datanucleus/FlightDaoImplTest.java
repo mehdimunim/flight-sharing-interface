@@ -87,7 +87,8 @@ public class FlightDaoImplTest {
 		flight.setAvailabePlaces(200);
 
 		// testing adding and getting from ID
-		flightDAO.addFlight(flight);
+		int myId = flightDAO.addFlight(flight);
+		Assert.assertEquals(myId, 100);
 
 		Flight flightOutput = flightDAO.getFlightInfo(100);
 		Assert.assertEquals(200, flightOutput.getAvailabePlaces());
