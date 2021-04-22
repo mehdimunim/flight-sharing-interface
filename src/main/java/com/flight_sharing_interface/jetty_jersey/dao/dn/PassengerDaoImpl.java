@@ -95,4 +95,33 @@ public class PassengerDaoImpl implements PassengerDao {
 		return detached;
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Passenger> clearDB() {
+
+		List<Passenger> passengers = null;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+
+		try {
+			tx.begin();
+
+			Query q = pm.newQuery(Passenger.class);
+
+			passengers = (List<Passenger>) q.execute();
+			pm.deletePersistentAll(passengers);
+
+			tx.commit();
+
+		}
+
+		finally {
+
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return passengers;
+	}
+
 }

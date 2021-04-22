@@ -19,6 +19,59 @@ public class PilotDaoImpl implements PilotDao {
 	}
 
 	/**
+	 * Add pilot to DB
+	 * 
+	 * @param pilot
+	 */
+
+	public void register(Pilot pilot) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+
+			pm.makePersistent(pilot);
+
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+
+			pm.close();
+		}
+
+	}
+
+	public Pilot loging(int pilotId) {
+
+		Pilot pilot;
+		Pilot detached;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			Query q = pm.newQuery(Pilot.class);
+			q.declareParameters("int pilotId");
+			q.setFilter("id == pilotId");
+			// setUnique to get at most one pilot
+			// and not a list of pilot
+			q.setUnique(true);
+
+			pilot = (Pilot) q.execute(pilotId);
+			detached = pm.detachCopy(pilot);
+
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return detached;
+	}
+
+	/**
 	 * 
 	 * Put flight in DB
 	 * 
@@ -118,6 +171,35 @@ public class PilotDaoImpl implements PilotDao {
 			pm.close();
 		}
 		return detached.getFlightList();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Pilot> clearDB() {
+
+		List<Pilot> pilots = null;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+
+		try {
+			tx.begin();
+
+			Query q = pm.newQuery(Pilot.class);
+
+			pilots = (List<Pilot>) q.execute();
+			pm.deletePersistentAll(pilots);
+
+			tx.commit();
+
+		}
+
+		finally {
+
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return pilots;
 	}
 
 }

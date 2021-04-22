@@ -13,7 +13,7 @@ import javax.jdo.annotations.PrimaryKey;
 public class Pilot {
 	@PrimaryKey
 	public long id;
-	
+
 	public String name;
 	public String surname;
 	public String qualifications;
@@ -59,7 +59,7 @@ public class Pilot {
 
 	public Pilot(String name, String surname, String qualifications, String experience, int id) {
 		this.name = name;
-		this.surname = surname;		
+		this.surname = surname;
 		this.qualifications = qualifications;
 		this.experience = experience;
 		this.id = id;
@@ -128,5 +128,5 @@ public class Pilot {
 	public void setFlightList(List<Flight> flightList) {
 		this.flightList = flightList;
 	}
-	
+
 }

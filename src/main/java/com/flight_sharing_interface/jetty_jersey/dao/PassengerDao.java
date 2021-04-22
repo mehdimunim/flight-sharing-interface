@@ -39,4 +39,6 @@ public interface PassengerDao {
 
 	Passenger loging(int passengerId);
 
+	List<Passenger> clearDB();
+
 }
