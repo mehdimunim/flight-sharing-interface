@@ -98,7 +98,8 @@ public class FlightResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@DELETE
 	@Path("delete-flight/{id}")
-	public void deleteAFlight(@PathParam("id") int id) {
+	public void deleteFlight(@PathParam("id") int id) {
 		DAO.getFlightDao().deleteFlight(id);
+
 	}
 }
