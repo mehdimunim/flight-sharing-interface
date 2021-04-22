@@ -1,5 +1,6 @@
 package com.flight_sharing_interface.jetty_jersey.dao.objects;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +26,9 @@ public class Flight {
 	public Pilot pilot;
 	public List<Passenger> passengers = new ArrayList<Passenger>();
 	@Persistent
-	public LocalDate departureDate;
+	public Date departureDate;
 	@Persistent
-	public LocalDate arrivalDate;
+	public Date arrivalDate;
 
 	/**
 	 * @param price
@@ -52,8 +53,8 @@ public class Flight {
 		this.availabePlaces = availabePlaces;
 		this.pilot = pilot;
 		this.passengers = passengers;
-		this.departureDate = departureDate;
-		this.arrivalDate = arrivalDate;
+		this.departureDate = Date.valueOf(arrivalDate);
+		this.arrivalDate = Date.valueOf(arrivalDate);
 	}
 
 	public int getId() {
@@ -121,19 +122,19 @@ public class Flight {
 	}
 
 	public LocalDate getDepartureDate() {
-		return departureDate;
+		return departureDate.toLocalDate();
 	}
 
 	public void setDepartureDate(LocalDate departureDate) {
-		this.departureDate = departureDate;
+		this.departureDate = Date.valueOf(departureDate);
 	}
 
 	public LocalDate getArrivalDate() {
-		return arrivalDate;
+		return arrivalDate.toLocalDate();
 	}
 
 	public void setArrivalDate(LocalDate arrivalDate) {
-		this.arrivalDate = arrivalDate;
+		this.arrivalDate = Date.valueOf(arrivalDate);
 	}
 
 	public Flight() {

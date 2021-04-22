@@ -1,5 +1,7 @@
 package com.flight_sharing_interface.jetty_jersey.dao;
 
+import java.util.List;
+
 import com.flight_sharing_interface.jetty_jersey.dao.objects.Flight;
 
 public interface PilotDao {
@@ -26,5 +28,7 @@ public interface PilotDao {
 	 */
 
 	// boolean isAcceptedReservation(Reservation reservation);
+
+	List<Flight> getFlightsPlanned(int pilotId);
 
 }

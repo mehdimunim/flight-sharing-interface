@@ -1,5 +1,6 @@
 package com.flight_sharing_interface.jetty_jersey.dao.dn;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -92,8 +93,12 @@ public class FlightDaoImpl implements FlightDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Flight> getFlightsFromCriteria(String departure_aerodrome_, LocalDate departureDateTime_,
-			LocalDate arrivalDateTime_) {
+	public List<Flight> getFlightsFromCriteria(String departure_aerodrome_, LocalDate departureDateTime__,
+			LocalDate arrivalDateTime__) {
+
+		// Transforming LocalDates to SQL date that we are able to stored in DB
+		Date departureDateTime_ = Date.valueOf(departureDateTime__);
+		Date arrivalDateTime_ = Date.valueOf(arrivalDateTime__);
 
 		List<Flight> flights = new ArrayList<Flight>();
 		List<Flight> detached = new ArrayList<Flight>();
@@ -102,9 +107,9 @@ public class FlightDaoImpl implements FlightDao {
 		try {
 			tx.begin();
 			Query q = pm.newQuery(Flight.class);
-			q.declareImports("import java.time.LocalDate");
+			q.declareImports("import java.sql.Date");
 
-			q.declareParameters("String departure_aerodrome_, LocalDate departureDate_, LocalDate arrivalDate_");
+			q.declareParameters("String departure_aerodrome_, Date departureDate_, Date arrivalDate_");
 
 			// selecting flights by three criteria
 			q.setFilter(
@@ -240,6 +245,7 @@ public class FlightDaoImpl implements FlightDao {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Flight> clearDB() {
 
 		List<Flight> flights = null;

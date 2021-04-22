@@ -1,7 +1,6 @@
 package datanucleus;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,8 +40,8 @@ public class FlightDaoImplTest {
 			int minutes_de = (int) (30 * random) + 1;
 			int minutes_ar = (int) (30 * random) + 30;
 
-			LocalDateTime departure = LocalDateTime.of(year, month, day, hour_de, minutes_de);
-			LocalDateTime arrival = LocalDateTime.of(year, month, day, hour_ar, minutes_ar);
+			LocalDate departure = LocalDate.of(year, month, day);
+			LocalDate arrival = LocalDate.of(year, month, day);
 
 			flight.setMeeting_place("Neverland");
 			flight.setPrice(price);
@@ -128,11 +127,9 @@ public class FlightDaoImplTest {
 		flightDAO.addFlight(flight2);
 		flightDAO.addFlight(flight3);
 
-		// Does not work well
-		// The next tests will not work as a consequence
-		// List<Flight> output = flightDAO.getFlightsFromCriteria(london,
-		// departureDate2, arrivalDate2);
-		// Assert.assertEquals(output.size(), 1);
+		List<Flight> output = flightDAO.getFlightsFromCriteria(london, departureDate2, arrivalDate2);
+		Assert.assertEquals(output.size(), 1);
+		Assert.assertEquals(output.get(0).getId(), 2);
 
 		// Testing clearing DB
 		List<Flight> outputAll = flightDAO.clearDB();
