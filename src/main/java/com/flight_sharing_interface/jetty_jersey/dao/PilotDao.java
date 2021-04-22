@@ -29,6 +29,6 @@ public interface PilotDao {
 
 	// boolean isAcceptedReservation(Reservation reservation);
 
-	List<Flight> getFlightsPlanned(int pilotId);
+	List<Flight> getPlannedFlights(int pilotId);
 
 }

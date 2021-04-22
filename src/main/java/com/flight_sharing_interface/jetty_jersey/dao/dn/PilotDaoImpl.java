@@ -94,7 +94,7 @@ public class PilotDaoImpl implements PilotDao {
 	 * 
 	 */
 
-	public List<Flight> getFlightsPlanned(int pilotId) {
+	public List<Flight> getPlannedFlights(int pilotId) {
 
 		Pilot pilot = null;
 		Pilot detached = null;
