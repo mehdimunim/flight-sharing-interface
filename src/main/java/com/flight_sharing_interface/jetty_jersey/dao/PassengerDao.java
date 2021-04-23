@@ -2,7 +2,6 @@ package com.flight_sharing_interface.jetty_jersey.dao;
 
 import java.util.List;
 
-import com.flight_sharing_interface.jetty_jersey.dao.objects.Booking;
 import com.flight_sharing_interface.jetty_jersey.dao.objects.Flight;
 import com.flight_sharing_interface.jetty_jersey.dao.objects.Passenger;
 
@@ -16,12 +15,12 @@ public interface PassengerDao {
 	/**
 	 * @param flight @ book a flight
 	 */
-	void bookFlights(List<Flight> flights);
+	void bookFlights(int passengerId, List<Flight> flights);
 
 	/**
 	 * @ return a booked flight
 	 */
-	List<Flight> getBookedFlight();
+	List<Flight> getBookedFlight(int passengerId);
 
 	/**
 	 * @param user @ registering a user
@@ -31,7 +30,7 @@ public interface PassengerDao {
 	/**
 	 * @param booking @ cancel
 	 */
-	void cancelABooking(Booking booking);
+	void cancelABooking(int passengerId, Flight booking);
 
 	/**
 	 * @param passenger

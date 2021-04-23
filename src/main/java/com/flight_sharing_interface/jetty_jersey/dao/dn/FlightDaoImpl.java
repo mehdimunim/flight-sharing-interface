@@ -23,7 +23,7 @@ public class FlightDaoImpl implements FlightDao {
 		this.pmf = pmf;
 	}
 
-	// TODO: SUperclass DAOImpl where the DB can be deleted
+	// TODO: Superclass DAOImpl where the DB can be deleted
 	/**
 	 * Getting the flights corresponding to the given flightId
 	 */
@@ -129,26 +129,30 @@ public class FlightDaoImpl implements FlightDao {
 	}
 
 	/**
-	 * Editing flight
+	 * Editing flight: replace the flight with same id as newFlight by newFlight Add
+	 * new flight if there is no flight at given Id
+	 * 
 	 */
-	public void editFlight(int flightId) {
-		// TODO: change parameters
+	public void editFlight(Flight newFlight) {
+		int flightId = newFlight.getId();
 		Flight flight = null;
-		Flight detached = null;
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
-
+			// searching flight with the name id as newFlight
 			Query q = pm.newQuery(Flight.class);
 			q.declareParameters("int flightId");
 			q.setFilter("id == flightId");
 			q.setUnique(true);
 
 			flight = (Flight) q.execute(flightId);
-			detached = pm.detachCopy(flight);
 
-			pm.makePersistent(flight);
+			// deleting this flight
+			pm.deletePersistent(flight);
+
+			// replacing with newFlight (probably with different parameters
+			pm.makePersistent(newFlight);
 
 			tx.commit();
 		} finally {

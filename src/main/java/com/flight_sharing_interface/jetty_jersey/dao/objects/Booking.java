@@ -20,35 +20,27 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @PersistenceCapable
 public class Booking {
-	
-	// define primary key id automatically
+
 	@PrimaryKey
-	@Persistent(valueStrategy=IdGeneratorStrategy.INCREMENT)
+	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
 	public long id;
-	
+
 	public LocalDateTime date_time;
 	public Passenger passenger;
-
-	
 
 	/**
 	 * @param id
 	 * @param date_time
 	 * @param passenger
 	 */
-	public Booking(int id,LocalDateTime date_time, Passenger passenger) {
+	public Booking(int id, LocalDateTime date_time, Passenger passenger) {
 		this.id = id;
 		this.date_time = date_time;
 		this.passenger = passenger;
 	}
+
 	public Booking() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	 
+
 }
-
-
-
-
-

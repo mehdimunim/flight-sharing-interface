@@ -25,9 +25,9 @@ public interface FlightDao {
 			LocalDate arrivalDateTime_);
 
 	/**
-	 * @param flightID edit information of a specific flight (from its ID)
+	 * replace by newFlight the flight stored with the id given in newFlight
 	 */
-	void editFlight(int flightId);
+	void editFlight(Flight newFlight);
 
 	/**
 	 * @param flightID //Add a flight in the database by the pilot

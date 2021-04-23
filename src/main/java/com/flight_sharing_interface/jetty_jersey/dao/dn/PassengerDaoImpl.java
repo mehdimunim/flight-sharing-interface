@@ -8,7 +8,6 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 
 import com.flight_sharing_interface.jetty_jersey.dao.PassengerDao;
-import com.flight_sharing_interface.jetty_jersey.dao.objects.Booking;
 import com.flight_sharing_interface.jetty_jersey.dao.objects.Flight;
 import com.flight_sharing_interface.jetty_jersey.dao.objects.Passenger;
 
@@ -19,14 +18,69 @@ public class PassengerDaoImpl implements PassengerDao {
 		this.pmf = pmf;
 	}
 
-	public void bookFlights(List<Flight> flights) {
-		// TODO Auto-generated method stub
+	/**
+	 * 
+	 * Book a list of flights
+	 * 
+	 */
+
+	public void bookFlights(int passengerId, List<Flight> flights) {
+		Passenger passenger;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			Query q = pm.newQuery(Passenger.class);
+			q.declareParameters("int passengerId");
+			q.setFilter("id == passengerId");
+			// setUnique to get at most one passenger
+			// and not a list of passenger
+			q.setUnique(true);
+
+			passenger = (Passenger) q.execute(passengerId);
+			passenger.setBookedFlights(flights);
+
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
 
 	}
 
-	public List<Flight> getBookedFlight() {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * 
+	 * Return the list of flights booked by passenger
+	 * 
+	 */
+
+	public List<Flight> getBookedFlight(int passengerId) {
+		Passenger passenger;
+		Passenger detached;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			Query q = pm.newQuery(Passenger.class);
+			q.declareParameters("int passengerId");
+			q.setFilter("id == passengerId");
+			// setUnique to get at most one passenger
+			// and not a list of passenger
+			q.setUnique(true);
+
+			passenger = (Passenger) q.execute(passengerId);
+			detached = pm.detachCopy(passenger);
+
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return detached.getBookedFlights();
 	}
 
 	/**
@@ -54,8 +108,36 @@ public class PassengerDaoImpl implements PassengerDao {
 
 	}
 
-	public void cancelABooking(Booking booking) {
-		// TODO Auto-generated method stub
+	/**
+	 * 
+	 * Cancel a booking
+	 * 
+	 */
+
+	public void cancelABooking(int passengerId, Flight booking) {
+		// TODO: problem to make booking/flight corresponds
+		Passenger passenger;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			Query q = pm.newQuery(Passenger.class);
+			q.declareParameters("int passengerId");
+			q.setFilter("id == passengerId");
+			// setUnique to get at most one passenger
+			// and not a list of passenger
+			q.setUnique(true);
+
+			passenger = (Passenger) q.execute(passengerId);
+			passenger.getBookedFlights().remove(booking);
+
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
 
 	}
 
