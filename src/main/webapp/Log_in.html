@@ -5,9 +5,24 @@
 
 <link rel="stylesheet" href="log_in.css">
 
-<div id="registration-form">
+
+<nav class="navbar">
+				
+	<ul>
+	  <li><a  href="home.html">Home</a></li>
+	  <li><a href="#">About</a></li>
+	  <li><a href="#">Contact</a></li>
+	  <ul class="nav navbar-nav navbar-right">
+		<li><a href="Search_flight.html"><span class="fa fa-fw fa-search"></span> Search</a> </li>
+		<li><a href="Register.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+		<li><a  class="active" href="Log_in.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+		</ul>
+	</ul>
+  </nav>
+
+<div id="login-form">
 	<div class='fieldset'>
-    <legend>Log In</legend>
+    <legend>Login</legend>
 		<form action="#" method="post" data-validate="parsley">
 		
         
@@ -21,8 +36,8 @@
 				<input type="text" placeholder="Password" name='password' id='password' data-required="true" data-error-message="Your password is required"> 
       </div>
         <label>
- 	<input type="submit" value="Log in">
-      <input type="checkbox" checked="checked" name="remember"> Remember me
+ 	<input type="submit" value="Login">
+
     </label>
    <div class="row" style="background-color:#f1f1f1">
 

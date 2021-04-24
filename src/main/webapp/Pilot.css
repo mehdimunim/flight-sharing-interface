@@ -1,84 +1,105 @@
-/* Search Form */
-* {
-    box-sizing: border-box;
-  }
-  body {
+@import url('https://fonts.googleapis.com/css?family=Roboto:700&display=swap');
+*{
+	padding: 0;
+	margin: 0;
+}
+body {
     background-image:url("f2.jpg");
     font-family: sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-position:center;
   }
+.navbar{
+	background-size:cover;
+	position: relative;
+	height: 80px;
+	width: 100%;
+	top: 0;
+	left: 0;
+	background: rgba(0,0,0,0.4);
+}
+.navbar .logo{
+	width: 100px;
+	height: auto;
+	padding: 20px 100px;
+}
+.navbar ul{
+	float: right;
+	margin-right: 20px;
+}
+.navbar ul li{
+	list-style: none;
+	margin: 0 8px;
+	display: inline-block;
+	line-height: 80px;
+}
+.navbar ul li a{
+	font-size: 20px;
+	font-family: 'Roboto', sans-serif;
+	color: white;
+	padding: 6px 13px;
+	text-decoration: none;
+	transition: .4s;
+}
+.navbar ul li a.active
+{
+	background:green;
+	border-radius: 2px;
+}
+.navbar ul li a:hover{
+	background:black;
+	border-radius: 2px;
+}
 
-  *{
-    padding: 0;
-    margin: 0;
-  }
-  
-  .navbar{
-    background-size:cover;
+.pilot-book{
+    width: 400px;
+    margin-right:10cm;
+    margin-top: 1cm;
+    height:10cm;
     position: relative;
-    height: 80px;
-    width: 100%;
-    top: 0;
-    left: 0;
-    background: rgba(0,0,0,0.4);
-  }
-  .navbar .logo{
-    width: 100px;
-    height: auto;
-    padding: 20px 100px;
-  }
-  .navbar ul{
-    float: right;
-    margin-right: 20px;
-  }
-  .navbar ul li{
-    list-style: none;
-    margin: 0 8px;
-    display: inline-block;
-    line-height: 80px;
-  }
-  .navbar ul li a{
+    border:1px solid rgb(66, 61, 61);
+ 
+
+}
+.pilot-book input{
+    background-color:white;
+    margin-left:1cm;
+    margin-top: 1cm;
+    padding:7px;
+    display: inline;
+}
+.pilot-book legend{
+    text-align: center;
+    color:white;
     font-size: 20px;
-    font-family: 'Roboto', sans-serif;
-    color: white;
-    padding: 6px 13px;
-    text-decoration: none;
-    transition: .4s;
-  }
-  .navbar ul li a.active
-  {
-    background:green;
-    border-radius: 2px;
-  }
-  .navbar ul li a:hover{
-    background:black;
-    border-radius: 2px;
-  }
-  
-  #search-form {
-    margin-top:20px;
+	font-family: 'Roboto', sans-serif;
+    margin-top: 16px;
+}
+
+#search-form {
+    margin-top: 4cm;
     border: 1px solid rgb(66, 61, 61);
     width: 450px;
-    position: relative;
-    
+    position: fixed;
+    margin-left:18cm ;
 
   }
   
   #header {
-    height: 80px;
-
+    height: 50px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    margin-left: 150px;
   }
+
+
   #header h1 {
-    color: #FFF;
-    margin-left: 20px;
+    color:white;
     font-size: 1.3em
+
   }
   
   .flight {
@@ -89,35 +110,28 @@
   }
   
   .info-box {
-    padding: 10px 0;
-    margin-top: 20px;
+    padding: 8px 0;
+    margin-top:3px;
     flex: 1;
     border-right: 20px solid transparent;
   }
-  .info-box:last-child {
-    border-right: none;
-  }
+  
   .info-box label {
     display: block;
     color: #6B6A6A;
     font-size: .9em;
   }
-  .info-box input[type=text], input[type=submit], select {
+  .info-box input[type=text], select {
     border: none;
     outline: none;
     background: #E2E0E0;
     margin-top: 5px;
     width: 100%;
-    padding: 5px;
-    height: 30px;
+    padding: 3px;
+    height: 15px;
     border-radius: 3px;
   }
   
-  #flight-type {
-    display: flex;
-    justify-content: flex-start;
-    border-bottom: 1px dotted silver;
-  }
   #flight-type .info-box {
     flex: 0 1 25%;
     display:flex;
@@ -150,15 +164,7 @@
     border-bottom: 1px dotted silver;
   }
 
-  #flight-times{
-    display: flex;
-    border-bottom: 1px dotted silver;
-  }
   
-  #flight-info {
-    display: flex;
-    border-bottom: 1px dotted silver;
-  }
   
   #flight-search .info-box {
     display: flex;
@@ -167,10 +173,9 @@
   #flight-search input[type=submit] {
     background:#5C8CA7;
     color: white;
-    padding: 0;
+    padding:8px;
     height: 50px;
-    font-size: 1.2em;
+    font-size: 20px;
+    width:452px
   }
-  
-  
   

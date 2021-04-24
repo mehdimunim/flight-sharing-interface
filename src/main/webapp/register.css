@@ -5,20 +5,75 @@
 Hide the label if placeholder is supported
 */
 
-body{
-    background:#b4b4b4;
-  }
+* {
+  box-sizing: border-box;
+}
+body {
+  background-image:url("f2.jpg");
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;;
+}
+
+*{
+  padding: 0;
+  margin: 0;
+}
+
+.navbar{
+  background-size:cover;
+  position: relative;
+  height: 80px;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,0.4);
+}
+.navbar .logo{
+  width: 100px;
+  height: auto;
+  padding: 20px 100px;
+}
+.navbar ul{
+  float: right;
+  margin-right: 20px;
+}
+.navbar ul li{
+  list-style: none;
+  margin: 0 8px;
+  display: inline-block;
+  line-height: 80px;
+}
+.navbar ul li a{
+  font-size: 20px;
+  font-family: 'Roboto', sans-serif;
+  color: white;
+  padding: 6px 13px;
+  text-decoration: none;
+  transition: .4s;
+}
+.navbar ul li a.active
+{
+  background:green;
+  border-radius: 2px;
+}
+.navbar ul li a:hover{
+  background:black;
+  border-radius: 2px;
+}
   
   #registration-form {
     font-family:'Open Sans Condensed', sans-serif;
       width: 400px;
-    min-width:250px;
+      min-width:250px;
       margin: 20px auto;
-      position: relative;
+     
   }
   
   #registration-form .fieldset {
-      background-color:#d5d5d5;
+     
   
       border-radius: 3px;
     
@@ -26,7 +81,6 @@ body{
   
    #registration-form legend {
       text-align: center;
-      background: #364351;
       width: 100%;
       padding: 30px 0;
       border-radius: 3px 3px 0 0;
