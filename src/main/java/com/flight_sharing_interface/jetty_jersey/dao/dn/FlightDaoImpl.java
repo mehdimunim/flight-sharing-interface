@@ -1,6 +1,7 @@
 package com.flight_sharing_interface.jetty_jersey.dao.dn;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,10 +23,10 @@ public class FlightDaoImpl implements FlightDao {
 		this.pmf = pmf;
 	}
 
+	// TODO: Superclass DAOImpl where the DB can be deleted
 	/**
 	 * Getting the flights corresponding to the given flightId
 	 */
-	@SuppressWarnings("unchecked")
 	public Flight getFlightInfo(int flightId) {
 
 		Flight flight = null;
@@ -37,14 +38,9 @@ public class FlightDaoImpl implements FlightDao {
 			Query q = pm.newQuery(Flight.class);
 			q.declareParameters("int flightId");
 			q.setFilter("id == flightId");
+			q.setUnique(true);
 
-			// unable to cast directly q.exectute(...) in Flight
-
-			List<Flight> list = (List<Flight>) q.execute(flightId);
-			if (list.size() != 0) {
-				flight = list.get(0);
-			}
-
+			flight = (Flight) q.execute(flightId);
 			detached = pm.detachCopy(flight);
 
 			tx.commit();
@@ -63,32 +59,27 @@ public class FlightDaoImpl implements FlightDao {
 	 */
 
 	@SuppressWarnings("unchecked")
-	public List<Flight> getFlightsFromCriteria(String departure_aerodrome_, LocalDateTime departureDateTime_,
-			LocalDateTime arrivalDateTime_) {
+	public List<Flight> getFlightsFromCriteria(FlightResource.flightsFromCriteria criteria) {
+		String departure_aerodrome_ = criteria.departure_aerodrome;
+		LocalDate departureDateTime_ = criteria.departureDate;
+		LocalDate arrivalDateTime_ = criteria.arrivalDate;
 
-		List<Flight> flights = null;
+		List<Flight> flights = new ArrayList<Flight>();
 		List<Flight> detached = new ArrayList<Flight>();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
 			Query q = pm.newQuery(Flight.class);
-			q.declareImports("import java.time.LocalDateTime");
+			q.declareImports("import java.time.LocalDate");
 
-			// q.declareParameters(
-			// "String departure_aerodrome_, LocalDateTime departureDateTime_, LocalDateTime
-			// arrivalDateTime_");
-			q.declareParameters("LocalDateTime departureDateTime_");
+			q.declareParameters("String departure_aerodrome_, LocalDate departureDate_, LocalDate arrivalDate_");
 
 			// selecting flights by three criteria
-			// q.setFilter(
-			// "departure_aerodrome == departure_aerodrome_ && departureDateTime ==
-			// departureDateTime_ && arrivalDateTime == arrivalDateTime_ ");
-			q.setFilter("departureDateTime == departureDateTime_");
+			q.setFilter(
+					"departure_aerodrome == departure_aerodrome_ && departureDate == departureDate_ && arrivalDate == arrivalDate_ ");
 
-			// flights = (List<Flight>) q.execute(departure_aerodrome_, departureDateTime_,
-			// arrivalDateTime_);
-			flights = (List<Flight>) q.execute(departureDateTime_);
+			flights = (List<Flight>) q.execute(departure_aerodrome_, departureDateTime_, arrivalDateTime_);
 			detached = (List<Flight>) pm.detachCopyAll(flights);
 
 			tx.commit();
@@ -101,39 +92,67 @@ public class FlightDaoImpl implements FlightDao {
 		return detached;
 	}
 
-//HASSNA :
+	@SuppressWarnings("unchecked")
+	public List<Flight> getFlightsFromCriteria(String departure_aerodrome_, LocalDate departureDateTime__,
+			LocalDate arrivalDateTime__) {
 
-	public List<Flight> getFlightsFromCriteria(FlightResource.flightsFromCriteria flights) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		// Transforming LocalDates to SQL date that we are able to stored in DB
+		Date departureDateTime_ = Date.valueOf(departureDateTime__);
+		Date arrivalDateTime_ = Date.valueOf(arrivalDateTime__);
 
-	/**
-	 * Editing flight
-	 */
-	public void editFlight(int flightId) {
-		// TODO Auto-generated method stub
-
-		Flight flight = null;
-		Flight detached = null;
+		List<Flight> flights = new ArrayList<Flight>();
+		List<Flight> detached = new ArrayList<Flight>();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
+			Query q = pm.newQuery(Flight.class);
+			q.declareImports("import java.sql.Date");
 
-			int flightId = newFlight.getId();
+			q.declareParameters("String departure_aerodrome_, Date departureDate_, Date arrivalDate_");
+
+			// selecting flights by three criteria
+			q.setFilter(
+					"departure_aerodrome == departure_aerodrome_ && departureDate == departureDate_ && arrivalDate == arrivalDate_ ");
+
+			flights = (List<Flight>) q.execute(departure_aerodrome_, departureDateTime_, arrivalDateTime_);
+			detached = (List<Flight>) pm.detachCopyAll(flights);
+
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return detached;
+	}
+
+	/**
+	 * Editing flight: replace the flight with same id as newFlight by newFlight Add
+	 * new flight if there is no flight at given Id
+	 * 
+	 */
+	public void editFlight(Flight newFlight) {
+		int flightId = newFlight.getId();
+		Flight flight = null;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			// searching flight with the name id as newFlight
 			Query q = pm.newQuery(Flight.class);
 			q.declareParameters("int flightId");
 			q.setFilter("id == flightId");
+			q.setUnique(true);
 
-			List<Flight> list = (List<Flight>) q.execute(flightId);
-			if (list.size() != 0) {
-				flight = list.get(0);
-			}
+			flight = (Flight) q.execute(flightId);
 
-			detached = pm.detachCopy(flight);
+			// deleting this flight
+			pm.deletePersistent(flight);
 
-			pm.makePersistent(flight);
+			// replacing with newFlight (probably with different parameters
+			pm.makePersistent(newFlight);
 
 			tx.commit();
 		} finally {
@@ -156,6 +175,7 @@ public class FlightDaoImpl implements FlightDao {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		int flightId = flight.getId();
+		;
 		try {
 			tx.begin();
 
@@ -227,6 +247,35 @@ public class FlightDaoImpl implements FlightDao {
 			pm.close();
 		}
 
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Flight> clearDB() {
+
+		List<Flight> flights = null;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+
+		try {
+			tx.begin();
+
+			Query q = pm.newQuery(Flight.class);
+
+			flights = (List<Flight>) q.execute();
+			pm.deletePersistentAll(flights);
+
+			tx.commit();
+
+		}
+
+		finally {
+
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return flights;
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.flight_sharing_interface.jetty_jersey.dao;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.flight_sharing_interface.jetty_jersey.dao.objects.Flight;
@@ -20,10 +21,13 @@ public interface FlightDao {
 	 */
 	List<Flight> getFlightsFromCriteria(FlightResource.flightsFromCriteria flights);
 
+	List<Flight> getFlightsFromCriteria(String departure_aerodrome_, LocalDate departureDateTime_,
+			LocalDate arrivalDateTime_);
+
 	/**
-	 * @param flightID edit information of a specific flight (from its ID)
+	 * replace by newFlight the flight stored with the id given in newFlight
 	 */
-	void editFlight(int flightId);
+	void editFlight(Flight newFlight);
 
 	/**
 	 * @param flightID //Add a flight in the database by the pilot
@@ -37,5 +41,7 @@ public interface FlightDao {
 	void deleteFlight(int flightId);
 
 	int addFlight(Flight flight);
+
+	List<Flight> clearDB();
 
 }

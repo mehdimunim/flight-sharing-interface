@@ -1,6 +1,9 @@
 package com.flight_sharing_interface.jetty_jersey.dao;
 
+import java.util.List;
+
 import com.flight_sharing_interface.jetty_jersey.dao.objects.Flight;
+import com.flight_sharing_interface.jetty_jersey.dao.objects.Pilot;
 
 public interface PilotDao {
 
@@ -26,5 +29,13 @@ public interface PilotDao {
 	 */
 
 	// boolean isAcceptedReservation(Reservation reservation);
+
+	List<Flight> getPlannedFlights(int pilotId);
+
+	void register(Pilot pilot);
+
+	Pilot loging(int pilotId);
+
+	List<Pilot> clearDB();
 
 }

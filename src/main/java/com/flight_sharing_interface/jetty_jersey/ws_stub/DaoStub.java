@@ -10,7 +10,7 @@ import com.flight_sharing_interface.jetty_jersey.dao.objects.Booking;
 import com.flight_sharing_interface.jetty_jersey.dao.objects.Flight;
 import com.flight_sharing_interface.jetty_jersey.dao.objects.Passenger;
 
-public class DAO {
+public class DaoStub {
 
 	/////////////////// FLIGHT///////////////////////////
 

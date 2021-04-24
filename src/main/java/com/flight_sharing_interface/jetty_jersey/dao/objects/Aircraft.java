@@ -3,7 +3,6 @@ package com.flight_sharing_interface.jetty_jersey.dao.objects;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
@@ -12,8 +11,7 @@ import javax.jdo.annotations.PrimaryKey;
 public class Aircraft {
 
 	@PrimaryKey
-	@Persistent(valueStrategy = IdGeneratorStrategy.NATIVE)
-	protected long id = 0;
+	protected int id = 0;
 
 	@Persistent(defaultFetchGroup = "true")
 	protected List<Aircraft> aircrafts = null;
@@ -28,7 +26,7 @@ public class Aircraft {
 		this.model = model;
 	}
 
-	public Aircraft(long id, int numberOfPlaces, String model, int flightHours, String owner) {
+	public Aircraft(int id, int numberOfPlaces, String model, int flightHours, String owner) {
 		this.id = id;
 		this.numberOfPlaces = numberOfPlaces;
 		this.model = model;
@@ -36,11 +34,11 @@ public class Aircraft {
 		this.owner = owner;
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

@@ -23,11 +23,11 @@ public interface AircraftDao {
 	 * @param aircraftId
 	 * @return information of a specific aircraft (from its ID)
 	 */
-	Aircraft getAircraftInfo(long aircraftId);
+	Aircraft getAircraftInfo(int aircraftId);
 
 	/**
 	 * @param aircraft Add a flight in the database
 	 */
-	long addAircraftInfo(Aircraft aircraft);
+	void addAircraftInfo(Aircraft newAircraft);
 
 }
