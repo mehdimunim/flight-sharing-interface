@@ -36,7 +36,7 @@ public interface PassengerDao {
 	 * @param passenger
 	 */
 
-	Passenger loging(int passengerId);
+	Passenger login(int passengerId);
 
 	List<Passenger> clearDB();
 

@@ -39,11 +39,11 @@ public class PassengerDaoImplTest {
 	@Test
 	public void loggingTest() {
 
-		Passenger outputPassenger = dao.loging(100);
+		Passenger outputPassenger = dao.login(100);
 
 		Assert.assertEquals(outputPassenger.getFirst_name(), "Jim");
 
-		Passenger nullPassenger = dao.loging(1);
+		Passenger nullPassenger = dao.login(1);
 
 		Assert.assertNull(nullPassenger);
 

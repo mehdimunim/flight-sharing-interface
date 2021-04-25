@@ -43,7 +43,7 @@ public class PilotDaoImpl implements PilotDao {
 
 	}
 
-	public Pilot loging(int pilotId) {
+	public Pilot login(int pilotId) {
 
 		Pilot pilot;
 		Pilot detached;

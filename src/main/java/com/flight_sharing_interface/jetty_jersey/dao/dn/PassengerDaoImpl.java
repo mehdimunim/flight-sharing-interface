@@ -149,7 +149,7 @@ public class PassengerDaoImpl implements PassengerDao {
 	 * 
 	 */
 
-	public Passenger loging(int passengerId) {
+	public Passenger login(int passengerId) {
 
 		Passenger passenger;
 		Passenger detached;

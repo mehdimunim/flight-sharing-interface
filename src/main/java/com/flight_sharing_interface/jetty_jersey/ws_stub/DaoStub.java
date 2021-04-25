@@ -79,7 +79,7 @@ public class DaoStub {
 
 	}
 
-	public void loging(Passenger passenger) {
+	public void login(Passenger passenger) {
 		// TODO Auto-generated method stub
 
 	}

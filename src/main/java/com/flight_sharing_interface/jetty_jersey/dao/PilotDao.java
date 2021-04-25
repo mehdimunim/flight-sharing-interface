@@ -34,7 +34,7 @@ public interface PilotDao {
 
 	void register(Pilot pilot);
 
-	Pilot loging(int pilotId);
+	Pilot login(int pilotId);
 
 	List<Pilot> clearDB();
 
