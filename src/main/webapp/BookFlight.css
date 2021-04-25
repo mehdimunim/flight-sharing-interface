@@ -3,69 +3,14 @@
 	padding: 0;
 	margin: 0;
 }
-.wrapper{
+body{
 	background: url(f2.jpg) no-repeat;
 	background-size: cover;
 	background-position: center;
-	height: 100vh;
+
 } 
 
-.container {
-	width: 360px;
-	margin-left: 300px;;
-	padding: 6px;
-	position:fixed;
-	margin-top:25px;
 
-  }
-  
-  
-  .search-container {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: flex-start;
-	align-content: stretch;
-	align-items: flex-start;
-  }
-  
-  input {
-	min-width:20px;
-	padding: 15px;
-	border: 1px solid #666;
-	height: 5px;
-  }
-  
-  .button {
-	padding: 11px;
-	min-width:20px;
-	background: rgb(0, 0, 0);
-	color: #fff;
-	border:1px solid #fff;
-  }
-  
-  input {
-	  order: 0;
-	  align-self: auto;  
-  }
-  
-  .search {
-	flex: 2 1 auto;
-  }
-  
-  .date-from {
-	flex: 1 1 auto;
-  }
-  
-  .date-to {
-	flex: 1 1 auto;
-  }
-  
-  .button {
-	  order: 4;
-	  flex: 0 1 auto;
-	  align-self: auto;
-  }
 .navbar{
 	background-size:cover;
 	position: relative;
@@ -153,4 +98,47 @@
 }
 .buttons button:hover{
 	background: #cc0000;
+}
+
+
+#sailorTableArea{
+    margin-top: 2cm;
+    max-height: 400px;
+    overflow-x: auto;
+    overflow-y: auto;
+    margin-left: 2cm;
+    border-collapse: collapse;
+}
+#sailorTable{
+    white-space: nowrap;
+}
+tbody {
+    display:block;
+    height:300px;
+    overflow:auto;
+}
+thead {
+    display:table;
+    width:1000px;
+    table-layout:fixed;
+    background-color: grey;
+    font-size:initial;
+    font-family:sans-serif;
+    text-align: left;
+    padding: 8px;
+    border: 1px solid #ddd;
+    color: white;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+tbody tr{
+    display:table;
+    width:1000px;
+    table-layout:fixed;
+    font-size:unset;
+    text-align: left;
+    padding: 8px;
+    border: 1px solid #ddd;
+    color:white
 }
