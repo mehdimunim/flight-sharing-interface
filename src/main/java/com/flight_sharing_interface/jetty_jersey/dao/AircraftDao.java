@@ -1,33 +1,22 @@
 package com.flight_sharing_interface.jetty_jersey.dao;
 
-import java.util.List;
-
 import com.flight_sharing_interface.jetty_jersey.dao.objects.Aircraft;
 
 public interface AircraftDao {
 
 	/**
-	 * Add a nes action to the database
-	 * 
-	 * @param action
+	 * Add a specific aircraft in DB
 	 */
 	void addAircraft(Aircraft aircraft);
 
 	/**
-	 * @param username
-	 * @return the list of actions assigned to a specific user.
+	 * Fetch an aircraft from DB with its id
 	 */
-	List<Aircraft> getAircrafts(String username);
+	Aircraft getAircraft(long aircraftId);
 
 	/**
-	 * @param aircraftId
-	 * @return information of a specific aircraft (from its ID)
+	 * Delete an aircraft
 	 */
-	Aircraft getAircraftInfo(long aircraftId);
-
-	/**
-	 * @param aircraft Add a flight in the database
-	 */
-	long addAircraftInfo(Aircraft aircraft);
+	void deleteAircraft(long aircraftId);
 
 }

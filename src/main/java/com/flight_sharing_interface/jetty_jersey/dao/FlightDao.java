@@ -1,47 +1,83 @@
 package com.flight_sharing_interface.jetty_jersey.dao;
 
-import java.time.LocalDate;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 
 import com.flight_sharing_interface.jetty_jersey.dao.objects.Flight;
-import com.flight_sharing_interface.jetty_jersey.ws.FlightResource;
 
+/**
+ * Define methods to access to Flight Table
+ * 
+ * @author Mehdi
+ */
 public interface FlightDao {
 
-	/**
-	 * @param flightId
-	 * @return information of a specific flight (from its ID)
-	 */
-	Flight getFlightInfo(int flightId);
+	// METHOD TO FETCH FLIGHTS
 
 	/**
-	 * @param Flight
-	 * @return returns flights based on specific criteria (departure aerodrome,
-	 *         destination_aerodrome, desired period (departure and arrival date))
+	 * Fetch flight from DB with the aircraftId, departure date and time
 	 */
-	List<Flight> getFlightsFromCriteria(FlightResource.flightsFromCriteria flights);
+	Flight getFlight(long aircraftId, Date departureDate, Time departureTime);
 
-	List<Flight> getFlightsFromCriteria(String departure_aerodrome_, LocalDate departureDateTime_,
-			LocalDate arrivalDateTime_);
+	/**
+	 * Get all flights
+	 */
 
+	List<Flight> getAllFlights();
+
+	/**
+	 * Get flights leaving at a given departure place
+	 */
+
+	List<Flight> getFlightsWithDeparture(String departureAerodrome);
+
+	/**
+	 * Get flights leaving at a given date and time
+	 */
+
+	List<Flight> getFlightsWithDateTime(Date departureDate, Time departureTime);
+
+	/**
+	 * Get flights with the given meeting place
+	 */
+
+	List<Flight> getFlightsWithMeetingPlace(String meetingPlace);
+
+	/**
+	 * Get flights planned for the given pilot
+	 */
+	List<Flight> getFlightsPlanned(long pilotId);
+
+	// METHOD TO ADD FLIGHT
+	/**
+	 * Add flight to DB
+	 */
+	long addFlight(Flight flight);
+
+	// METHOD TO MODIFY FLIGHT
 	/**
 	 * replace by newFlight the flight stored with the id given in newFlight
 	 */
 	void editFlight(Flight newFlight);
 
-	/**
-	 * @param flightID //Add a flight in the database by the pilot
-	 */
-	// void addFlight(int pilotId);
+	// METHODS TO DELETE FLIGHTS
 
 	/**
-	 * @param flightID //Delete a specific flight (from its ID)
-	 * @return
+	 * Delete specific flight
 	 */
-	void deleteFlight(int flightId);
+	void deleteFlight(long aircraftId, Date departureDate, Time departureTime);
 
-	int addFlight(Flight flight);
+	/**
+	 * Delete all flights planned with the given aircraft
+	 */
+	void deleteFlightsWithAircraft(long aircraftId);
 
-	List<Flight> clearDB();
+	// OTHER
+	/**
+	 * Get available places in the given flight
+	 */
+
+	int getAvailablePlaces(long aircraftId, Date departureDate, Time departureTime);
 
 }

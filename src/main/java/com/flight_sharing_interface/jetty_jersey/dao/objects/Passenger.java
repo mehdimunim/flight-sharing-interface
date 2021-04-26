@@ -1,5 +1,7 @@
 package com.flight_sharing_interface.jetty_jersey.dao.objects;
 
+import java.sql.Date;
+
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -14,7 +16,7 @@ public class Passenger extends User {
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
 	private long passengerId;
 
-	public Passenger(String firstName, String lastName, String civilStatut, String birthday, String email,
+	public Passenger(String firstName, String lastName, String civilStatut, Date birthday, String email,
 			int passengeId) {
 		this.firstName = firstName;
 		this.lastName = lastName;

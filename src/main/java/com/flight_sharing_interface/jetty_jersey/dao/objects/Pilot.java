@@ -1,5 +1,7 @@
 package com.flight_sharing_interface.jetty_jersey.dao.objects;
 
+import java.sql.Date;
+
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -15,7 +17,7 @@ public class Pilot extends User {
 	private String experience;
 	private int numberflightHour;
 
-	public Pilot(String firstName, String lastName, String civilStatut, String birthday, String email, long pilotId,
+	public Pilot(String firstName, String lastName, String civilStatut, Date birthday, String email, long pilotId,
 			String qualifications, String experience, int numberflightHour) {
 		this.firstName = firstName;
 		this.lastName = lastName;

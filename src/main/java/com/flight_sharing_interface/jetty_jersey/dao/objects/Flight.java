@@ -2,8 +2,6 @@ package com.flight_sharing_interface.jetty_jersey.dao.objects;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +9,16 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+/**
+ * 
+ * A flight is defined by an aircraft (aircraft id) leaving at given departure
+ * date and time
+ * 
+ * We assumed that a flight was done by one and only one pilot
+ * 
+ * @author Mehdi
+ *
+ */
 @PersistenceCapable
 public class Flight {
 
@@ -36,17 +44,16 @@ public class Flight {
 	@Persistent(defaultFetchGroup = "true")
 	protected List<Flight> flights = null;
 
-	public Flight(int aircraftId, LocalDate departureDate, LocalTime departureTime, LocalDate arrivalDate,
-			LocalTime arrivalTime, String departureAerodrome, String arrivalAerodrome, double price,
-			String meetingPlace, int pilotId) {
+	public Flight(int aircraftId, Date departureDate, Time departureTime, Date arrivalDate, Time arrivalTime,
+			String departureAerodrome, String arrivalAerodrome, double price, String meetingPlace, int pilotId) {
 
 		this.aircraftId = aircraftId;
 
-		this.departureDate = Date.valueOf(departureDate);
-		this.departureTime = Time.valueOf(departureTime);
+		this.departureDate = departureDate;
+		this.departureTime = departureTime;
 
-		this.arrivalDate = Date.valueOf(arrivalDate);
-		this.arrivalTime = Time.valueOf(arrivalTime);
+		this.arrivalDate = arrivalDate;
+		this.arrivalTime = arrivalTime;
 
 		this.departureAerodrome = departureAerodrome;
 		this.arrivalAerodrome = arrivalAerodrome;
@@ -96,36 +103,36 @@ public class Flight {
 		this.arrivalAerodrome = arrivalAerodrome;
 	}
 
-	public LocalDate getDepartureDate() {
-		return departureDate.toLocalDate();
+	public Date getDepartureDate() {
+		return departureDate;
 	}
 
-	public void setDepartureDate(LocalDate departureDate) {
-		this.departureDate = Date.valueOf(departureDate);
+	public void setDepartureDate(Date departureDate) {
+		this.departureDate = departureDate;
 	}
 
-	public LocalTime getDepartureTime() {
-		return departureTime.toLocalTime();
+	public Time getDepartureTime() {
+		return departureTime;
 	}
 
-	public void setDepartureTime(LocalTime departureTime) {
-		this.departureTime = Time.valueOf(departureTime);
+	public void setDepartureTime(Time departureTime) {
+		this.departureTime = departureTime;
 	}
 
-	public LocalDate getArrivalDate() {
-		return arrivalDate.toLocalDate();
+	public Date getArrivalDate() {
+		return arrivalDate;
 	}
 
-	public void setArrivalDate(LocalDate arrivalDate) {
-		this.arrivalDate = Date.valueOf(arrivalDate);
+	public void setArrivalDate(Date arrivalDate) {
+		this.arrivalDate = arrivalDate;
 	}
 
-	public LocalTime getArrivalTime() {
-		return arrivalTime.toLocalTime();
+	public Time getArrivalTime() {
+		return arrivalTime;
 	}
 
-	public void setArrivalTime(LocalTime arrivalTime) {
-		this.arrivalTime = Time.valueOf(arrivalTime);
+	public void setArrivalTime(Time arrivalTime) {
+		this.arrivalTime = arrivalTime;
 	}
 
 	public Flight() {

@@ -1,6 +1,7 @@
-package com.flight_sharing_interface.jetty_jersey.dao.dn;
+package com.flight_sharing_interface.jetty_jersey.dao_impl;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,25 +24,56 @@ public class FlightDaoImpl implements FlightDao {
 		this.pmf = pmf;
 	}
 
-	// TODO: Superclass DAOImpl where the DB can be deleted
-	/**
-	 * Getting the flights corresponding to the given flightId
-	 */
-	public Flight getFlightInfo(int flightId) {
+	// METHOD TO FETCH FLIGHTS
 
-		Flight flight = null;
-		Flight detached = null;
+	/**
+	 * Fetch flight from DB, with aircraftId, departure date and time
+	 */
+
+	public Flight getFlight(long aircraftId_, Date departureDate_, Time departureTime_) {
+
+		Flight flight;
+		Flight detached;
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
 			Query q = pm.newQuery(Flight.class);
-			q.declareParameters("int flightId");
-			q.setFilter("id == flightId");
+			q.declareImports("java.sql.Date, java.sql.Time");
+			q.declareParameters("long aircraftId_, Date departureDate_, Time departureTime_ ");
+			q.setFilter(
+					"aircraftId == aircraftId_ && departureDate == departureDate_ && departureTime == departureTime_ ");
 			q.setUnique(true);
 
-			flight = (Flight) q.execute(flightId);
+			flight = (Flight) q.execute(aircraftId_, departureDate_, departureTime_);
 			detached = pm.detachCopy(flight);
+
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return detached;
+	}
+
+	/**
+	 * Get all flights
+	 */
+
+	@SuppressWarnings("unchecked")
+	public List<Flight> getAllFlights() {
+
+		List<Flight> flights;
+		List<Flight> detached;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			Query q = pm.newQuery(Flight.class);
+			flights = (List<Flight>) q.execute();
+			detached = pm.detachCopy(flights);
 
 			tx.commit();
 		} finally {

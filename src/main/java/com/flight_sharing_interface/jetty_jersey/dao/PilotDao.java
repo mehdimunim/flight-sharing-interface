@@ -1,41 +1,34 @@
 package com.flight_sharing_interface.jetty_jersey.dao;
 
-import java.util.List;
-
-import com.flight_sharing_interface.jetty_jersey.dao.objects.Flight;
 import com.flight_sharing_interface.jetty_jersey.dao.objects.Pilot;
 
+/**
+ * Defines methods to access and modify Pilot Table
+ * 
+ * @author Mehdi
+ *
+ */
 public interface PilotDao {
 
 	/**
-	 * @param flight @ add a flight
-	 */
-	void putFlight(Flight flight);
-
-	/**
-	 * @ modify or update a flight information
+	 * Add a pilot to DB
 	 * 
+	 * @param pilot
 	 */
-	void postFlightInformation(Flight flight);
+	void addPilot(Pilot pilot);
 
 	/**
-	 * @param flight
-	 * @delete a flight
+	 * Fetch a pilot from DB
+	 * 
+	 * 
+	 * @param pilotId
+	 * @return
 	 */
-	void deleteFlight(int flightId);
+	Pilot getPilot(long pilotId);
 
 	/**
-	 * @param reservation @ accept or cancel a reservation
+	 * Delete pilot from DB
 	 */
-
-	// boolean isAcceptedReservation(Reservation reservation);
-
-	List<Flight> getPlannedFlights(int pilotId);
-
-	void register(Pilot pilot);
-
-	Pilot login(int pilotId);
-
-	List<Pilot> clearDB();
+	void deletePilot(long pilotId);
 
 }

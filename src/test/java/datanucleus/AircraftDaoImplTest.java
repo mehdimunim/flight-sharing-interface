@@ -8,8 +8,8 @@ import org.junit.Test;
 
 import com.flight_sharing_interface.jetty_jersey.dao.AircraftDao;
 import com.flight_sharing_interface.jetty_jersey.dao.DAO;
-import com.flight_sharing_interface.jetty_jersey.dao.dn.AircraftDaoImpl;
 import com.flight_sharing_interface.jetty_jersey.dao.objects.Aircraft;
+import com.flight_sharing_interface.jetty_jersey.dao_impl.AircraftDaoImpl;
 
 public class AircraftDaoImplTest {
 

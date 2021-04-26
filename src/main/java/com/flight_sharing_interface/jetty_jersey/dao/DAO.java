@@ -3,15 +3,14 @@ package com.flight_sharing_interface.jetty_jersey.dao;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManagerFactory;
 
-import com.flight_sharing_interface.jetty_jersey.dao.dn.AircraftDaoImpl;
-import com.flight_sharing_interface.jetty_jersey.dao.dn.FlightDaoImpl;
-import com.flight_sharing_interface.jetty_jersey.dao.dn.PassengerDaoImpl;
-import com.flight_sharing_interface.jetty_jersey.dao.dn.PilotDaoImpl;
+import com.flight_sharing_interface.jetty_jersey.dao_impl.AircraftDaoImpl;
+import com.flight_sharing_interface.jetty_jersey.dao_impl.FlightDaoImpl;
+import com.flight_sharing_interface.jetty_jersey.dao_impl.PassengerDaoImpl;
+import com.flight_sharing_interface.jetty_jersey.dao_impl.PilotDaoImpl;
 
 /**
  * 
- * @author Mehdi Singleton to generate the correct DAO (Flight, Passenger,
- *         Pilot, Aircraft)
+ * Singleton to generate the correct DAO (Flight, Passenger, Pilot, Aircraft)
  * 
  */
 public class DAO {

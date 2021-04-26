@@ -1,5 +1,7 @@
 package com.flight_sharing_interface.jetty_jersey.dao.objects;
 
+import java.sql.Date;
+
 /**
  * 
  * 
@@ -11,7 +13,7 @@ public abstract class User {
 	String firstName;
 	String lastName;
 	String civilStatut;
-	String birthday;
+	Date birthday;
 	String email;
 
 	public String getFirstName() {
@@ -38,11 +40,11 @@ public abstract class User {
 		this.civilStatut = civilStatut;
 	}
 
-	public String getBirthday() {
+	public Date getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(String birthday) {
+	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
 

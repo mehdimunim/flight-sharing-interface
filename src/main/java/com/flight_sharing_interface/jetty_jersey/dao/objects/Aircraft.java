@@ -31,9 +31,10 @@ public class Aircraft {
 	@Persistent(defaultFetchGroup = "true")
 	protected List<Aircraft> aircrafts = null;
 
-	public Aircraft(String model) {
-		super();
+	public Aircraft(String model, String owner, int numberOfPlaces) {
 		this.model = model;
+		this.owner = owner;
+		this.numberOfPlaces = numberOfPlaces;
 	}
 
 	public Aircraft(long id, int numberOfPlaces, String model, int flightHours, String owner) {

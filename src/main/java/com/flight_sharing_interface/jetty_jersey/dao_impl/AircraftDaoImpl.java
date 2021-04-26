@@ -1,4 +1,4 @@
-package com.flight_sharing_interface.jetty_jersey.dao.dn;
+package com.flight_sharing_interface.jetty_jersey.dao_impl;
 
 import java.util.ArrayList;
 import java.util.List;

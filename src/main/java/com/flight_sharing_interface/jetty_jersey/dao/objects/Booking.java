@@ -14,13 +14,20 @@ import javax.jdo.annotations.PrimaryKey;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
+/**
+ * Represents a flight (aircraft id, departure date and time) booked by a
+ * passenger (passenger id)
+ * 
+ * @author Mehdi
+ *
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @PersistenceCapable
 public class Booking {
 
-	public Booking(long pilotId, long aircraftId, Timestamp timestamp, LocalDate departureDate,
+	public Booking(long passengerId, long aircraftId, Timestamp timestamp, LocalDate departureDate,
 			LocalTime departureTime) {
-		this.pilotId = pilotId;
+		this.passengerId = passengerId;
 		this.aircraftId = aircraftId;
 		this.timestamp = timestamp;
 
@@ -28,7 +35,7 @@ public class Booking {
 		this.departureTime = Time.valueOf(departureTime);
 	}
 
-	long pilotId;
+	long passengerId;
 	long aircraftId;
 
 	@PrimaryKey
@@ -37,11 +44,11 @@ public class Booking {
 	Time departureTime;
 
 	public long getPilotId() {
-		return pilotId;
+		return passengerId;
 	}
 
-	public void setPilotId(long pilotId) {
-		this.pilotId = pilotId;
+	public void setPilotId(long passengerId) {
+		this.passengerId = passengerId;
 	}
 
 	public long getAircraftId() {

@@ -9,8 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.flight_sharing_interface.jetty_jersey.dao.PassengerDao;
-import com.flight_sharing_interface.jetty_jersey.dao.dn.PassengerDaoImpl;
 import com.flight_sharing_interface.jetty_jersey.dao.objects.Passenger;
+import com.flight_sharing_interface.jetty_jersey.dao_impl.PassengerDaoImpl;
 
 public class PassengerDaoImplTest {
 	PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("flight-sharing-interface");
