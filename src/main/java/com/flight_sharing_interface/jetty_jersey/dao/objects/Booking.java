@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.PrimaryKey;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
@@ -29,6 +30,8 @@ public class Booking {
 
 	long pilotId;
 	long aircraftId;
+
+	@PrimaryKey
 	Timestamp timestamp;
 	Date departureDate;
 	Time departureTime;

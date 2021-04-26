@@ -9,14 +9,18 @@ import java.util.List;
 
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable
 public class Flight {
 
+	@PrimaryKey
 	private int aircraftId;
 	private int pilotId;
 
+	@PrimaryKey
 	private Date departureDate;
+	@PrimaryKey
 	private Time departureTime;
 
 	private Date arrivalDate;
