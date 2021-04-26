@@ -8,20 +8,28 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+/**
+ * 
+ * An aircraft is an aggregate of attribute that will be used for defining
+ * flights (1 - n relationship)
+ *
+ */
+
 @PersistenceCapable
 public class Aircraft {
 
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.NATIVE)
-	protected long id = 0;
+	protected long AircraftId = 0;
 
+	// Aircraft Information
+	private String model;
+	private String owner;
+	private int numberOfPlaces;
+
+	// Defining children seems to be useful for postman
 	@Persistent(defaultFetchGroup = "true")
 	protected List<Aircraft> aircrafts = null;
-
-	protected int numberOfPlaces;
-	protected String model;
-	protected int flightHours;
-	protected String owner;
 
 	public Aircraft(String model) {
 		super();
@@ -29,19 +37,18 @@ public class Aircraft {
 	}
 
 	public Aircraft(long id, int numberOfPlaces, String model, int flightHours, String owner) {
-		this.id = id;
+		this.AircraftId = id;
 		this.numberOfPlaces = numberOfPlaces;
 		this.model = model;
-		this.flightHours = flightHours;
 		this.owner = owner;
 	}
 
 	public long getId() {
-		return id;
+		return AircraftId;
 	}
 
 	public void setId(long id) {
-		this.id = id;
+		this.AircraftId = id;
 	}
 
 	public int getNumberOfPlaces() {
@@ -58,14 +65,6 @@ public class Aircraft {
 
 	public void setModel(String model) {
 		this.model = model;
-	}
-
-	public int getFlightHours() {
-		return flightHours;
-	}
-
-	public void setFlightHours(int flightHours) {
-		this.flightHours = flightHours;
 	}
 
 	public String getOwner() {

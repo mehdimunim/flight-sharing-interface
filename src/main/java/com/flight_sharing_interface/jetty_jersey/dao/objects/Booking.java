@@ -3,44 +3,74 @@
  */
 package com.flight_sharing_interface.jetty_jersey.dao.objects;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
-import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Persistent;
-import javax.jdo.annotations.PrimaryKey;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
-/**
- * @author DANSO
- *
- */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @PersistenceCapable
 public class Booking {
 
-	@PrimaryKey
-	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
-	public long id;
+	public Booking(long pilotId, long aircraftId, Timestamp timestamp, LocalDate departureDate,
+			LocalTime departureTime) {
+		this.pilotId = pilotId;
+		this.aircraftId = aircraftId;
+		this.timestamp = timestamp;
 
-	public LocalDateTime date_time;
-	public Passenger passenger;
-
-	/**
-	 * @param id
-	 * @param date_time
-	 * @param passenger
-	 */
-	public Booking(int id, LocalDateTime date_time, Passenger passenger) {
-		this.id = id;
-		this.date_time = date_time;
-		this.passenger = passenger;
+		this.departureDate = Date.valueOf(departureDate);
+		this.departureTime = Time.valueOf(departureTime);
 	}
 
-	public Booking() {
-		// TODO Auto-generated constructor stub
+	long pilotId;
+	long aircraftId;
+	Timestamp timestamp;
+	Date departureDate;
+	Time departureTime;
+
+	public long getPilotId() {
+		return pilotId;
+	}
+
+	public void setPilotId(long pilotId) {
+		this.pilotId = pilotId;
+	}
+
+	public long getAircraftId() {
+		return aircraftId;
+	}
+
+	public void setAircraftId(long aircraftId) {
+		this.aircraftId = aircraftId;
+	}
+
+	public Timestamp getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(Timestamp timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	public LocalDate getDepartureDate() {
+		return departureDate.toLocalDate();
+	}
+
+	public void setDepartureDate(LocalDate departureDate) {
+		this.departureDate = Date.valueOf(departureDate);
+	}
+
+	public LocalTime getDepartureTime() {
+		return departureTime.toLocalTime();
+	}
+
+	public void setDepartureTime(LocalTime departureTime) {
+		this.departureTime = Time.valueOf(departureTime);
 	}
 
 }

@@ -1,68 +1,63 @@
 package com.flight_sharing_interface.jetty_jersey.dao.objects;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
-import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable
 public class Flight {
 
-	@PrimaryKey
-	protected int id;
+	private int aircraftId;
+	private int pilotId;
 
+	private Date departureDate;
+	private Time departureTime;
+
+	private Date arrivalDate;
+	private Time arrivalTime;
+
+	private String departureAerodrome;
+	private String arrivalAerodrome;
+
+	private double price;
+	private String meetingPlace;
+
+	// Defining children seems to be useful for postman
 	@Persistent(defaultFetchGroup = "true")
 	protected List<Flight> flights = null;
 
-	public double price;
-	public String meeting_place;
-	public String departure_aerodrome;
-	public String destination_aerodrome;
-	public int availabePlaces;
-	public Pilot pilot;
-	public List<Passenger> passengers = new ArrayList<Passenger>();
-	@Persistent
-	public Date departureDate;
-	@Persistent
-	public Date arrivalDate;
+	public Flight(int aircraftId, LocalDate departureDate, LocalTime departureTime, LocalDate arrivalDate,
+			LocalTime arrivalTime, String departureAerodrome, String arrivalAerodrome, double price,
+			String meetingPlace, int pilotId) {
 
-	/**
-	 * @param price
-	 * @param meeting_place
-	 * @param departure_aerodrome
-	 * @param destination_aerodrome
-	 * @param id
-	 * @param availabePlaces
-	 * @param pilot
-	 * @param passengers
-	 * @param departureDateTime
-	 * @param arrivalDateTime
-	 */
-	public Flight(int id, double price, String meeting_place, String departure_aerodrome, String destination_aerodrome,
-			int availabePlaces, Pilot pilot, List<Passenger> passengers, LocalDate departureDate,
-			LocalDate arrivalDate) {
-		this.id = id;
-		this.price = price;
-		this.meeting_place = meeting_place;
-		this.departure_aerodrome = departure_aerodrome;
-		this.destination_aerodrome = destination_aerodrome;
-		this.availabePlaces = availabePlaces;
-		this.pilot = pilot;
-		this.passengers = passengers;
-		this.departureDate = Date.valueOf(arrivalDate);
+		this.aircraftId = aircraftId;
+
+		this.departureDate = Date.valueOf(departureDate);
+		this.departureTime = Time.valueOf(departureTime);
+
 		this.arrivalDate = Date.valueOf(arrivalDate);
+		this.arrivalTime = Time.valueOf(arrivalTime);
+
+		this.departureAerodrome = departureAerodrome;
+		this.arrivalAerodrome = arrivalAerodrome;
+		this.price = price;
+		this.meetingPlace = meetingPlace;
+
+		this.pilotId = pilotId;
 	}
 
 	public int getId() {
-		return id;
+		return aircraftId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setId(int aircraftId) {
+		this.aircraftId = aircraftId;
 	}
 
 	public double getPrice() {
@@ -73,52 +68,28 @@ public class Flight {
 		this.price = price;
 	}
 
-	public String getMeeting_place() {
-		return meeting_place;
+	public String getMeetingPlace() {
+		return meetingPlace;
 	}
 
-	public void setMeeting_place(String meeting_place) {
-		this.meeting_place = meeting_place;
+	public void setMeetingPlace(String meetingPlace) {
+		this.meetingPlace = meetingPlace;
 	}
 
-	public String getDeparture_aerodrome() {
-		return departure_aerodrome;
+	public String getDepartureAerodrome() {
+		return departureAerodrome;
 	}
 
-	public void setDeparture_aerodrome(String departure_aerodrome) {
-		this.departure_aerodrome = departure_aerodrome;
+	public void setDeparture_aerodrome(String departureAerodrome) {
+		this.departureAerodrome = departureAerodrome;
 	}
 
 	public String getDestination_aerodrome() {
-		return destination_aerodrome;
+		return arrivalAerodrome;
 	}
 
-	public void setDestination_aerodrome(String destination_aerodrome) {
-		this.destination_aerodrome = destination_aerodrome;
-	}
-
-	public int getAvailabePlaces() {
-		return availabePlaces;
-	}
-
-	public void setAvailabePlaces(int availabePlaces) {
-		this.availabePlaces = availabePlaces;
-	}
-
-	public Pilot getPilot() {
-		return pilot;
-	}
-
-	public void setPilot(Pilot pilot) {
-		this.pilot = pilot;
-	}
-
-	public List<Passenger> getPassengers() {
-		return passengers;
-	}
-
-	public void setPassengers(List<Passenger> passengers) {
-		this.passengers = passengers;
+	public void setDestination_aerodrome(String arrivalAerodrome) {
+		this.arrivalAerodrome = arrivalAerodrome;
 	}
 
 	public LocalDate getDepartureDate() {
@@ -129,12 +100,28 @@ public class Flight {
 		this.departureDate = Date.valueOf(departureDate);
 	}
 
+	public LocalTime getDepartureTime() {
+		return departureTime.toLocalTime();
+	}
+
+	public void setDepartureTime(LocalTime departureTime) {
+		this.departureTime = Time.valueOf(departureTime);
+	}
+
 	public LocalDate getArrivalDate() {
 		return arrivalDate.toLocalDate();
 	}
 
 	public void setArrivalDate(LocalDate arrivalDate) {
 		this.arrivalDate = Date.valueOf(arrivalDate);
+	}
+
+	public LocalTime getArrivalTime() {
+		return arrivalTime.toLocalTime();
+	}
+
+	public void setArrivalTime(LocalTime arrivalTime) {
+		this.arrivalTime = Time.valueOf(arrivalTime);
 	}
 
 	public Flight() {
@@ -148,6 +135,14 @@ public class Flight {
 
 	public void setFlights(List<Flight> flights) {
 		this.flights = flights;
+	}
+
+	public int getPilotId() {
+		return pilotId;
+	}
+
+	public void setPilotId(int pilotId) {
+		this.pilotId = pilotId;
 	}
 
 }
