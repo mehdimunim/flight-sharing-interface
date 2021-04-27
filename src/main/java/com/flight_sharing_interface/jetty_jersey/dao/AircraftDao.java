@@ -5,7 +5,7 @@ import com.flight_sharing_interface.jetty_jersey.dao.objects.Aircraft;
 public interface AircraftDao {
 
 	/**
-	 * Add a specific aircraft in DB
+	 * Add a specific aircraft to DB
 	 */
 	void addAircraft(Aircraft aircraft);
 

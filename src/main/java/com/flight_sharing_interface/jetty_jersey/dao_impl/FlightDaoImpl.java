@@ -10,6 +10,7 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 
 import com.flight_sharing_interface.jetty_jersey.dao.FlightDao;
+import com.flight_sharing_interface.jetty_jersey.dao.objects.Booking;
 import com.flight_sharing_interface.jetty_jersey.dao.objects.Flight;
 
 public class FlightDaoImpl implements FlightDao {
@@ -21,6 +22,30 @@ public class FlightDaoImpl implements FlightDao {
 	}
 
 	// METHOD TO FETCH FLIGHTS
+
+	/**
+	 * Fetch flight with its id
+	 */
+
+	public Flight getFlight(long flightId) {
+
+		Flight flight;
+		Flight detached;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			flight = pm.getObjectById(Flight.class, flightId);
+			detached = pm.detachCopy(flight);
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return detached;
+	}
 
 	/**
 	 * Fetch flight from DB, with aircraftId, departure date and time
@@ -145,7 +170,8 @@ public class FlightDaoImpl implements FlightDao {
 	 * Get flights with given meeting place
 	 */
 
-	public List<Flight> getFlightWithMeetingPlace(String meetingPlace_) {
+	@SuppressWarnings("unchecked")
+	public List<Flight> getFlightsWithMeetingPlace(String meetingPlace_) {
 		List<Flight> flights;
 		List<Flight> detached;
 		PersistenceManager pm = pmf.getPersistenceManager();
@@ -173,6 +199,7 @@ public class FlightDaoImpl implements FlightDao {
 	 * Get flights planned for the given pilot
 	 */
 
+	@SuppressWarnings("unchecked")
 	public List<Flight> getPlannedFlights(long pilotId_) {
 		List<Flight> flights;
 		List<Flight> detached;
@@ -206,9 +233,7 @@ public class FlightDaoImpl implements FlightDao {
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
-
 			flight = pm.makePersistent(flight);
-
 			tx.commit();
 		} finally {
 			if (tx.isActive()) {
@@ -233,16 +258,8 @@ public class FlightDaoImpl implements FlightDao {
 		try {
 			tx.begin();
 			// searching flight with the name id as newFlight
-			Query q = pm.newQuery(Flight.class);
-			q.declareParameters("long flightId");
-			q.setFilter("id == flightId");
-			q.setUnique(true);
-
-			flight = (Flight) q.execute(flightId);
-
-			// deleting this flight
+			flight = pm.getObjectById(Flight.class, flightId);
 			pm.deletePersistent(flight);
-
 			// replacing with newFlight (probably with different parameters
 			pm.makePersistent(newFlight);
 
@@ -257,36 +274,84 @@ public class FlightDaoImpl implements FlightDao {
 	}
 
 	/**
-	 * Deleting flight with flightId
+	 * Delete specific flight
 	 */
-	@SuppressWarnings("unchecked")
-	public void deleteFlight(int flightId) {
-
-		List<Flight> flights = null;
+	public void deleteFlight(long flightId) {
+		Flight flight;
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
-
 		try {
 			tx.begin();
-
-			Query q = pm.newQuery(Flight.class);
-			q.declareParameters("int flightId");
-			q.setFilter("id == flightId");
-
-			flights = (List<Flight>) q.execute(flightId);
-			pm.deletePersistentAll(flights);
-
+			flight = pm.getObjectById(Flight.class, flightId);
+			pm.deletePersistent(flight);
 			tx.commit();
 
-		}
-
-		finally {
+		} finally {
 
 			if (tx.isActive()) {
 				tx.rollback();
 			}
 			pm.close();
 		}
+
+	}
+
+	/**
+	 * Delete all flights planned with the given aircraft
+	 */
+
+	@SuppressWarnings("unchecked")
+	public void deleteFlightsWithAircraft(long aircraftId_) {
+
+		List<Flight> flights;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			Query q = pm.newQuery(Flight.class);
+			q.declareParameters("long aircraftId_");
+			q.setFilter("aircraftId == aircraftId_");
+			flights = (List<Flight>) q.execute(aircraftId_);
+			pm.deletePersistentAll(flights);
+			tx.commit();
+
+		} finally {
+
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+
+	}
+
+	/**
+	 * Get available places
+	 */
+	@SuppressWarnings("unchecked")
+	public int getAvailablePlaces(long flightId_) {
+		int availablePlaces;
+		List<Booking> bookings;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			Query q = pm.newQuery(Booking.class);
+			q.declareParameters("long flightId_");
+			q.setFilter("flightId == flightId_");
+			bookings = (List<Booking>) q.execute(flightId_);
+			// the number of available places is the number of bookings for the flight
+			availablePlaces = bookings.size();
+			tx.commit();
+
+		} finally {
+
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return availablePlaces;
 
 	}
 

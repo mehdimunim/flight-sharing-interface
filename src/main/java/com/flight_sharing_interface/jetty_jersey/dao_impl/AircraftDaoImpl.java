@@ -1,12 +1,7 @@
 package com.flight_sharing_interface.jetty_jersey.dao_impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
-import javax.jdo.Query;
 import javax.jdo.Transaction;
 
 import com.flight_sharing_interface.jetty_jersey.dao.AircraftDao;
@@ -22,40 +17,7 @@ public class AircraftDaoImpl implements AircraftDao {
 
 	/**
 	 * 
-	 * Get a list of aircrafts
-	 * 
-	 */
-
-	@SuppressWarnings("unchecked")
-	public List<Aircraft> getAircrafts(String username) {
-
-		List<Aircraft> actions = null;
-		List<Aircraft> detached = new ArrayList<Aircraft>();
-
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Transaction tx = pm.currentTransaction();
-		try {
-			tx.begin();
-			Query q = pm.newQuery(Aircraft.class);
-			q.declareParameters("String user");
-			q.setFilter("username == user");
-
-			actions = (List<Aircraft>) q.execute(username);
-			detached = (List<Aircraft>) pm.detachCopyAll(actions);
-
-			tx.commit();
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-			pm.close();
-		}
-		return detached;
-	}
-
-	/**
-	 * 
-	 * Adds an aircraft to the current fleet
+	 * Add a specific aircraft to DB
 	 * 
 	 */
 
@@ -75,39 +37,49 @@ public class AircraftDaoImpl implements AircraftDao {
 
 	}
 
-	public Aircraft getAircraftInfo(long aircraftId) {
+	/**
+	 * Fetch an aircraft from DB with its id
+	 */
 
+	public Aircraft getAircraft(long aircraftId) {
+		Aircraft aircraft;
+		Aircraft detached;
 		PersistenceManager pm = pmf.getPersistenceManager();
-		/**
-		 * 
-		 * Get an aircraft from the aircraft Id
-		 * 
-		 */
-
+		Transaction tx = pm.currentTransaction();
 		try {
-			Aircraft container = pm.getObjectById(Aircraft.class, aircraftId);
-			Aircraft detached = pm.detachCopy(container);
-
-			return detached;
-		} catch (JDOObjectNotFoundException e) {
-			return null;
-
+			tx.begin();
+			aircraft = pm.getObjectById(Aircraft.class, aircraftId);
+			detached = pm.detachCopy(aircraft);
+			tx.commit();
 		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return detached;
+
+	}
+
+	/**
+	 * Delete an aircraft
+	 */
+
+	public void deleteAircraft(long aircraftId) {
+		Aircraft aircraft;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			aircraft = pm.getObjectById(Aircraft.class, aircraftId);
+			pm.deletePersistent(aircraft);
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
 			pm.close();
 		}
 
 	}
-
-	public long addAircraftInfo(Aircraft aircraft) {
-
-		PersistenceManager pm = pmf.getPersistenceManager();
-
-		aircraft = pm.makePersistent(aircraft);
-		long aircraftId = aircraft.getId();
-		pm.close();
-
-		return aircraftId;
-
-	}
-
 }

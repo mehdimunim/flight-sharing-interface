@@ -72,7 +72,7 @@ public interface FlightDao {
 	/**
 	 * Delete specific flight
 	 */
-	void deleteFlight(long aircraftId, Date departureDate, Time departureTime);
+	void deleteFlight(long flightId);
 
 	/**
 	 * Delete all flights planned with the given aircraft
@@ -84,6 +84,6 @@ public interface FlightDao {
 	 * Get available places in the given flight
 	 */
 
-	int getAvailablePlaces(long aircraftId, Date departureDate, Time departureTime);
+	int getAvailablePlaces(long flightId);
 
 }
