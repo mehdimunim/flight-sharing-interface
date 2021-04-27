@@ -35,6 +35,9 @@ public class Pilot {
 		this.numberflightHour = numberflightHour;
 	}
 
+	public Pilot() {
+	}
+
 	public long getPilotId() {
 		return pilotId;
 	}

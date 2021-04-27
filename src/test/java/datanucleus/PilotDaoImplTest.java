@@ -2,42 +2,40 @@ package datanucleus;
 
 import java.util.List;
 
-import javax.jdo.JDOHelper;
-import javax.jdo.PersistenceManagerFactory;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.flight_sharing_interface.jetty_jersey.dao.DAO;
 import com.flight_sharing_interface.jetty_jersey.dao.PilotDao;
 import com.flight_sharing_interface.jetty_jersey.dao.objects.Flight;
 import com.flight_sharing_interface.jetty_jersey.dao.objects.Pilot;
-import com.flight_sharing_interface.jetty_jersey.dao_impl.PilotDaoImpl;
 
 public class PilotDaoImplTest {
-	PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("flight-sharing-interface");
-	PilotDao dao = new PilotDaoImpl(pmf);
+	PilotDao dao = DAO.getPilotDao();
 	Pilot pilot;
 
 	@Before
-	public void init() {
+	public void addPilotTest() {
 
 		pilot = new Pilot();
 
-		pilot.setId(1);
+		pilot.setFirstName("Mehdi");
+		pilot.setLastName("Munim");
+		pilot.setExperience("Hate planes except in video games");
+		pilot.setCivilStatut("Umm... let's skip this question...");
+		pilot.setQualifications("Biological Engineering");
+		pilot.setNumberflightHour(0);
 
-		pilot.setExperience("Infinity");
-		pilot.setFlightInformation("Heeeelo!");
-
-		dao.register(pilot);
+		dao.addPilot(pilot);
 
 	}
 
 	@After
-	public void clear() {
+	public void deletePilotTest() {
 
-		dao.clearDB();
+		dao.deletePilot(1);
 
 	}
 
