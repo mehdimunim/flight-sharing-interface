@@ -42,7 +42,6 @@ public class PilotDaoImpl implements PilotDao {
 	 */
 
 	public Pilot getPilot(long pilotId) {
-
 		Pilot pilot;
 		Pilot detached;
 		PersistenceManager pm = pmf.getPersistenceManager();

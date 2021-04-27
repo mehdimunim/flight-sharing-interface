@@ -1,5 +1,7 @@
 package datanucleus;
 
+import java.sql.Date;
+
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManagerFactory;
 
@@ -16,36 +18,37 @@ public class PassengerDaoImplTest {
 	PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("flight-sharing-interface");
 	PassengerDao dao = new PassengerDaoImpl(pmf);
 	Passenger passenger;
+	long id = 1;
 
 	@Before
-	public void register() {
-		passenger = new Passenger();
-		passenger.setId(100);
+	public void addPassengerTest() {
+		Date date = Date.valueOf("1999-05-03");
+		passenger = new Passenger("jim", "Cromwell", "widower", date, "jim");
+		passenger.setEmail("another email");
+		Assert.assertEquals(passenger.getFirstName(), "jim");
 
-		passenger.setFirst_name("Jim");
-		passenger.setLast_name("Cromwell");
-		passenger.setCivil_statut("widower");
-		passenger.setMail_adresse("jim.cromwell@gmail.com");
+		dao.addPassenger(passenger);
 
-		dao.register(passenger);
+		Assert.assertNotEquals(0, passenger.getPassengerId());
+		System.err.print(passenger.getPassengerId());
 
 	}
 
 	@After
-	public void clear() {
-		dao.clearDB();
+	public void deletePassengerTest() {
+		dao.deletePassenger(1);
 	}
 
 	@Test
-	public void loggingTest() {
+	public void getPassengerTest() {
 
-		Passenger outputPassenger = dao.login(100);
+		Passenger outputPassenger = dao.getPassenger(1);
 
-		Assert.assertEquals(outputPassenger.getFirst_name(), "Jim");
+		Assert.assertEquals(1, outputPassenger.getPassengerId());
 
-		Passenger nullPassenger = dao.login(1);
+		Assert.assertEquals("jim", outputPassenger.getFirstName());
 
-		Assert.assertNull(nullPassenger);
+		Assert.assertEquals("another email", outputPassenger.getEmail());
 
 	}
 

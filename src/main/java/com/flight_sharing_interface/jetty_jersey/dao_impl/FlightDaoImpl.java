@@ -273,6 +273,8 @@ public class FlightDaoImpl implements FlightDao {
 
 	}
 
+	// METHOD TO DELETE FLIGHTS
+
 	/**
 	 * Delete specific flight
 	 */
@@ -324,6 +326,8 @@ public class FlightDaoImpl implements FlightDao {
 		}
 
 	}
+
+	// OTHER METHODS
 
 	/**
 	 * Get available places

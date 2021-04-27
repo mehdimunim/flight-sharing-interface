@@ -4,6 +4,7 @@ import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManagerFactory;
 
 import com.flight_sharing_interface.jetty_jersey.dao_impl.AircraftDaoImpl;
+import com.flight_sharing_interface.jetty_jersey.dao_impl.BookingDaoImpl;
 import com.flight_sharing_interface.jetty_jersey.dao_impl.FlightDaoImpl;
 import com.flight_sharing_interface.jetty_jersey.dao_impl.PassengerDaoImpl;
 import com.flight_sharing_interface.jetty_jersey.dao_impl.PilotDaoImpl;
@@ -18,6 +19,7 @@ public class DAO {
 	private static PassengerDao passengerDAO = null;
 	private static PilotDao pilotDAO = null;
 	private static AircraftDao aircraftDAO = null;
+	private static BookingDao bookingDAO = null;
 	private static PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("flight-sharing-interface");
 
 	public static FlightDao getFlightDao() {
@@ -51,4 +53,13 @@ public class DAO {
 		}
 		return aircraftDAO;
 	}
+
+	public static BookingDao getBookingDao() {
+
+		if (bookingDAO == null) {
+			bookingDAO = new BookingDaoImpl(pmf);
+		}
+		return bookingDAO;
+	}
+
 }
