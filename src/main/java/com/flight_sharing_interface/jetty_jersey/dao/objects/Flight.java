@@ -2,6 +2,7 @@ package com.flight_sharing_interface.jetty_jersey.dao.objects;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +28,8 @@ public class Flight {
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
 	private long flightId;
 
-	private int aircraftId;
-	private int pilotId;
+	private long aircraftId;
+	private long pilotId;
 
 	private Date departureDate;
 	private Time departureTime;
@@ -47,12 +48,23 @@ public class Flight {
 	protected List<Flight> flights = null;
 
 	public Flight(int aircraftId, Date departureDate, Time departureTime, Date arrivalDate, Time arrivalTime,
-			String departureAerodrome, String arrivalAerodrome, double price, String meetingPlace, int pilotId) {
+			String departureAerodrome, String arrivalAerodrome, double price, String meetingPlace, int pilotId)
+			throws Exception {
 
 		this.aircraftId = aircraftId;
 
 		this.departureDate = departureDate;
 		this.departureTime = departureTime;
+
+		if (departureDate.before(departureDate)
+				|| (departureDate.equals(arrivalDate) && departureTime.before(arrivalTime))) {
+			this.arrivalDate = arrivalDate;
+			this.departureDate = departureDate;
+		}
+
+		else {
+			throw new DateTimeException("Arrival before departure");
+		}
 
 		this.arrivalDate = arrivalDate;
 		this.arrivalTime = arrivalTime;
@@ -65,11 +77,19 @@ public class Flight {
 		this.pilotId = pilotId;
 	}
 
-	public int getId() {
+	public long getFlightId() {
+		return flightId;
+	}
+
+	public void setFlightId(long flightId) {
+		this.flightId = flightId;
+	}
+
+	public long getAircraftId() {
 		return aircraftId;
 	}
 
-	public void setId(int aircraftId) {
+	public void setAircraftId(long aircraftId) {
 		this.aircraftId = aircraftId;
 	}
 
@@ -93,15 +113,15 @@ public class Flight {
 		return departureAerodrome;
 	}
 
-	public void setDeparture_aerodrome(String departureAerodrome) {
+	public void setDepartureAerodrome(String departureAerodrome) {
 		this.departureAerodrome = departureAerodrome;
 	}
 
-	public String getDestination_aerodrome() {
+	public String getArrivalAerodrome() {
 		return arrivalAerodrome;
 	}
 
-	public void setDestination_aerodrome(String arrivalAerodrome) {
+	public void setArrivalAerodrome(String arrivalAerodrome) {
 		this.arrivalAerodrome = arrivalAerodrome;
 	}
 
@@ -150,11 +170,11 @@ public class Flight {
 		this.flights = flights;
 	}
 
-	public int getPilotId() {
+	public long getPilotId() {
 		return pilotId;
 	}
 
-	public void setPilotId(int pilotId) {
+	public void setPilotId(long pilotId) {
 		this.pilotId = pilotId;
 	}
 

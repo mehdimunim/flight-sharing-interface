@@ -60,7 +60,7 @@ public class FlightDaoImpl implements FlightDao {
 		try {
 			tx.begin();
 			Query q = pm.newQuery(Flight.class);
-			q.declareImports("java.sql.Date, java.sql.Time");
+			q.declareImports("import java.sql.Date;import java.sql.Time");
 			q.declareParameters("long aircraftId_, Date departureDate_, Time departureTime_ ");
 			q.setFilter(
 					"aircraftId == aircraftId_ && departureDate == departureDate_ && departureTime == departureTime_ ");
@@ -94,7 +94,7 @@ public class FlightDaoImpl implements FlightDao {
 			tx.begin();
 			Query q = pm.newQuery(Flight.class);
 			flights = (List<Flight>) q.execute();
-			detached = pm.detachCopy(flights);
+			detached = (List<Flight>) pm.detachCopyAll(flights);
 
 			tx.commit();
 		} finally {
@@ -122,7 +122,7 @@ public class FlightDaoImpl implements FlightDao {
 			q.declareParameters("String departureAerodrome_");
 			q.setFilter("departureAerodrome == departureAerodrome_");
 			flights = (List<Flight>) q.execute(departureAerodrome_);
-			detached = pm.detachCopy(flights);
+			detached = (List<Flight>) pm.detachCopyAll(flights);
 
 			tx.commit();
 		} finally {
@@ -147,7 +147,7 @@ public class FlightDaoImpl implements FlightDao {
 		try {
 			tx.begin();
 			Query q = pm.newQuery(Flight.class);
-			q.declareImports("import java.sql.Date, import java.sql.Time");
+			q.declareImports("import java.sql.Date;import java.sql.Time");
 
 			q.declareParameters("Date departureDate_, Time departureTime_");
 
@@ -182,7 +182,7 @@ public class FlightDaoImpl implements FlightDao {
 			q.declareParameters("String meetingPlace_");
 			q.setFilter("meetingPlace == meetingPlace_");
 			flights = (List<Flight>) q.execute(meetingPlace_);
-			detached = pm.detachCopy(flights);
+			detached = (List<Flight>) pm.detachCopyAll(flights);
 
 			tx.commit();
 		} finally {
@@ -211,7 +211,7 @@ public class FlightDaoImpl implements FlightDao {
 			q.declareParameters("long pilotId_");
 			q.setFilter("pilotId == pilotId_");
 			flights = (List<Flight>) q.execute(pilotId_);
-			detached = pm.detachCopy(flights);
+			detached = (List<Flight>) pm.detachCopyAll(flights);
 
 			tx.commit();
 		} finally {
@@ -247,11 +247,13 @@ public class FlightDaoImpl implements FlightDao {
 
 	// METHOD TO MODIFY FLIGHTS
 
+	// TODO: NOT WORKING
+
 	/**
 	 * replace by newFlight the flight stored with the id given newFlight
 	 */
 	public void editFlight(Flight newFlight) {
-		long flightId = newFlight.getId();
+		long flightId = newFlight.getFlightId();
 		Flight flight = null;
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
