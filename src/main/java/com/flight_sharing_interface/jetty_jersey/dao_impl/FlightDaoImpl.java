@@ -2,8 +2,6 @@ package com.flight_sharing_interface.jetty_jersey.dao_impl;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -13,8 +11,6 @@ import javax.jdo.Transaction;
 
 import com.flight_sharing_interface.jetty_jersey.dao.FlightDao;
 import com.flight_sharing_interface.jetty_jersey.dao.objects.Flight;
-import com.flight_sharing_interface.jetty_jersey.dao.objects.Pilot;
-import com.flight_sharing_interface.jetty_jersey.ws.FlightResource;
 
 public class FlightDaoImpl implements FlightDao {
 
@@ -86,33 +82,22 @@ public class FlightDaoImpl implements FlightDao {
 	}
 
 	/**
-	 * Selecting flights leaving the airport departure_aerodrome at
-	 * departureDataTime_ and arriving a arrivalDateTime_
+	 * Get flights leaving at a given departure place
 	 */
-
 	@SuppressWarnings("unchecked")
-	public List<Flight> getFlightsFromCriteria(FlightResource.flightsFromCriteria criteria) {
-		String departure_aerodrome_ = criteria.departure_aerodrome;
-		LocalDate departureDateTime_ = criteria.departureDate;
-		LocalDate arrivalDateTime_ = criteria.arrivalDate;
+	public List<Flight> getFlightsWithDeparture(String departureAerodrome_) {
 
-		List<Flight> flights = new ArrayList<Flight>();
-		List<Flight> detached = new ArrayList<Flight>();
+		List<Flight> flights;
+		List<Flight> detached;
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
 			Query q = pm.newQuery(Flight.class);
-			q.declareImports("import java.time.LocalDate");
-
-			q.declareParameters("String departure_aerodrome_, LocalDate departureDate_, LocalDate arrivalDate_");
-
-			// selecting flights by three criteria
-			q.setFilter(
-					"departure_aerodrome == departure_aerodrome_ && departureDate == departureDate_ && arrivalDate == arrivalDate_ ");
-
-			flights = (List<Flight>) q.execute(departure_aerodrome_, departureDateTime_, arrivalDateTime_);
-			detached = (List<Flight>) pm.detachCopyAll(flights);
+			q.declareParameters("String departureAerodrome_");
+			q.setFilter("departureAerodrome == departureAerodrome_");
+			flights = (List<Flight>) q.execute(departureAerodrome_);
+			detached = pm.detachCopy(flights);
 
 			tx.commit();
 		} finally {
@@ -124,30 +109,26 @@ public class FlightDaoImpl implements FlightDao {
 		return detached;
 	}
 
+	/**
+	 * Get flights leaving at a given date and time
+	 */
+
 	@SuppressWarnings("unchecked")
-	public List<Flight> getFlightsFromCriteria(String departure_aerodrome_, LocalDate departureDateTime__,
-			LocalDate arrivalDateTime__) {
-
-		// Transforming LocalDates to SQL date that we are able to stored in DB
-		Date departureDateTime_ = Date.valueOf(departureDateTime__);
-		Date arrivalDateTime_ = Date.valueOf(arrivalDateTime__);
-
-		List<Flight> flights = new ArrayList<Flight>();
-		List<Flight> detached = new ArrayList<Flight>();
+	public List<Flight> getFlightsWithDateTime(Date departureDate_, Time departureTime_) {
+		List<Flight> flights;
+		List<Flight> detached;
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
 			Query q = pm.newQuery(Flight.class);
-			q.declareImports("import java.sql.Date");
+			q.declareImports("import java.sql.Date, import java.sql.Time");
 
-			q.declareParameters("String departure_aerodrome_, Date departureDate_, Date arrivalDate_");
+			q.declareParameters("Date departureDate_, Time departureTime_");
 
-			// selecting flights by three criteria
-			q.setFilter(
-					"departure_aerodrome == departure_aerodrome_ && departureDate == departureDate_ && arrivalDate == arrivalDate_ ");
+			q.setFilter("departureDate == departureDate_ && departureTime == departureTime_");
 
-			flights = (List<Flight>) q.execute(departure_aerodrome_, departureDateTime_, arrivalDateTime_);
+			flights = (List<Flight>) q.execute(departureDate_, departureTime_);
 			detached = (List<Flight>) pm.detachCopyAll(flights);
 
 			tx.commit();
@@ -161,12 +142,91 @@ public class FlightDaoImpl implements FlightDao {
 	}
 
 	/**
-	 * Editing flight: replace the flight with same id as newFlight by newFlight Add
-	 * new flight if there is no flight at given Id
-	 * 
+	 * Get flights with given meeting place
+	 */
+
+	public List<Flight> getFlightWithMeetingPlace(String meetingPlace_) {
+		List<Flight> flights;
+		List<Flight> detached;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			Query q = pm.newQuery(Flight.class);
+			q.declareParameters("String meetingPlace_");
+			q.setFilter("meetingPlace == meetingPlace_");
+			flights = (List<Flight>) q.execute(meetingPlace_);
+			detached = pm.detachCopy(flights);
+
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return detached;
+
+	}
+
+	/**
+	 * Get flights planned for the given pilot
+	 */
+
+	public List<Flight> getPlannedFlights(long pilotId_) {
+		List<Flight> flights;
+		List<Flight> detached;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			Query q = pm.newQuery(Flight.class);
+			q.declareParameters("long pilotId_");
+			q.setFilter("pilotId == pilotId_");
+			flights = (List<Flight>) q.execute(pilotId_);
+			detached = pm.detachCopy(flights);
+
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		return detached;
+
+	}
+
+	// METHOD TO ADD FLIGHTS
+	/**
+	 * Adding a flight to DB
+	 */
+	public void addFlight(Flight flight) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+
+			flight = pm.makePersistent(flight);
+
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+
+			pm.close();
+		}
+
+	}
+
+	// METHOD TO MODIFY FLIGHTS
+
+	/**
+	 * replace by newFlight the flight stored with the id given newFlight
 	 */
 	public void editFlight(Flight newFlight) {
-		int flightId = newFlight.getId();
+		long flightId = newFlight.getId();
 		Flight flight = null;
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
@@ -174,7 +234,7 @@ public class FlightDaoImpl implements FlightDao {
 			tx.begin();
 			// searching flight with the name id as newFlight
 			Query q = pm.newQuery(Flight.class);
-			q.declareParameters("int flightId");
+			q.declareParameters("long flightId");
 			q.setFilter("id == flightId");
 			q.setUnique(true);
 
@@ -193,35 +253,6 @@ public class FlightDaoImpl implements FlightDao {
 			}
 			pm.close();
 		}
-
-	}
-
-	/**
-	 * Adding a flight
-	 * 
-	 * Seems to destroy the entry
-	 * 
-	 * Unable to make persistent a deep copy of entry
-	 */
-	public int addFlight(Flight flight) {
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Transaction tx = pm.currentTransaction();
-		int flightId = flight.getId();
-		;
-		try {
-			tx.begin();
-
-			flight = pm.makePersistent(flight);
-
-			tx.commit();
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-
-			pm.close();
-		}
-		return flightId;
 
 	}
 
@@ -257,57 +288,6 @@ public class FlightDaoImpl implements FlightDao {
 			pm.close();
 		}
 
-	}
-
-	public void addFlight(int pilotId) {
-		// avoid destroying flight
-		Flight flight = new Flight();
-		flight.setPilot(new Pilot());
-
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Transaction tx = pm.currentTransaction();
-		try {
-			tx.begin();
-
-			pm.makePersistent(flight);
-
-			tx.commit();
-		} finally {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-			pm.close();
-		}
-
-	}
-
-	@SuppressWarnings("unchecked")
-	public List<Flight> clearDB() {
-
-		List<Flight> flights = null;
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Transaction tx = pm.currentTransaction();
-
-		try {
-			tx.begin();
-
-			Query q = pm.newQuery(Flight.class);
-
-			flights = (List<Flight>) q.execute();
-			pm.deletePersistentAll(flights);
-
-			tx.commit();
-
-		}
-
-		finally {
-
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-			pm.close();
-		}
-		return flights;
 	}
 
 }

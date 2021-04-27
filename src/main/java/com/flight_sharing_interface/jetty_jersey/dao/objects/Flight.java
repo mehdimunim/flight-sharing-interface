@@ -5,6 +5,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
@@ -23,12 +24,13 @@ import javax.jdo.annotations.PrimaryKey;
 public class Flight {
 
 	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
+	private long flightId;
+
 	private int aircraftId;
 	private int pilotId;
 
-	@PrimaryKey
 	private Date departureDate;
-	@PrimaryKey
 	private Time departureTime;
 
 	private Date arrivalDate;

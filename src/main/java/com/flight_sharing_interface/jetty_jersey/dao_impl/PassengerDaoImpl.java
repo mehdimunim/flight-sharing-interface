@@ -2,7 +2,6 @@ package com.flight_sharing_interface.jetty_jersey.dao_impl;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
-import javax.jdo.Query;
 import javax.jdo.Transaction;
 
 import com.flight_sharing_interface.jetty_jersey.dao.PassengerDao;
@@ -26,9 +25,7 @@ public class PassengerDaoImpl implements PassengerDao {
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
-
 			pm.makePersistent(passenger);
-
 			tx.commit();
 		} finally {
 			if (tx.isActive()) {
@@ -54,14 +51,7 @@ public class PassengerDaoImpl implements PassengerDao {
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
-			Query q = pm.newQuery(Passenger.class);
-			q.declareParameters("int passengerId");
-			q.setFilter("id == passengerId");
-			// setUnique to get at most one passenger
-			// and not a list of passenger
-			q.setUnique(true);
-
-			passenger = (Passenger) q.execute(passengerId);
+			passenger = pm.getObjectById(Passenger.class, passengerId);
 			detached = pm.detachCopy(passenger);
 
 			tx.commit();
@@ -86,16 +76,8 @@ public class PassengerDaoImpl implements PassengerDao {
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
-			Query q = pm.newQuery(Passenger.class);
-			q.declareParameters("int passengerId");
-			q.setFilter("id == passengerId");
-			// setUnique to get at most one passenger
-			// and not a list of passenger
-			q.setUnique(true);
-
-			passenger = (Passenger) q.execute(passengerId);
+			passenger = pm.getObjectById(Passenger.class, passengerId);
 			pm.deletePersistent(passenger);
-
 			tx.commit();
 		} finally {
 			if (tx.isActive()) {

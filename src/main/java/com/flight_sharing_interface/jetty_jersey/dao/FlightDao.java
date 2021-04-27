@@ -16,6 +16,12 @@ public interface FlightDao {
 	// METHOD TO FETCH FLIGHTS
 
 	/**
+	 * Fetch flight with its id
+	 */
+
+	Flight getFlight(long flightId);
+
+	/**
 	 * Fetch flight from DB with the aircraftId, departure date and time
 	 */
 	Flight getFlight(long aircraftId, Date departureDate, Time departureTime);
@@ -47,15 +53,15 @@ public interface FlightDao {
 	/**
 	 * Get flights planned for the given pilot
 	 */
-	List<Flight> getFlightsPlanned(long pilotId);
+	List<Flight> getPlannedFlights(long pilotId);
 
 	// METHOD TO ADD FLIGHT
 	/**
 	 * Add flight to DB
 	 */
-	long addFlight(Flight flight);
+	void addFlight(Flight flight);
 
-	// METHOD TO MODIFY FLIGHT
+	// METHOD TO MODIFY FLIGHTS
 	/**
 	 * replace by newFlight the flight stored with the id given in newFlight
 	 */
