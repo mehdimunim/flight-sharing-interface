@@ -4,6 +4,7 @@
 package com.flight_sharing_interface.jetty_jersey.dao.objects;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
@@ -29,13 +30,18 @@ public class Booking {
 		this.timestamp = timestamp;
 	}
 
+	public Booking() {
+		// TODO Auto-generated constructor stub
+	}
+
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
 	private long bookingId;
 
 	long flightId;
 	long passengerId;
-	Timestamp timestamp;
+	// timestamp is the initialized at now
+	Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
 
 	public long getPassengerId() {
 		return passengerId;
@@ -53,11 +59,11 @@ public class Booking {
 		this.flightId = flightId;
 	}
 
-	public Timestamp getTimestamp() {
-		return timestamp;
+	public long getBookingId() {
+		return bookingId;
 	}
 
-	public void setTimestamp(Timestamp timestamp) {
-		this.timestamp = timestamp;
+	public void setBookingId(long bookingId) {
+		this.bookingId = bookingId;
 	}
 }

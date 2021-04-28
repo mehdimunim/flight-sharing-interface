@@ -19,8 +19,8 @@ import javax.jdo.annotations.PrimaryKey;
 public class Aircraft {
 
 	@PrimaryKey
-	@Persistent(valueStrategy = IdGeneratorStrategy.NATIVE)
-	protected long AircraftId = 0;
+	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
+	private long aircraftId;
 
 	// Aircraft Information
 	private String model;
@@ -37,19 +37,19 @@ public class Aircraft {
 		this.numberOfPlaces = numberOfPlaces;
 	}
 
-	public Aircraft(long id, int numberOfPlaces, String model, int flightHours, String owner) {
-		this.AircraftId = id;
+	public Aircraft(long aircraftId, int numberOfPlaces, String model, int flightHours, String owner) {
+		this.aircraftId = aircraftId;
 		this.numberOfPlaces = numberOfPlaces;
 		this.model = model;
 		this.owner = owner;
 	}
 
-	public long getId() {
-		return AircraftId;
+	public long getAircraftId() {
+		return aircraftId;
 	}
 
-	public void setId(long id) {
-		this.AircraftId = id;
+	public void setAircraftId(long aircraftId) {
+		this.aircraftId = aircraftId;
 	}
 
 	public int getNumberOfPlaces() {

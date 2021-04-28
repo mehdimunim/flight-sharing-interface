@@ -1,31 +1,47 @@
 package datanucleus;
 
-import javax.jdo.JDOHelper;
-import javax.jdo.PersistenceManagerFactory;
-
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.flight_sharing_interface.jetty_jersey.dao.AircraftDao;
 import com.flight_sharing_interface.jetty_jersey.dao.DAO;
 import com.flight_sharing_interface.jetty_jersey.dao.objects.Aircraft;
-import com.flight_sharing_interface.jetty_jersey.dao_impl.AircraftDaoImpl;
 
 public class AircraftDaoImplTest {
 
+	AircraftDao aircraftDao = DAO.getAircraftDao();
+	Aircraft aircraft;
+	long id = 1;
+
+	@Before
+	public void addAircraftTest() {
+		aircraft = new Aircraft();
+		aircraft.setModel("SR-71 Blackbird");
+		aircraft.setNumberOfPlaces(2);
+		aircraft.setOwner("MUNIM");
+
+		aircraftDao.addAircraft(aircraft);
+
+		Assert.assertEquals(1, aircraft.getAircraftId());
+		System.err.println(aircraft.getAircraftId());
+
+	}
+
+	@After
+	public void deleteAircraftTest() {
+		aircraftDao.deleteAircraft(1);
+	}
+
 	@Test
-	public void testAircraft() {
+	public void getAircraftTest() {
 
-		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("flight-sharing-interface");
-		AircraftDao aircraftDao = new AircraftDaoImpl(pmf);
+		Aircraft outputAircraft = aircraftDao.getAircraft(1);
 
-		Assert.assertNull(aircraftDao.getAircraftInfo(0));
+		Assert.assertEquals(1, outputAircraft.getAircraftId());
 
-		Aircraft aircraft = new Aircraft();
-		aircraft.getAircrafts().add(new Aircraft("Boeing 717 "));
-		aircraft.getAircrafts().add(new Aircraft("North American XB-45"));
-		long id = DAO.getAircraftDao().addAircraftInfo(aircraft);
+		Assert.assertEquals("MUNIM", outputAircraft.getOwner());
 
-		Assert.assertEquals(2, DAO.getAircraftDao().getAircraftInfo(id).getAircrafts().size());
 	}
 }
