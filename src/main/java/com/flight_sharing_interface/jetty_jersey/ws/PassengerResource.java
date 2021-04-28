@@ -61,7 +61,7 @@ public class PassengerResource {
 
 	public void register(Passenger passenger) {
 
-		DAO.getPassengerDao().register(passenger);
+		DAO.getPassengerDao().addPassenger(passenger);
 
 	}
 
