@@ -21,7 +21,8 @@ public class AircraftDaoImpl implements AircraftDao {
 	 * 
 	 */
 
-	public void addAircraft(Aircraft aircraft) {
+	public long addAircraft(Aircraft aircraft) {
+		long aircraftId = aircraft.getAircraftId();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -34,6 +35,7 @@ public class AircraftDaoImpl implements AircraftDao {
 			}
 			pm.close();
 		}
+		return aircraftId;
 
 	}
 

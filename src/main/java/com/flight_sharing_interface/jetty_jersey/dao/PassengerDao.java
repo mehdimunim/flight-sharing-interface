@@ -15,8 +15,9 @@ public interface PassengerDao {
 	 * Add passenger to DB
 	 * 
 	 * @param passenger
+	 * @return
 	 */
-	void addPassenger(Passenger passenger);
+	long addPassenger(Passenger passenger);
 
 	/**
 	 * Fetch a passenger from DB

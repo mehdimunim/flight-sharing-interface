@@ -35,7 +35,7 @@ public class FlightResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/flight-info/{id}")
 	public Flight getFlightInfo(@PathParam("id") int flightId) {
-		return DAO.getFlightDao().getFlightInfo(flightId);
+		return DAO.getFlightDao().getFlight(flightId);
 	}
 
 	/**
@@ -79,7 +79,7 @@ public class FlightResource {
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/add-flight")
-	public int addFlight(Flight flight) {
+	public long addFlight(Flight flight) {
 
 		if (flight == null) {
 			throw new BadRequestException("Missing payload");

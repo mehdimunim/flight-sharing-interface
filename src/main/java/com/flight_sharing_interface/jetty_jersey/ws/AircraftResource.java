@@ -20,7 +20,7 @@ public class AircraftResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/aircraft/{id}")
 	public Aircraft getAircraftInfo(@PathParam("id") long id) {
-		return DAO.getAircraftDao().getAircraftInfo(id);
+		return DAO.getAircraftDao().getAircraft(id);
 	}
 
 	@PUT
@@ -34,6 +34,6 @@ public class AircraftResource {
 		if (DAO.getAircraftDao() == null) {
 			throw new BadRequestException("Missing actions in the container");
 		}
-		return DAO.getAircraftDao().addAircraftInfo(aircraft);
+		return DAO.getAircraftDao().addAircraft(aircraft);
 	}
 }

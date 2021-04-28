@@ -6,8 +6,9 @@ public interface AircraftDao {
 
 	/**
 	 * Add a specific aircraft to DB
+	 * 
 	 */
-	void addAircraft(Aircraft aircraft);
+	long addAircraft(Aircraft aircraft);
 
 	/**
 	 * Fetch an aircraft from DB with its id

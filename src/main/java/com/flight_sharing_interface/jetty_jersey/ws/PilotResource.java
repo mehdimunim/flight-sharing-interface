@@ -14,12 +14,12 @@ import com.flight_sharing_interface.jetty_jersey.dao.DAO;
 @Path("/pilotResource")
 public class PilotResource {
 
-	@PUT
+	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/{pilotId}/plane/{planeId}/flight/flightId")
-	public void addFlight(@PathParam("pilotId") int pilotId, @PathParam("flightId") int flightId) {
+	public void postFlight(@PathParam("pilotId") int pilotId, @PathParam("flightId") int flightId) {
 
-		DAO.getPilotDao().putFlight(null);
+		DAO.getPilotDao().addPilot(pilot);
 	}
 
 	@POST
@@ -41,7 +41,7 @@ public class PilotResource {
 	@Path("/{pilotId}/flight")
 	public void getPlannedFlights(@PathParam("pilotId") int pilotId) {
 
-		DAO.getPilotDao().getPlannedFlights(pilotId);
+		DAO.getFlightDao().getPlannedFlights(pilotId);
 
 	}
 

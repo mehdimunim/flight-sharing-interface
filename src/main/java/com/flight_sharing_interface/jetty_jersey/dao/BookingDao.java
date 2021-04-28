@@ -14,8 +14,10 @@ public interface BookingDao {
 
 	/**
 	 * Add a booking to DB
+	 * 
+	 * @return
 	 */
-	void addBooking(Booking booking);
+	long addBooking(Booking booking);
 
 	/**
 	 * Fetch a booking from DB

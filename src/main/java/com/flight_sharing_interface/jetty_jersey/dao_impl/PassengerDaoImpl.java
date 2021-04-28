@@ -20,7 +20,8 @@ public class PassengerDaoImpl implements PassengerDao {
 	 * 
 	 */
 
-	public void addPassenger(Passenger passenger) {
+	public long addPassenger(Passenger passenger) {
+		long passengerId = passenger.getPassengerId();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -34,6 +35,7 @@ public class PassengerDaoImpl implements PassengerDao {
 
 			pm.close();
 		}
+		return passengerId;
 
 	}
 

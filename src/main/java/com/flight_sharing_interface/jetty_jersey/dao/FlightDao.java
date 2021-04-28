@@ -58,8 +58,10 @@ public interface FlightDao {
 	// METHOD TO ADD FLIGHT
 	/**
 	 * Add flight to DB
+	 * 
+	 * @return
 	 */
-	void addFlight(Flight flight);
+	long addFlight(Flight flight);
 
 	// METHOD TO MODIFY FLIGHTS
 	/**

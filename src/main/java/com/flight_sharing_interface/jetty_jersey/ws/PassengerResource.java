@@ -6,7 +6,6 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -32,13 +31,13 @@ public class PassengerResource {
 		public String userAddress;
 	}
 
-	@PUT
+	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/bookingFlights")
 
-	public void bookFlight(Booking booking) {
-		DAO.getPassengerDao().bookFlights(0, getBookedFlights());
-		;
+	public long bookFlight(Booking booking) {
+
+		return DAO.getBookingDao().addBooking(booking);
 
 	}
 
@@ -52,7 +51,7 @@ public class PassengerResource {
 	 */
 	public List<Flight> getBookedFlights() {
 
-		return DAO.getPassengerDao().getBookedFlight(0);
+		// ???
 
 	}
 
@@ -70,28 +69,26 @@ public class PassengerResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/CancelBooking")
 
-	public void cancelBooking(Booking booking) {
+	public void cancelBooking(long bookingId) {
 
-		// incohérence entre CancelABooking et cancelBooking
-		// DAO.getPassengerDao().cancelABooking(0, booking);
+		DAO.getBookingDao().cancelBooking(bookingId);
 
 	}
 
-	@PUT
+	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/Login")
-	public void PassengerLogin() {
-		DAO.getPassengerDao().login(0);
+	public void PassengerLogin(long passengerId) {
+		DAO.getPassengerDao().getPassenger(passengerId);
 
 	}
 
-	@PUT
+	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/register")
-	public void registration() {
+	public void registration(Passenger passenger) {
 
-		// Pas la même chose que register ???
-		DAO.getPassengerDao().register(passenger);
+		DAO.getPassengerDao().addPassenger(passenger);
 	}
 
 }

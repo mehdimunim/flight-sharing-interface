@@ -20,7 +20,8 @@ public class PilotDaoImpl implements PilotDao {
 	 * @param pilot
 	 */
 
-	public void addPilot(Pilot pilot) {
+	public long addPilot(Pilot pilot) {
+		long pilotId = pilot.getPilotId();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -34,7 +35,7 @@ public class PilotDaoImpl implements PilotDao {
 
 			pm.close();
 		}
-
+		return pilotId;
 	}
 
 	/**

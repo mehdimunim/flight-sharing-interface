@@ -14,8 +14,9 @@ public interface PilotDao {
 	 * Add a pilot to DB
 	 * 
 	 * @param pilot
+	 * @return
 	 */
-	void addPilot(Pilot pilot);
+	long addPilot(Pilot pilot);
 
 	/**
 	 * Fetch a pilot from DB

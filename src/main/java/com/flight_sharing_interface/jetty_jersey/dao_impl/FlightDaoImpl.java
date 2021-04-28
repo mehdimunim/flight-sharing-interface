@@ -228,7 +228,8 @@ public class FlightDaoImpl implements FlightDao {
 	/**
 	 * Adding a flight to DB
 	 */
-	public void addFlight(Flight flight) {
+	public long addFlight(Flight flight) {
+		long flightId = flight.getFlightId();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -242,6 +243,7 @@ public class FlightDaoImpl implements FlightDao {
 
 			pm.close();
 		}
+		return flightId;
 
 	}
 

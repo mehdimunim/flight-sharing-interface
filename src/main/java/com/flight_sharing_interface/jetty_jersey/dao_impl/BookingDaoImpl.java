@@ -25,7 +25,8 @@ public class BookingDaoImpl implements BookingDao {
 	 * 
 	 */
 
-	public void addBooking(Booking booking) {
+	public long addBooking(Booking booking) {
+		long bookingId = booking.getBookingId();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -38,6 +39,7 @@ public class BookingDaoImpl implements BookingDao {
 			}
 			pm.close();
 		}
+		return bookingId;
 
 	}
 
