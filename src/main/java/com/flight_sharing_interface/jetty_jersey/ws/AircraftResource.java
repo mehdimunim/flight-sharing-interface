@@ -3,7 +3,7 @@ package com.flight_sharing_interface.jetty_jersey.ws;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -23,7 +23,7 @@ public class AircraftResource {
 		return DAO.getAircraftDao().getAircraft(id);
 	}
 
-	@PUT
+	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/aircraft")
 	public long addAircraftInfo(Aircraft aircraft) {
