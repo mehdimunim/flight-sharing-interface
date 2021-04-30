@@ -23,6 +23,7 @@ public class FlightDaoImplTest {
 	AircraftDao dao3 = DAO.getAircraftDao();
 
 	Flight flight;
+	long flightId;
 	Date date;
 	Time departureTime;
 	Time arrivalTime;
@@ -52,21 +53,27 @@ public class FlightDaoImplTest {
 
 		flight.setMeetingPlace("Roissy");
 
+		flight.setPrice(100);
+
 		dao.addFlight(flight);
+
+		flightId = flight.getFlightId();
 
 	}
 
 	@After
 	public void deletePilotTest() {
 
-		dao.deleteFlight(1);
+		dao.deleteFlight(flightId);
 
 	}
 
 	@Test
 	public void getFlightTest() {
 
-		Flight outputFlight = dao.getFlight(1);
+		// GET FLIGHTS
+
+		Flight outputFlight = dao.getFlight(flightId);
 		Assert.assertEquals("Roissy", outputFlight.getMeetingPlace());
 
 		outputFlight = dao.getFlight(1, date, departureTime);
@@ -87,15 +94,19 @@ public class FlightDaoImplTest {
 		outputFlights = dao.getPlannedFlights(1);
 		Assert.assertEquals("Roissy", outputFlights.get(0).getMeetingPlace());
 
-//		EDIT DOES NOT WORK
+		// TEST EDIT
 
-		// Flight newFlight = dao.getFlightsWithMeetingPlace("Roissy").get(0);
-		// newFlight.setMeetingPlace("Le Havre");
-		// dao.editFlight(newFlight);
-		// flight = dao.getFlight(3, date, departureTime);
-		// Assert.assertEquals("Le Havre", flight.getMeetingPlace());
+		outputFlight = dao.getFlight(flight.getFlightId());
+		// test price before edit
+		Assert.assertEquals(100, outputFlight.getPrice(), 1);
 
-		// Testing getAvailable Places
+		dao.editFlight(flight.getFlightId(), null, null, 1000, null);
+
+		// test after edit
+		outputFlight = dao.getFlight(flightId);
+		Assert.assertEquals(1000, outputFlight.getPrice(), 1);
+
+		// TEST getAvailablePlaces
 
 		Aircraft aircraft = new Aircraft();
 		aircraft.setModel("SR-71");

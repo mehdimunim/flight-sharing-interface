@@ -26,7 +26,7 @@ public class BookingDaoImplTest {
 
 	@After
 	public void cancelBookingTest() {
-		bookingDao.cancelBooking(3);
+		bookingDao.cancelBooking(booking.getBookingId());
 	}
 
 	@Test
@@ -34,9 +34,7 @@ public class BookingDaoImplTest {
 
 		// The sequence of id has a memory even after some were deleted
 
-		Booking outputBooking = bookingDao.getBooking(3);
-
-		Assert.assertEquals(3, outputBooking.getBookingId());
+		Booking outputBooking = bookingDao.getBooking(booking.getBookingId());
 
 		Assert.assertEquals(2, outputBooking.getFlightId());
 

@@ -253,20 +253,37 @@ public class FlightDaoImpl implements FlightDao {
 	// TODO: NOT WORKING
 
 	/**
-	 * replace by newFlight the flight stored with the id given newFlight
+	 * Edit the flight stored at flightId
+	 * 
+	 * We assumed that if too many elements are to be changed, a new flight should
+	 * be created instead
 	 */
-	public void editFlight(Flight newFlight) {
-		long flightId = newFlight.getFlightId();
-		Flight flight = null;
+	public void editFlight(long flightId, Time departureTime, Time arrivalTime, double price, String meetingPlace) {
+		Flight flight;
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
+
 			// searching flight with the name id as newFlight
 			flight = pm.getObjectById(Flight.class, flightId);
-			pm.deletePersistent(flight);
-			// replacing with newFlight (probably with different parameters
-			pm.makePersistent(newFlight);
+
+			// editing flight
+			if (departureTime != null) {
+				flight.setDepartureTime(departureTime);
+			}
+
+			if (arrivalTime != null) {
+				flight.setArrivalTime(arrivalTime);
+			}
+
+			if (price != 0) {
+				flight.setPrice(price);
+			}
+
+			if (meetingPlace != null) {
+				flight.setMeetingPlace(meetingPlace);
+			}
 
 			tx.commit();
 		} finally {

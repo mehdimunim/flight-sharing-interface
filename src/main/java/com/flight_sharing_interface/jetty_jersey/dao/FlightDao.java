@@ -65,9 +65,12 @@ public interface FlightDao {
 
 	// METHOD TO MODIFY FLIGHTS
 	/**
-	 * replace by newFlight the flight stored with the id given in newFlight
+	 * Edit the flight stored at flightId
+	 * 
+	 * We assumed that if too many elements are to be changed, a new flight should
+	 * be created instead
 	 */
-	void editFlight(Flight newFlight);
+	void editFlight(long flightId, Time departureTime, Time arrivalTime, double price, String meetingPlace);
 
 	// METHODS TO DELETE FLIGHTS
 
