@@ -16,9 +16,8 @@ import javax.jdo.annotations.PrimaryKey;
  * A flight is defined by an aircraft (aircraft id) leaving at given departure
  * date and time
  * 
- * We assumed that a flight was done by one and only one pilot
+ * A flight is done by one and only one pilot
  * 
- * @author Mehdi
  *
  */
 @PersistenceCapable
