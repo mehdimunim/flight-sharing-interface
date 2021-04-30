@@ -3,32 +3,44 @@
 <head>
 
 	<meta charset="UTF-8">
-	<title>Custom Website</title>
+	<title>Flight-sharing homepage</title>
 	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href = "https://fonts.googleapis.com/icon?family=Material+Icons" rel = "stylesheet">
+	
 </head>
 <body>
 	<div class="wrapper">
 			<nav class="navbar">
+				<img class="logo" src="logo_white_large.png">
 				<div class="container">
 	
 					  <div class="wrapper1">
 						<div class="search-container">
 						  <input type="text" class="date-from" placeholder="Departure aerodrome">
 						  <input type="time" class="date-to" placeholder="Period of time">
-						  <button type="submit" class="button">Search</button>
+						  <button type="submit" class="button"><i class="fa fa-search"></i></button>
 						</div>
 					  </div>
 					</div>
 				<ul>
-					<li><a class="active" href="#">Home</a></li>
-					<li><a href="Pilot.html">I am a Pilot</a></li>
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="Register.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-						<li><a href="Log_in.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-					  </ul>
+					<li><a class="active" href="#"><i class="fa fa-home"></i>Home</a></li>
+					<li><a href="Pilot.html"><i class="fa fa-user"></i>I am a Pilot</a></li>
+					<li><a href="Register.html"><i class="material-icons"></i>sign up</a></li>
+					<li><a href="Log_in.html"><i class="material-icons">
+						login
+					</i></a></li>
 				</ul>
-			</nav>
-			
+			</nav>	
+			<div class="home">
+    
+				<h1>Welcome</h1>
+				<p><i class="fa fa-home"></i></i></p>
+				<p>Welcome on our website</p>
 		</div>
+
+
+
+		
 </body>
 </html>

@@ -11,7 +11,7 @@ body {
     justify-content: center;
     align-items: center;
   }
-.navbar{
+  .navbar{
 	background-size:cover;
 	position: relative;
 	height: 80px;
@@ -19,6 +19,7 @@ body {
 	top: 0;
 	left: 0;
 	background: rgba(0,0,0,0.4);
+
 }
 .navbar .logo{
 	width: 100px;
@@ -28,6 +29,7 @@ body {
 .navbar ul{
 	float: right;
 	margin-right: 20px;
+    margin-top: 3px;
 }
 .navbar ul li{
 	list-style: none;
@@ -53,7 +55,47 @@ body {
 	border-radius: 2px;
 }
 
+.book{
+	height: 50px;
+	width: 150px;
+	font-size: 18px;
+	font-weight: 600;
+    color: honeydew;
+	background:   #3498db;
+	outline: none;
+	cursor: pointer;
+	border: 1px solid #073655;
+  
+	border-radius: 25px;
+	transition: .4s;
+    margin-top: 2cm;
+    position: relative;
+    margin-right:800px;
+}
 
+.plan{
+	height: 50px;
+	width: 150px;
+	font-size: 18px;
+	font-weight: 600;
+    color: honeydew;
+	background:  #3498db;;
+	outline: none;
+	cursor: pointer;
+	border: 1px solid #3498db;
+	border-radius: 25px;
+	transition: .4s;
+    margin-right:800px;
+    margin-top: 1cm;
+    position:relative;
+}
+.buttons .btn2{
+	margin-left: 100px;
+	margin-top: 300px;
+}
+.buttons button:hover{
+	background: #cc0000;
+}
 
 
   

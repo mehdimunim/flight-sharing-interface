@@ -2,11 +2,11 @@
 
 .navbar{
   background-size:cover;
-  position: relative;
+  position: fixed;
   height: 80px;
   width: 100%;
   top: 0;
-  left: 0;
+  left:0;
   background: rgba(0,0,0,0.4);
 }
 .navbar .logo{
@@ -72,8 +72,10 @@ body{
   background: #dde1e7;
   border-radius: 10px;
   padding: 40px 30px;
+  margin-top: 2cm;
   box-shadow: -3px -3px 7px #ffffff73,
               2px 2px 5px rgba(94, 104, 121, 0.288);
+              
 }
 
 .content .text{

@@ -1,8 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:700&display=swap');
-*{
-	padding: 0;
-	margin: 0;
-}
+
 .wrapper{
 	background: url(f2.jpg) no-repeat;
 	background-size: cover;
@@ -11,11 +8,13 @@
 } 
 
 .container {
-	width: 360px;
-	margin-left: 300px;;
+	width: 300px;
+	margin-left: 200px;
 	padding: 6px;
-	position:fixed;
-	margin-top:25px;
+	position:absolute;
+	top:20px;
+;
+	
 
   }
   
@@ -33,11 +32,11 @@
 	min-width:20px;
 	padding: 15px;
 	border: 1px solid #666;
-	height: 5px;
+	height: 3px;
   }
   
   .button {
-	padding: 11px;
+	padding: 9px;
 	min-width:20px;
 	background: rgb(0, 0, 0);
 	color: #fff;
@@ -76,14 +75,28 @@
 	background: rgba(0,0,0,0.4);
 
 }
+.home{
+    margin-top:10px;
+    margin-bottom:50px;
+    width:80%;
+    background-color:rgba(51, 204, 255,0.7);
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+    border-radius:5px;
+    padding-top:10px;
+    padding-bottom:45px;
+} 
 .navbar .logo{
-	width: 100px;
-	height: auto;
-	padding: 20px 100px;
+	width:100px;
+	height:60px;
+	padding:15px 10px;
+	position: relative;
 }
 .navbar ul{
 	float: right;
 	margin-right: 20px;
+	margin-top: 3px;
 }
 .navbar ul li{
 	list-style: none;
