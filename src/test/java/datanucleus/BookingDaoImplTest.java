@@ -22,8 +22,6 @@ public class BookingDaoImplTest {
 
 		bookingDao.addBooking(booking);
 
-		System.err.println(booking.getBookingId());
-
 	}
 
 	@After

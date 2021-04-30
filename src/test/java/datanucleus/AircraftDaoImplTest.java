@@ -13,7 +13,7 @@ public class AircraftDaoImplTest {
 
 	AircraftDao aircraftDao = DAO.getAircraftDao();
 	Aircraft aircraft;
-	long id = 1;
+	long id;
 
 	@Before
 	public void addAircraftTest() {
@@ -24,22 +24,19 @@ public class AircraftDaoImplTest {
 
 		aircraftDao.addAircraft(aircraft);
 
-		Assert.assertEquals(1, aircraft.getAircraftId());
-		System.err.println(aircraft.getAircraftId());
+		id = aircraft.getAircraftId();
 
 	}
 
 	@After
 	public void deleteAircraftTest() {
-		aircraftDao.deleteAircraft(1);
+		aircraftDao.deleteAircraft(id);
 	}
 
 	@Test
 	public void getAircraftTest() {
 
-		Aircraft outputAircraft = aircraftDao.getAircraft(1);
-
-		Assert.assertEquals(1, outputAircraft.getAircraftId());
+		Aircraft outputAircraft = aircraftDao.getAircraft(id);
 
 		Assert.assertEquals("MUNIM", outputAircraft.getOwner());
 

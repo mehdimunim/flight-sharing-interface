@@ -10,6 +10,7 @@ import javax.jdo.Query;
 import javax.jdo.Transaction;
 
 import com.flight_sharing_interface.jetty_jersey.dao.FlightDao;
+import com.flight_sharing_interface.jetty_jersey.dao.objects.Aircraft;
 import com.flight_sharing_interface.jetty_jersey.dao.objects.Booking;
 import com.flight_sharing_interface.jetty_jersey.dao.objects.Flight;
 
@@ -339,17 +340,34 @@ public class FlightDaoImpl implements FlightDao {
 	@SuppressWarnings("unchecked")
 	public int getAvailablePlaces(long flightId_) {
 		int availablePlaces;
+		long aircraftId;
+		Flight flight;
+		Aircraft aircraft;
 		List<Booking> bookings;
+
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
+
+			// fetching number of booked places for the flight
 			Query q = pm.newQuery(Booking.class);
 			q.declareParameters("long flightId_");
 			q.setFilter("flightId == flightId_");
 			bookings = (List<Booking>) q.execute(flightId_);
-			// the number of available places is the number of bookings for the flight
-			availablePlaces = bookings.size();
+
+			// fetching the aircraft id
+			q = pm.newQuery(Flight.class);
+			flight = pm.getObjectById(Flight.class, flightId_);
+			aircraftId = flight.getAircraftId();
+
+			// fetching aircraft capacity
+			q = pm.newQuery(Aircraft.class);
+			aircraft = pm.getObjectById(Aircraft.class, aircraftId);
+
+			// getting remaining places for the flight
+			availablePlaces = aircraft.getNumberOfPlaces() - bookings.size();
+
 			tx.commit();
 
 		} finally {

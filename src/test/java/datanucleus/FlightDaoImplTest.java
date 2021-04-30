@@ -9,15 +9,19 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.flight_sharing_interface.jetty_jersey.dao.AircraftDao;
 import com.flight_sharing_interface.jetty_jersey.dao.BookingDao;
 import com.flight_sharing_interface.jetty_jersey.dao.DAO;
 import com.flight_sharing_interface.jetty_jersey.dao.FlightDao;
+import com.flight_sharing_interface.jetty_jersey.dao.objects.Aircraft;
 import com.flight_sharing_interface.jetty_jersey.dao.objects.Booking;
 import com.flight_sharing_interface.jetty_jersey.dao.objects.Flight;
 
 public class FlightDaoImplTest {
 	FlightDao dao = DAO.getFlightDao();
 	BookingDao dao2 = DAO.getBookingDao();
+	AircraftDao dao3 = DAO.getAircraftDao();
+
 	Flight flight;
 	Date date;
 	Time departureTime;
@@ -91,24 +95,43 @@ public class FlightDaoImplTest {
 		// flight = dao.getFlight(3, date, departureTime);
 		// Assert.assertEquals("Le Havre", flight.getMeetingPlace());
 
+		// Testing getAvailable Places
+
+		Aircraft aircraft = new Aircraft();
+		aircraft.setModel("SR-71");
+		aircraft.setOwner("Hassna");
+		aircraft.setNumberOfPlaces(10);
+
+		dao3.addAircraft(aircraft);
+
+		flight = new Flight();
+		flight.setDepartureAerodrome("Berlin");
+		flight.setArrivalAerodrome("Paris");
+		flight.setPrice(100);
+		flight.setAircraftId(aircraft.getAircraftId());
+
+		dao.addFlight(flight);
+
 		Booking booking = new Booking();
-		booking.setFlightId(10);
+		booking.setFlightId(flight.getFlightId());
 		booking.setPassengerId(8);
 
 		dao2.addBooking(booking);
 
 		booking = new Booking();
-		booking.setFlightId(10);
+		booking.setFlightId(flight.getFlightId());
 		booking.setPassengerId(2);
 
 		dao2.addBooking(booking);
 
-		int places = dao.getAvailablePlaces(10);
+		int places = dao.getAvailablePlaces(flight.getFlightId());
 
-		Assert.assertEquals(2, places);
+		Assert.assertEquals(8, places);
 
 		dao2.cancelBooking(1);
 		dao2.cancelBooking(2);
+		dao.deleteFlight(flight.getFlightId());
+		dao3.deleteAircraft(aircraft.getAircraftId());
 
 	}
 }

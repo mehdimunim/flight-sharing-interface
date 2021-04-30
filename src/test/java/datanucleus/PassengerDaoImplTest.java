@@ -26,7 +26,6 @@ public class PassengerDaoImplTest {
 		passengerDao.addPassenger(passenger);
 
 		Assert.assertNotEquals(0, passenger.getPassengerId());
-		System.err.print(passenger.getPassengerId());
 
 	}
 
