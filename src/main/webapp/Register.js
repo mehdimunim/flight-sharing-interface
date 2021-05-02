@@ -29,7 +29,7 @@ $(function(){
     		"firstname" : $('#firstname').val(),
     		"lastname" : $('#lastname').val(),
     		"email" : $('#email').val(),
-        "confirmemail" : $('#confirmemail').val(),
+    		"confirmemail" : $('#confirmemail').val(),
 			"password" : $('#password').val(),
 			"repeatpassword" : $('#repeatpassword').val()
 		};
