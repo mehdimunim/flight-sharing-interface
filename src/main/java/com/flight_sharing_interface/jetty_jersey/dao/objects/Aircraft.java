@@ -1,8 +1,5 @@
 package com.flight_sharing_interface.jetty_jersey.dao.objects;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -26,10 +23,6 @@ public class Aircraft {
 	private String model;
 	private String owner;
 	private int numberOfPlaces;
-
-	// Defining children seems to be useful for postman
-	@Persistent(defaultFetchGroup = "true")
-	protected List<Aircraft> aircrafts = null;
 
 	public Aircraft(String model, String owner, int numberOfPlaces) {
 		this.model = model;
@@ -74,19 +67,6 @@ public class Aircraft {
 
 	public void setOwner(String owner) {
 		this.owner = owner;
-	}
-
-	public Aircraft() {
-		super();
-		this.aircrafts = new ArrayList<Aircraft>();
-	}
-
-	public List<Aircraft> getAircrafts() {
-		return aircrafts;
-	}
-
-	public void setAircrafts(List<Aircraft> aircrafts) {
-		this.aircrafts = aircrafts;
 	}
 
 }
