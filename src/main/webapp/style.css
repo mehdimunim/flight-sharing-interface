@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:700&display=swap');
+*{
+	padding: 0;
+	margin: 0;
+}
+.wrapper{
+	background: url(f2.jpg) no-repeat;
+	background-size: cover;
+	background-position: center;
+	height: 100vh;
+} 
+
+.container {
+	width: 360px;
+	margin-left: 300px;;
+	padding: 6px;
+	position:fixed;
+	margin-top:25px;
+
+  }
+  
+  
+  .search-container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-content: stretch;
+	align-items: flex-start;
+  }
+  
+  input {
+	min-width:20px;
+	padding: 15px;
+	border: 1px solid #666;
+	height: 5px;
+  }
+  
+  .button {
+	padding: 11px;
+	min-width:20px;
+	background: rgb(0, 0, 0);
+	color: #fff;
+	border:1px solid #fff;
+  }
+  
+  input {
+	  order: 0;
+	  align-self: auto;  
+  }
+  
+  .search {
+	flex: 2 1 auto;
+  }
+  
+  .date-from {
+	flex: 1 1 auto;
+  }
+  
+  .date-to {
+	flex: 1 1 auto;
+  }
+  
+  .button {
+	  order: 4;
+	  flex: 0 1 auto;
+	  align-self: auto;
+  }
+.navbar{
+	background-size:cover;
+	position: relative;
+	height: 80px;
+	width: 100%;
+	top: 0;
+	left: 0;
+	background: rgba(0,0,0,0.4);
+
+}
+.navbar .logo{
+	width: 100px;
+	height: auto;
+	padding: 20px 100px;
+}
+.navbar ul{
+	float: right;
+	margin-right: 20px;
+}
+.navbar ul li{
+	list-style: none;
+	margin: 8px;
+	display: inline-block;
+	line-height: 80px;
+}
+.navbar ul li a{
+	font-size: 20px;
+	font-family: 'Roboto', sans-serif;
+	color: white;
+	padding: 6px 13px;
+	text-decoration: none;
+	transition: .4s;
+}
+.navbar ul li a.active
+{
+	background:green;
+	border-radius: 2px;
+}
+.navbar ul li a:hover{
+	background:black;
+	border-radius: 2px;
+}
+.wrapper .center{
+	position: absolute;
+	left: 50%;
+	top: 55%;
+	transform: translate(-50%, -50%);
+	font-family: sans-serif;
+	user-select: none;
+}
+.center h1{
+	color: white;
+	font-size: 10px;
+	width: 10px;
+	font-weight: bold;
+	text-align: center;
+}
+.center h2{
+	color: white;
+	font-size: 70px;
+	font-weight: bold;
+	margin-top: 10px;
+	width: 885px;
+	text-align: center;
+}
+.center .buttons{
+	margin: 35px 280px;
+}
+.buttons button{
+	height: 50px;
+	width: 150px;
+	font-size: 18px;
+	font-weight: 600;
+	color: #ffb3b3;
+	background: red;
+	outline: none;
+	cursor: pointer;
+	border: 1px solid #cc0000;
+	border-radius: 25px;
+	transition: .4s;
+}
+.buttons .btn2{
+	margin-left: 100px;
+	margin-top: 300px;
+}
+.buttons button:hover{
+	background: #cc0000;
+}
