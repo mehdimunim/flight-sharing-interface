@@ -30,14 +30,16 @@ function callDone(result){
 
 
 $(function(){
-	$("#button").click(function(){
-	
+//	$("#button").click(function(){
+	$("#registration-form").submit(function (event) {
 		var user = {
     		"email" : $("#email").val(),
-    		"password" : $("#password").val(),
+        "password" : $("#password").val()
 		};
 		//var dataJson = JSON.stringify(user);
 
 		authenticate("ws/flight-sharing/PassengerResource/Login",user, callDone);
+		
+		event.preventDefault();
 	});
 });
