@@ -34,7 +34,7 @@ $(function(){
 	$("#registration-form").submit(function (event) {
 		var user = {
     		"email" : $("#email").val(),
-        "password" : $("#password").val()
+    		"password" : $("#password").val()
 		};
 		//var dataJson = JSON.stringify(user);
 
