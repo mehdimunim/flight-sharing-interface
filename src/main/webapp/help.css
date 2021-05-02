@@ -93,7 +93,7 @@
     margin-top:5px;
     margin-bottom:50px;
     width:30%;
-	background-image: url(flightshare.jpg);
+    background-color:white;
     margin-left:2px;
     margin-right:auto;
     text-align:center;
@@ -107,7 +107,7 @@
 .home2{
     margin-bottom:25px;
     width:30%;
-	background-image: url(flightshare1.jpg);
+    background-color:white;
     margin-left:12cm;
     margin-right:auto;
     text-align:center;
