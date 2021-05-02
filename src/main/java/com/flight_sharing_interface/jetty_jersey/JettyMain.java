@@ -28,7 +28,7 @@ public class JettyMain {
 
 		// Configure Jersey
 		ResourceConfig rc = new ResourceConfig();
-		rc.packages(true, "com.example.jetty_jersey.ws");
+		rc.packages(true, "com.flight_sharing_interface.jetty_jersey.ws");
 		rc.register(JacksonFeature.class);
 		rc.register(LoggingFilter.class);
 

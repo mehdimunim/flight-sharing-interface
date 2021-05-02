@@ -1,48 +1,36 @@
 package com.flight_sharing_interface.jetty_jersey.dao;
 
-import java.time.Duration;
-import java.util.List;
-
-import com.flight_sharing_interface.jetty_jersey.dao.objects.Booking;
-import com.flight_sharing_interface.jetty_jersey.dao.objects.Flight;
 import com.flight_sharing_interface.jetty_jersey.dao.objects.Passenger;
 
 /**
- * @author DANSO
+ * Defines methods to access to Passengers Table
+ * 
+ * @author Mehdi
  *
  */
 
 public interface PassengerDao {
 
-	
 	/**
-	 *@param flight
-	 *@ book a flight
+	 * Add passenger to DB
+	 * 
+	 * @param passenger
+	 * @return
 	 */
-	void bookFlights( List<Flight> flights);
-	
-	/**
-	 *@ return a booked flight
-	 */
-	List<Flight> getBookedFlight();
-	
-	/**
-	 *@param user
-	 *@ registering a user
-	 */
-	void register(Passenger passenger);
-	
-	/**
-	 *@param booking
-	 *@ cancel
-	 */
-	void cancelABooking(Booking booking);
-	
+	long addPassenger(Passenger passenger);
 
 	/**
-	 *@param passenger 
+	 * Fetch a passenger from DB
+	 * 
+	 * @param passengerId
+	 * @return passenger
 	 */
-	
-public void loging(Passenger passenger);
-	
+	Passenger getPassenger(long passengerId);
+
+	/**
+	 * Delete a passenger from DB
+	 * 
+	 */
+	void deletePassenger(long passengerId);
+
 }

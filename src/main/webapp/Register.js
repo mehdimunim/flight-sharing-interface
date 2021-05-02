@@ -21,18 +21,22 @@ function callDone(result){
 
 
 $(function(){
-	$("#button").click(function(){
+//	$("#button").click(function(){
+		
+	$("#registration-form").submit(function (event) {
 	
 		var user = {
     		"firstname" : $('#firstname').val(),
     		"lastname" : $('#lastname').val(),
     		"email" : $('#email').val(),
-    		"email" : $('#confirmemail').val(),
-    		"password" : $('#password').val(),
-    		"email" : $('#repeatpassword').val(),
+        "confirmemail" : $('#confirmemail').val(),
+			"password" : $('#password').val(),
+			"repeatpassword" : $('#repeatpassword').val()
 		};
 		//var dataJson = JSON.stringify(user);
 
 		updateRegistration("ws/flight-sharing/PassengerResource/register",user, callDone);
+		
+		event.preventDefault();
 	});
 });

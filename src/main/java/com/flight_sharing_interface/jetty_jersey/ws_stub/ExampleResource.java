@@ -1,8 +1,10 @@
 package com.flight_sharing_interface.jetty_jersey.ws_stub;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -29,6 +31,20 @@ public class ExampleResource {
 	@Path("/aircraft")
 	public void retrieveExample(ExampleClass instance) {
 		System.out.println(instance.field);
+	}
+
+	@PUT
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/aircraft")
+	public void putExample(ExampleClass instance) {
+		instance.field = "Test";
+	}
+
+	@DELETE
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/aircraft")
+	public void deleteExample(ExampleClass instance) {
+		System.out.println("this user was deleted");
 	}
 
 }

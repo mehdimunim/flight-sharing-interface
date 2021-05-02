@@ -4,16 +4,17 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd" version="1.0">
 
     <!-- Configuration -->
-    <persistence-unit name= "flight-sharing-interface">
-    	<class>com.flight_sharing_interface.datanucleus.dao.Action</class>
-    	<class>com.flight_sharing_interface.datanucleus.dao.Flight</class>
-    	<class>com.flight_sharing_interface.datanucleus.dao.Booking</class>
-    	<class>com.flight_sharing_interface.datanucleus.dao.Passenger</class>
-    	<class>com.flight_sharing_interface.datanucleus.dao.Pilot</class>
+ 
+      <persistence-unit name= "flight-sharing-interface">
+    	<class>com.flight_sharing_interface.jetty_jersey.dao.objects.Aircraft</class>
+    	<class>com.flight_sharing_interface.jetty_jersey.dao.objects.Booking</class>
+    	<class>com.flight_sharing_interface.jetty_jersey.dao.objects.Flight</class>
+        <class>com.flight_sharing_interface.jetty_jersey.dao.objects.Passenger</class>
+    	<class>com.flight_sharing_interface.jetty_jersey.dao.objects.Pilot</class>
         <exclude-unlisted-classes/>
-        
+
         <properties>
-            <property name="javax.jdo.option.ConnectionURL" value="jdbc:hsqldb:mem:flightsharininterface"/>
+            <property name="javax.jdo.option.ConnectionURL" value="jdbc:hsqldb:mem:flight-sharing-interface"/>
             <property name="javax.jdo.option.ConnectionDriverName" value="org.hsqldb.jdbcDriver"/>
             <property name="javax.jdo.option.ConnectionUserName" value="SA"/>
             <property name="javax.jdo.option.ConnectionPassword" value=""/>

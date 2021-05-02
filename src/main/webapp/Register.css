@@ -13,7 +13,7 @@ body{
     font-family:'Open Sans Condensed', sans-serif;
       width: 400px;
     min-width:250px;
-      margin: 60px auto;
+      margin: 20px auto;
       position: relative;
   }
   
@@ -47,7 +47,7 @@ body{
       display: none;
   }
    .no-placeholder #registration-form label{
-    margin-left:5px;
+  margin-left:5px;
     position:relative;
     display:block;
     color:grey;
@@ -150,27 +150,4 @@ body{
   }
   ::-moz-focus-inner {
     border: 0;
-  }
-  
-  
-  span.psw {
-    float: right;
-    padding-top: 30px;
-  }
-  
-  .cancelbtn {
-    width: auto;
-    padding:10px;
-  }
-  
-  button {
-    background-color: red;
-    color: white;
-    margin: 20px ;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-  }
-  button:hover {
-    opacity: 0.8;
   }

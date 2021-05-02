@@ -1,64 +1,95 @@
 package com.flight_sharing_interface.jetty_jersey.dao.objects;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
+import java.sql.Time;
+import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 
+/**
+ * 
+ * A flight is defined by an aircraft (aircraft id) leaving at given departure
+ * date and time
+ * 
+ * A flight is done by one and only one pilot
+ * 
+ *
+ */
 @PersistenceCapable
 public class Flight {
-	public int id;
-	public double price;
-	public String meeting_place;
-	public String departure_aerodrome;
-	public String destination_aerodrome;
-	public int availabePlaces;
-	public Pilot pilot;
-	public List<Passenger> passengers = new ArrayList<Passenger>();
-	@Persistent
-	public LocalDateTime departureDateTime;
-	@Persistent
-	public LocalDateTime arrivalDateTime;
 
-	/**
-	 * @param price
-	 * @param meeting_place
-	 * @param departure_aerodrome
-	 * @param destination_aerodrome
-	 * @param id
-	 * @param availabePlaces
-	 * @param pilot
-	 * @param passengers
-	 * @param departureDateTime
-	 * @param arrivalDateTime
-	 */
-	public Flight(int id, double price, String meeting_place, String departure_aerodrome, String destination_aerodrome,
-			int availabePlaces, Pilot pilot, List<Passenger> passengers, LocalDateTime departureDateTime,
-			LocalDateTime arrivalDateTime) {
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
+	private long flightId;
+
+	private long aircraftId;
+	private long pilotId;
+
+	private Date departureDate;
+	private Time departureTime;
+
+	private Date arrivalDate;
+	private Time arrivalTime;
+
+	private String departureAerodrome;
+	private String arrivalAerodrome;
+
+	private double price;
+	private String meetingPlace;
+
+	// Defining children seems to be useful for postman
+	@Persistent(defaultFetchGroup = "true")
+	protected List<Flight> flights = null;
+
+	public Flight(int aircraftId, Date departureDate, Time departureTime, Date arrivalDate, Time arrivalTime,
+			String departureAerodrome, String arrivalAerodrome, double price, String meetingPlace, int pilotId)
+			throws Exception {
+
+		this.aircraftId = aircraftId;
+
+		this.departureDate = departureDate;
+		this.departureTime = departureTime;
+
+		if (departureDate.before(departureDate)
+				|| (departureDate.equals(arrivalDate) && departureTime.before(arrivalTime))) {
+			this.arrivalDate = arrivalDate;
+			this.departureDate = departureDate;
+		}
+
+		else {
+			throw new DateTimeException("Arrival before departure");
+		}
+
+		this.arrivalDate = arrivalDate;
+		this.arrivalTime = arrivalTime;
+
+		this.departureAerodrome = departureAerodrome;
+		this.arrivalAerodrome = arrivalAerodrome;
 		this.price = price;
-		this.meeting_place = meeting_place;
-		this.departure_aerodrome = departure_aerodrome;
-		this.destination_aerodrome = destination_aerodrome;
-		this.id = id;
-		this.availabePlaces = availabePlaces;
-		this.pilot = pilot;
-		this.passengers = passengers;
-		this.departureDateTime = departureDateTime;
-		this.arrivalDateTime = arrivalDateTime;
+		this.meetingPlace = meetingPlace;
+
+		this.pilotId = pilotId;
 	}
 
-	public Flight() {
-		// TODO Auto-generated constructor stub
+	public long getFlightId() {
+		return flightId;
 	}
 
-	public int getId() {
-		return id;
+	public void setFlightId(long flightId) {
+		this.flightId = flightId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public long getAircraftId() {
+		return aircraftId;
+	}
+
+	public void setAircraftId(long aircraftId) {
+		this.aircraftId = aircraftId;
 	}
 
 	public double getPrice() {
@@ -69,68 +100,81 @@ public class Flight {
 		this.price = price;
 	}
 
-	public String getMeeting_place() {
-		return meeting_place;
+	public String getMeetingPlace() {
+		return meetingPlace;
 	}
 
-	public void setMeeting_place(String meeting_place) {
-		this.meeting_place = meeting_place;
+	public void setMeetingPlace(String meetingPlace) {
+		this.meetingPlace = meetingPlace;
 	}
 
-	public String getDeparture_aerodrome() {
-		return departure_aerodrome;
+	public String getDepartureAerodrome() {
+		return departureAerodrome;
 	}
 
-	public void setDeparture_aerodrome(String departure_aerodrome) {
-		this.departure_aerodrome = departure_aerodrome;
+	public void setDepartureAerodrome(String departureAerodrome) {
+		this.departureAerodrome = departureAerodrome;
 	}
 
-	public String getDestination_aerodrome() {
-		return destination_aerodrome;
+	public String getArrivalAerodrome() {
+		return arrivalAerodrome;
 	}
 
-	public void setDestination_aerodrome(String destination_aerodrome) {
-		this.destination_aerodrome = destination_aerodrome;
+	public void setArrivalAerodrome(String arrivalAerodrome) {
+		this.arrivalAerodrome = arrivalAerodrome;
 	}
 
-	public int getAvailabePlaces() {
-		return availabePlaces;
+	public Date getDepartureDate() {
+		return departureDate;
 	}
 
-	public void setAvailabePlaces(int availabePlaces) {
-		this.availabePlaces = availabePlaces;
+	public void setDepartureDate(Date departureDate) {
+		this.departureDate = departureDate;
 	}
 
-	public Pilot getPilot() {
-		return pilot;
+	public Time getDepartureTime() {
+		return departureTime;
 	}
 
-	public void setPilot(Pilot pilot) {
-		this.pilot = pilot;
+	public void setDepartureTime(Time departureTime) {
+		this.departureTime = departureTime;
 	}
 
-	public List<Passenger> getPassengers() {
-		return passengers;
+	public Date getArrivalDate() {
+		return arrivalDate;
 	}
 
-	public void setPassengers(List<Passenger> passengers) {
-		this.passengers = passengers;
+	public void setArrivalDate(Date arrivalDate) {
+		this.arrivalDate = arrivalDate;
 	}
 
-	public LocalDateTime getDepartureDateTime() {
-		return departureDateTime;
+	public Time getArrivalTime() {
+		return arrivalTime;
 	}
 
-	public void setDepartureDateTime(LocalDateTime departureDateTime) {
-		this.departureDateTime = departureDateTime;
+	public void setArrivalTime(Time arrivalTime) {
+		this.arrivalTime = arrivalTime;
 	}
 
-	public LocalDateTime getArrivalDateTime() {
-		return arrivalDateTime;
+	public Flight() {
+		super();
+		this.flights = new ArrayList<Flight>();
 	}
 
-	public void setArrivalDateTime(LocalDateTime arrivalDateTime) {
-		this.arrivalDateTime = arrivalDateTime;
+	public List<Flight> getFlights() {
+		return flights;
+	}
+
+	public void setFlights(List<Flight> flights) {
+		this.flights = flights;
+	}
+
+	public long getPilotId() {
+		return pilotId;
+	}
+
+	public void setPilotId(long pilotId) {
+		this.pilotId = pilotId;
 	}
 
 }

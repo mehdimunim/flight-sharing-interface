@@ -1,85 +1,84 @@
 package com.flight_sharing_interface.jetty_jersey.dao.objects;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Date;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
-//rajouter : int id; first name et last name?? ; LocalDate birthday
-// List<Flight> bookedFlights
-
-//ATTENTION ICI il ne faut pas rendre public des informations qui ne devraient 
-// pas sortir comme le mdp par exemple 
-
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 @PersistenceCapable
 public class Passenger {
-	// define primary key id automatically
 	@PrimaryKey
-	@Persistent(valueStrategy=IdGeneratorStrategy.INCREMENT)
-	public long id;
-	
-	public String first_name;
-	public String last_name;
-	public String civil_statut;
-	public String mail_adresse;
-	public Long number;
-	public LocalDate birthday;
-	public List<Flight> bookedFlights = new ArrayList<Flight>();
-	
-	
-	
-	/**
-	 * @param first_name
-	 * @param last_name
-	 * @param civil_statut
-	 * @param mail_adresse
-	 * @param number
-	 * @param birthday
-	 * @param bookedFlights
-	 * @param id
-	 */
-	public Passenger(String first_name, String last_name, String civil_statut, String mail_adresse, Long number,
-		LocalDate birthday, List<Flight> bookedFlights, int id) {
-		this.first_name = first_name;
-		this.last_name = last_name;
-		this.civil_statut = civil_statut;
-		this.mail_adresse = mail_adresse;
-		this.number = number;
+	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
+	private long passengerId;
+
+	String firstName;
+	String lastName;
+	String civilStatut;
+	Date birthday;
+	String email;
+
+	public Passenger(String firstName, String lastName, String civilStatut, Date birthday, String email) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.civilStatut = civilStatut;
 		this.birthday = birthday;
-		this.bookedFlights = bookedFlights;
-		this.id = id;
+		this.email = email;
 	}
-
-
-	/**
-	 * @param first_name
-	 * @param last_name
-	 * @param civil_statut
-	 */
-	public Passenger(String first_name, String last_name, String civil_statut) {
-		this.first_name = first_name;
-		this.last_name = last_name;
-		this.civil_statut = civil_statut;
-	}
-
 
 	public Passenger() {
-		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
-	
-	
 
-	
-	
+	public long getPassengerId() {
+		return passengerId;
+	}
 
-	
+	public void setPassengerId(long passengerId) {
+		this.passengerId = passengerId;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getCivilStatut() {
+		return civilStatut;
+	}
+
+	public void setCivilStatut(String civilStatut) {
+		this.civilStatut = civilStatut;
+	}
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 }

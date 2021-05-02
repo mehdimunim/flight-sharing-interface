@@ -1,142 +1,148 @@
 package datanucleus;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 
-import javax.jdo.JDOHelper;
-import javax.jdo.PersistenceManagerFactory;
-
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
+import com.flight_sharing_interface.jetty_jersey.dao.AircraftDao;
+import com.flight_sharing_interface.jetty_jersey.dao.BookingDao;
+import com.flight_sharing_interface.jetty_jersey.dao.DAO;
 import com.flight_sharing_interface.jetty_jersey.dao.FlightDao;
-import com.flight_sharing_interface.jetty_jersey.dao.dn.FlightDaoImpl;
+import com.flight_sharing_interface.jetty_jersey.dao.objects.Aircraft;
+import com.flight_sharing_interface.jetty_jersey.dao.objects.Booking;
 import com.flight_sharing_interface.jetty_jersey.dao.objects.Flight;
 
 public class FlightDaoImplTest {
-	PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("flight-sharing-interface");
-	static List<Integer> flightsId = new ArrayList<Integer>();
-	FlightDao flightDAO = new FlightDaoImpl(pmf);
-	static int nelements;
+	FlightDao dao = DAO.getFlightDao();
+	BookingDao dao2 = DAO.getBookingDao();
+	AircraftDao dao3 = DAO.getAircraftDao();
 
-	public static void flightGenerator(int nelements) {
-		/**
-		 * Generate a random list of flights of size nelements
-		 */
-		for (int i = 1; i <= nelements; i++) {
+	Flight flight;
+	long flightId;
+	Date date;
+	Time departureTime;
+	Time arrivalTime;
 
-			Flight flight = new Flight();
+	@Before
+	public void addFlightTest() {
 
-			double random = Math.random();
-			double price = 1000 * random;
-			int id = (int) (price);
-			int places = (int) (100 * random);
-			int year = 2021;
-			int month = (int) (12 * random) + 1;
-			int day = (int) (28 * random) + 1;
-			int hour_de = (int) (12 * random) + 1;
-			int hour_ar = (int) (12 * random) + 12;
-			int minutes_de = (int) (30 * random) + 1;
-			int minutes_ar = (int) (30 * random) + 30;
+		flight = new Flight();
 
-			LocalDateTime departure = LocalDateTime.of(year, month, day, hour_de, minutes_de);
-			LocalDateTime arrival = LocalDateTime.of(year, month, day, hour_ar, minutes_ar);
+		date = Date.valueOf("2020-04-27");
 
-			flight.setMeeting_place("Neverland");
-			flight.setPrice(price);
-			flight.setId(id);
-			flight.setAvailabePlaces(places);
-			flight.setDepartureDateTime(departure);
-			flight.setDeparture_aerodrome("departure");
-			flight.setArrivalDateTime(arrival);
-			flight.setDestination_aerodrome("arrival");
+		arrivalTime = Time.valueOf("06:00:00");
+		departureTime = Time.valueOf("08:00:00");
 
-			flightsId.add(flight.getId());
+		flight.setDepartureAerodrome("Paris");
+		flight.setArrivalAerodrome("Berlin");
 
-		}
+		flight.setDepartureDate(date);
+		flight.setArrivalDate(date);
+
+		flight.setDepartureTime(departureTime);
+		flight.setArrivalTime(arrivalTime);
+
+		flight.setPilotId(1);
+
+		flight.setAircraftId(1);
+
+		flight.setMeetingPlace("Roissy");
+
+		flight.setPrice(100);
+
+		dao.addFlight(flight);
+
+		flightId = flight.getFlightId();
+
 	}
 
-//	public void initDB() {
-//		/**
-//		 * Adding random flights to data base
-//		 */
-//		// generate nelements flights and add them to flights
-//		nelements = 30;
-//		flightGenerator(nelements);
-//		for (int id : flightsId) {
-//			flightDAO.addFlight(flight);
-//			System.out.println("done");
-//		}
-//	}
+	@After
+	public void deletePilotTest() {
 
-	public void clearDB() {
-		/**
-		 * Removing all flights form data base
-		 */
-		if (flightsId != null) {
-			for (int id : flightsId) {
+		dao.deleteFlight(flightId);
 
-				flightDAO.deleteFlight(id);
-			}
-		}
 	}
 
 	@Test
-	public void basicTest() {
-		Flight flight = new Flight();
-		flight.setAvailabePlaces(200);
-		flight.setId(100);
+	public void getFlightTest() {
 
-		// testing adding and getting from ID
-		flightDAO.addFlight(flight);
+		// GET FLIGHTS
 
-		Flight flightOutput = flightDAO.getFlightInfo(100);
-		Assert.assertEquals(200, flightOutput.getAvailabePlaces());
+		Flight outputFlight = dao.getFlight(flightId);
+		Assert.assertEquals("Roissy", outputFlight.getMeetingPlace());
 
-		// testing clearing from DB
-		flightDAO.deleteFlight(100);
-		Assert.assertNull(flightDAO.getFlightInfo(100));
+		outputFlight = dao.getFlight(1, date, departureTime);
+		Assert.assertEquals("Roissy", outputFlight.getMeetingPlace());
+
+		List<Flight> outputFlights = dao.getAllFlights();
+		Assert.assertEquals(1, outputFlights.size());
+
+		outputFlights = dao.getFlightsWithDeparture("Paris");
+		Assert.assertEquals("Roissy", outputFlights.get(0).getMeetingPlace());
+
+		outputFlights = dao.getFlightsWithDateTime(date, departureTime);
+		Assert.assertEquals("Roissy", outputFlights.get(0).getMeetingPlace());
+
+		outputFlights = dao.getFlightsWithMeetingPlace("Roissy");
+		Assert.assertEquals("Roissy", outputFlights.get(0).getMeetingPlace());
+
+		outputFlights = dao.getPlannedFlights(1);
+		Assert.assertEquals("Roissy", outputFlights.get(0).getMeetingPlace());
+
+		// TEST EDIT
+
+		outputFlight = dao.getFlight(flight.getFlightId());
+		// test price before edit
+		Assert.assertEquals(100, outputFlight.getPrice(), 1);
+
+		dao.editFlight(flight.getFlightId(), null, null, 1000, null);
+
+		// test after edit
+		outputFlight = dao.getFlight(flightId);
+		Assert.assertEquals(1000, outputFlight.getPrice(), 1);
+
+		// TEST getAvailablePlaces
+
+		Aircraft aircraft = new Aircraft();
+		aircraft.setModel("SR-71");
+		aircraft.setOwner("Hassna");
+		aircraft.setNumberOfPlaces(10);
+
+		dao3.addAircraft(aircraft);
+
+		flight = new Flight();
+		flight.setDepartureAerodrome("Berlin");
+		flight.setArrivalAerodrome("Paris");
+		flight.setPrice(100);
+		flight.setAircraftId(aircraft.getAircraftId());
+
+		dao.addFlight(flight);
+
+		Booking booking = new Booking();
+		booking.setFlightId(flight.getFlightId());
+		booking.setPassengerId(8);
+
+		dao2.addBooking(booking);
+
+		booking = new Booking();
+		booking.setFlightId(flight.getFlightId());
+		booking.setPassengerId(2);
+
+		dao2.addBooking(booking);
+
+		int places = dao.getAvailablePlaces(flight.getFlightId());
+
+		Assert.assertEquals(8, places);
+
+		dao2.cancelBooking(1);
+		dao2.cancelBooking(2);
+		dao.deleteFlight(flight.getFlightId());
+		dao3.deleteAircraft(aircraft.getAircraftId());
+
 	}
-
-	@Test
-	public void complexTest() {
-		Flight flightInput = new Flight();
-		flightInput.setId(1);
-		flightInput.setMeeting_place("Neverland");
-
-		flightsId.add(flightInput.getId());
-		flightDAO.addFlight(flightInput);
-
-		Flight flightOutput = flightDAO.getFlightInfo(flightsId.get(0));
-		Assert.assertEquals("Neverland", flightOutput.getMeeting_place());
-		clearDB();
-	}
-
-	@Test
-	public void getFromCriteriaTest() {
-		Flight flight = new Flight();
-
-		flight.setAvailabePlaces(200);
-		flight.setId(101);
-
-		String departure_aerodrome = "Paris";
-		LocalDateTime departureDateTime = LocalDateTime.of(2021, 03, 20, 4, 0);
-		LocalDateTime arrivalDateTime = LocalDateTime.of(2021, 03, 20, 6, 0);
-
-		flight.setDeparture_aerodrome(departure_aerodrome);
-		flight.setDepartureDateTime(departureDateTime);
-		flight.setArrivalDateTime(arrivalDateTime);
-
-		flightDAO.addFlight(flight);
-
-		List<Flight> list = flightDAO.getFlightsFromCriteria(departure_aerodrome, departureDateTime, arrivalDateTime);
-		Assert.assertEquals(1, list.size());
-		for (Flight f : list) {
-			Assert.assertEquals("Paris", f.getDeparture_aerodrome());
-		}
-		clearDB();
-
-	}
-
 }
