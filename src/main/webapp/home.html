@@ -1,34 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+ <!DOCTYPE html>
+<html>
+	<body>
 
-	<meta charset="UTF-8">
-	<title>Custom Website</title>
-	<link rel="stylesheet" href="style.css">
-</head>
-<body>
-	<div class="wrapper">
-			<nav class="navbar">
-				<div class="container">
+		<script id="templateExample" type="text/template">
+			<div>
+				<%= attribute %>
+			</div>
+		</script>
+
+		<h1>It works !</h1>
 	
-					  <div class="wrapper1">
-						<div class="search-container">
-						  <input type="text" class="date-from" placeholder="Departure aerodrome">
-						  <input type="time" class="date-to" placeholder="Period of time">
-						  <button type="submit" class="button">Search</button>
-						</div>
-					  </div>
-					</div>
-				<ul>
-					<li><a class="active" href="#">Home</a></li>
-					<li><a href="Pilot.html">I am a Pilot</a></li>
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="Register.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-						<li><a href="Log_in.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-					  </ul>
-				</ul>
-			</nav>
-			
-		</div>
-</body>
+		<button id="button">Call webservice</button>
+		
+		<div id="result"></div>
+		
+	    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+	    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+		<script type="text/javascript" src="home.js"></script>
+	</body>
 </html>
