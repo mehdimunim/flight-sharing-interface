@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="Passenger.css">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Flight-sharing</title>
+
+  </head>
+  <body>
+  
+ 
+  
+<nav class="navbar">
+				
+	<ul>
+	  <li><a  href="home.html">Home</a></li>
+	  <li><a href="#">About</a></li>
+	  <li><a href="#">Contact</a></li>
+	  <ul class="nav navbar-nav navbar-right">
+		<li><a href="Search_flight.html"><span class="fa fa-fw fa-search"></span> Search</a> </li>
+		<li><a  class="active" href="random.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+		<li><a  href="Log_in.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+		</ul>
+	</ul>
+  </nav>
+		
+	  <div class="content">
+   
+		<div class="text">Passenger Information</div>
+		<form action="#">
+		
+		
+		 <div class="signup">Get a passenger's information by entering his ID :
+		
+		  </div>
+		  
+		<div class="field">
+			<span class="fas fa-user"></span>
+				<input id="inputGet" value="" placeholder="passenger ID" required></input>
+		  </div>
+		
+		<button id="buttonGet">Get Passenger Info </button>
+		<table id= "result"></table>
+		
+		  <div class="signup">Delete a passenger on board your flights using his ID :
+		
+		  </div>
+		  
+		  <div class="field">
+			<span class="fas fa-user"></span>
+				<input id="inputDelete" value="" placeholder="passenger ID" required"></input>
+		  </div>
+		<button id="buttonDelete">Delete Passenger</button>
+		</form>
+	</div>
+	
+
+		
+	    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+	    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+		<script type="text/javascript" src="Passenger.js"></script>
+  </body>
+  </html>
+

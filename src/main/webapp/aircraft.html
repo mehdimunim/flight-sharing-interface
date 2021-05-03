@@ -1,31 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<link rel="stylesheet" href="aircraft.css">
 <head>
-<meta charset="ISO-8859-1">
-<title>Aircraft</title>
-</head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Aircraft-form</title>
 
-<link rel="shortcut icon" href="#">
-<body>
-
+  </head>
+  <body>
+  
+  
 		<script id="templateRow" type="text/template">
-			<tr><td><%= model %></td><td><%= numberOfPlaces %></td><td><%flightHours %></td><td><%= owner %></td</tr>
+			<tr><td><%= model %></td><td><%= numberOfPlaces %></td><td><%= owner %></td></tr>
 		</script>
-
-		<h1>Aircraft Information</h1>
+  
+<nav class="navbar">
+				
+	<ul>
+	  <li><a  href="home.html">Home</a></li>
+	  <li><a href="#">About</a></li>
+	  <li><a href="#">Contact</a></li>
+	  <ul class="nav navbar-nav navbar-right">
+		<li><a href="Search_flight.html"><span class="fa fa-fw fa-search"></span> Search</a> </li>
+		<li><a  class="active" href="random.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+		<li><a  href="Log_in.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+		</ul>
+	</ul>
+  </nav>
 		
-		<textarea id="inputAdd" rows="10" cols="80"></textarea>
-		<button id="buttonAdd">Add aircraft</button>
-
-		<hr />
+	  <div class="content">
+   
+		<div class="text">Aircraft</div>
+		<form action="#">
+			<div class="field">
+				<span class="fas fa-user"></span>
+					<input type="text" name="model" id="model" value="" placeholder="Model" required>
 		
-		<input id="inputGet"> </input>
+			  </div>
+
+			  <div class="field">
+					<span class="fas fa-user"></span>
+					<input type="text" name="numberOfPlaces" id="numberOfPlaces" value="" placeholder="Number Of Places" required>
+			
+			  </div>
+			 
+		  <div class="field">
+				<span class="fas fa-user"></span>
+				<input type="text" name="owner" id="owner" value="" placeholder="Owner" required>
+		  </div>
+		  
+		<button id="buttonAdd" class="signup">Add Aircraft</button>
+		
+		
+		
+		 <div class="signup">Check the added information by entering the aircraft Id :
+		
+		  </div>
+		  
+		<div class="field">
+			<span class="fas fa-user"></span>
+				<input id="inputGet" value="" placeholder="aircraft ID" required></input>
+		  </div>
+		
 		<button id="buttonGet">Get Information Aircraft </button>
-		<table style="border: 1px solid black" id="result"></table>
+		<table id= "result"></table>
 		
-
+		  
+		  
+		  <div class="field">
+			<span class="fas fa-user"></span>
+				<input id="inputDelete" value="" placeholder="aircraft ID" required"></input>
+		  </div>
+		<button id="buttonDelete">Delete Aircraft</button>
+		</form>
+	</div>
+	
+	
+		
+	
+		
 	    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 	    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 		<script type="text/javascript" src="aircraft.js"></script>
-</body>
-</html>
+  </body>
+  </html>
+
+
+

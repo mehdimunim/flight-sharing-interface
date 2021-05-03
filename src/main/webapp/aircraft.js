@@ -18,29 +18,56 @@ function putServerData(url, data, success){
 }
 
 
+function deleteServerData(url){
+
+    $.ajax({
+		type: 'DELETE',	
+        url: url, 
+		contentType : 'application/json',
+        dataType: "json",
+        success: function () {
+                    alert('Do you really want to cancel this flight ?');
+                },
+    });
+}
+
+
 function fillTable(container){
 	var template = _.template($('#templateRow').html());
 	var result = "";
 	
-	container.aircrafts.forEach(aircraft => result += template(aircraft));
+	container.forEach(aircraft => result += template(aircraft));
 	
 		$("#result").append(result);
 }
 
 
-$(function(){
-	$("#buttonAdd").click(function(){
-		var data = $("#inputAdd").val();
+	$(function(){
 		
-		putServerData("ws/AircraftResource/aircraft",data, function(result){
+		$("#buttonAdd").click(function(){
+			
+			var data = 
+				{
+				model : $("#model").val(),
+				numberOfPlaces : $("#numberOfPlaces").val(),
+				owner : $("#owner").val()
+				};
+				
+			putServerData("ws/AircraftResource/add-aircraft",JSON.stringify(data), function(result){
 			alert("Success " + result);
 		});
-	});
-	
-	$("#buttonGet").click(function(){
-		var id = $("#inputGet").val();
+		});
 		
-		getServerData("ws/AircraftResource/aircraft/"+ id, fillTable);
+		$("#buttonGet").click(function(){
+			var aircraftId = $("#inputGet").val();
+			
+			getServerData("ws/AircraftResource/aircraft-info/"+ aircraftId, fillTable);
+		});
+		
+		
+		$("#buttonDelete").click(function(){
+			var id = $("#inputDelete").val();
+			deleteServerData("ws/AircraftResource/delete-aircraft/"+ id,fillTable);
 	});
 });
 

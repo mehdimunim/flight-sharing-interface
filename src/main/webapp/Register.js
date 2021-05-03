@@ -1,42 +1,45 @@
 
-function updateRegistration(url, data, success){
-                 $.ajax({
-                     url: url,
-                     type: 'PUT',
-                     dataType: 'json',
-					 contentType : 'application/json',
-                     data: data
-                 }).done(success);
+function putServerData(url, data, success){
+    $.ajax({
+		type : 'PUT',
+		contentType : "application/json; charset=utf-8", 
+        dataType : "json",
+		data : data,
+        url: url
+    }).done(success);
 }
 
-function callDone(result){
+
+
+function callDone(r){
 	var templateExample = _.template($('#templateExample').html());
 
 	var html = templateExample({
-		"attribute":JSON.stringify(result)
+		"attribute":JSON.stringify(r)
 	});
 
-	$("#result").append(html);
+	$("#r").append(html);
 }
 
 
-$(function(){
-//	$("#button").click(function(){
-		
-	$("#registration-form").submit(function (event) {
-	
-		var user = {
-    		"firstname" : $('#firstname').val(),
-    		"lastname" : $('#lastname').val(),
-    		"email" : $('#email').val(),
-    		"confirmemail" : $('#confirmemail').val(),
-			"password" : $('#password').val(),
-			"repeatpassword" : $('#repeatpassword').val()
-		};
-		//var dataJson = JSON.stringify(user);
 
-		updateRegistration("ws/flight-sharing/PassengerResource/register",user, callDone);
+	$(function(){
 		
-		event.preventDefault();
+		$("#buttonAdd").click(function(){
+			
+			var data = 
+				{
+				firstName : $("#firstName").val(),
+				lastName : $("#lastName").val(),
+				civilStatut : $("#civilStatut").val(),
+				birthday : $("#birthday").val(),
+				email : $("#email").val()
+				};
+				
+			putServerData("ws/PassengerResource/add-passenger",JSON.stringify(data), function(result){
+			alert("Success " + result);
+		});
+		});
+		
+
 	});
-});
