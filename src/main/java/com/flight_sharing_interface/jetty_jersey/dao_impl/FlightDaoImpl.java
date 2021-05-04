@@ -255,35 +255,31 @@ public class FlightDaoImpl implements FlightDao {
 	/**
 	 * Edit the flight stored at flightId
 	 * 
-	 * We assumed that if too many elements are to be changed, a new flight should
-	 * be created instead
+	 * newFlight as input to be coherent with the ws
+	 * 
 	 */
-	public void editFlight(long flightId, Time departureTime, Time arrivalTime, double price, String meetingPlace) {
+	public void editFlight(Flight newFlight) {
+		long flightId = newFlight.getFlightId();
 		Flight flight;
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
 
-			// searching flight with the name id as newFlight
+			// searching flight with the same id as newFlight
 			flight = pm.getObjectById(Flight.class, flightId);
 
-			// editing flight
-			if (departureTime != null) {
-				flight.setDepartureTime(departureTime);
-			}
-
-			if (arrivalTime != null) {
-				flight.setArrivalTime(arrivalTime);
-			}
-
-			if (price != 0) {
-				flight.setPrice(price);
-			}
-
-			if (meetingPlace != null) {
-				flight.setMeetingPlace(meetingPlace);
-			}
+			// updating flight's field
+			flight.setAircraftId(newFlight.getAircraftId());
+			flight.setPilotId(newFlight.getPilotId());
+			flight.setDepartureDate(newFlight.getDepartureDate());
+			flight.setDepartureTime(newFlight.getDepartureTime());
+			flight.setArrivalDate(newFlight.getArrivalDate());
+			flight.setArrivalTime(newFlight.getArrivalTime());
+			flight.setDepartureAerodrome(newFlight.getDepartureAerodrome());
+			flight.setArrivalAerodrome(newFlight.getArrivalAerodrome());
+			flight.setPrice(newFlight.getPrice());
+			flight.setMeetingPlace(newFlight.getMeetingPlace());
 
 			tx.commit();
 		} finally {
