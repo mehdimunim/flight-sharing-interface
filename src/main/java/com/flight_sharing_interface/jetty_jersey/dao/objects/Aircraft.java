@@ -37,6 +37,10 @@ public class Aircraft {
 		this.owner = owner;
 	}
 
+	public Aircraft() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public long getAircraftId() {
 		return aircraftId;
 	}

@@ -70,6 +70,9 @@ public class Flight {
 		this.pilotId = pilotId;
 	}
 
+	public Flight() {
+	}
+
 	public long getFlightId() {
 		return flightId;
 	}
