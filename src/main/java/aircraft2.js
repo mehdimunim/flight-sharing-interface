@@ -1,4 +1,6 @@
 
+
+
 function getServerData(url){
     $.ajax({
         dataType: "json",
@@ -16,12 +18,34 @@ function getServerData(url){
 
 
 
-$(function(){
-	$("#buttonGet").click(function(){
+function deleteServerData(url){
+
+    $.ajax({
+		type: 'DELETE',	
+        url: url, 
+		contentType : 'application/json',
+        dataType: "json",
+        success: function () {
+                    alert('Do you really want to cancel this flight ?');
+                },
+    });
+}
+
+
+
+
+	$(function(){
+		
+		
+		$("#buttonGet").click(function(){
 			var aircraftId = $("#inputGet").val();
 			
 			getServerData("ws/AircraftResource/aircraft-info/"+ aircraftId);
-			});
-			
+		});
 		
+		
+		$("#buttonDelete").click(function(){
+			var id = $("#inputDelete").val();
+			deleteServerData("ws/AircraftResource/delete-aircraft/"+ id);
+	});
 });

@@ -1,10 +1,20 @@
 
-function getServerData(url, success){
+
+
+function getServerData(url){
     $.ajax({
         dataType: "json",
-        url: url
-    }).done(success);
+        url: url,
+		success: function(data) {
+				var row = $('<tr><td>' + data.model+ '</td><td>' + data.owner + '</td><td>' + data.numberOfPlaces + '</td></tr>');
+				$('#myTable').append(row);
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			alert('Error: ' + textStatus + ' - ' + errorThrown);
+		}
+	});
 }
+
 
 
 function putServerData(url, data, success){
@@ -26,7 +36,7 @@ function deleteServerData(url){
 		contentType : 'application/json',
         dataType: "json",
         success: function () {
-                    alert('Do you really want to cancel this flight ?');
+                    alert('Do you really want to cancel this aircraft ?');
                 },
     });
 }
@@ -49,8 +59,8 @@ function fillTable(container){
 			var data = 
 				{
 				model : $("#model").val(),
-				numberOfPlaces : $("#numberOfPlaces").val(),
-				owner : $("#owner").val()
+				owner : $("#owner").val(),
+				numberOfPlaces : $("#numberOfPlaces").val()
 				};
 				
 			putServerData("ws/AircraftResource/add-aircraft",JSON.stringify(data), function(result){
@@ -61,7 +71,7 @@ function fillTable(container){
 		$("#buttonGet").click(function(){
 			var aircraftId = $("#inputGet").val();
 			
-			getServerData("ws/AircraftResource/aircraft-info/"+ aircraftId, fillTable);
+			getServerData("ws/AircraftResource/aircraft-info/"+ aircraftId);
 		});
 		
 		
