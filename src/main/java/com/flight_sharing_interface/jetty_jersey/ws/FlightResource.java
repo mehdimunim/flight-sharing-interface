@@ -1,5 +1,7 @@
 package com.flight_sharing_interface.jetty_jersey.ws;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 
 import javax.ws.rs.BadRequestException;
@@ -79,4 +81,15 @@ public class FlightResource {
 		return DAO.getFlightDao().getAvailablePlaces(flightId);
 	}
 
+	/**
+	 * Get flights leaving at a given date and time
+	 */
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/search-flight/{departureDate}/{departureTime}")
+	public List<Flight> getFlightsWithDateTime(@PathParam("departureDate") Date departureDate,
+			@PathParam("departureTime") Time departureTime) {
+		return DAO.getFlightDao().getFlightsWithDateTime(departureDate, departureTime);
+	}
 }
