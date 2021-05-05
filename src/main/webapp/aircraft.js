@@ -1,6 +1,7 @@
 
 
 
+
 function getServerData(url){
     $.ajax({
         dataType: "json",
@@ -17,17 +18,6 @@ function getServerData(url){
 
 
 
-function putServerData(url, data, success){
-    $.ajax({
-		type : 'PUT',
-		contentType : "application/json; charset=utf-8", 
-        dataType : "json",
-		data : data,
-        url: url
-    }).done(success);
-}
-
-
 function deleteServerData(url){
 
     $.ajax({
@@ -40,6 +30,36 @@ function deleteServerData(url){
                 },
     });
 }
+
+
+
+	
+
+
+function putServerData(url, data, success){
+    $.ajax({
+		type : 'PUT',
+		contentType : "application/json; charset=utf-8", 
+        dataType : "json",
+		data : data,
+        url: url
+    }).done(success);
+}
+
+
+
+
+function postServerData(url, data, success){
+
+    $.ajax({
+		type: 'POST',	
+        url: url,
+		data: data,
+		contentType : 'application/json',
+        dataType: "json"
+    }).done(success);
+}
+
 
 
 function fillTable(container){
@@ -68,7 +88,7 @@ function fillTable(container){
 		});
 		});
 		
-		$("#buttonGet").click(function(){
+			$("#buttonGet").click(function(){
 			var aircraftId = $("#inputGet").val();
 			
 			getServerData("ws/AircraftResource/aircraft-info/"+ aircraftId);
@@ -79,6 +99,27 @@ function fillTable(container){
 			var id = $("#inputDelete").val();
 			deleteServerData("ws/AircraftResource/delete-aircraft/"+ id,fillTable);
 	});
+	
+	$("#buttonEdit").click(function(){
+			
+			var data = 
+				{
+				aircraftId : $("#aircraftId").val(),  
+				model : $("#model").val(),
+				owner : $("#owner").val(),
+				numberOfPlaces : $("#numberOfPlaces").val()
+				};
+				
+			postServerData("ws/AircraftResource/modify-aircraft",JSON.stringify(data), function(result){
+			alert("Success " + result);
+		});
+		});
+	
+	
+		
+
+	
+
 });
 
 

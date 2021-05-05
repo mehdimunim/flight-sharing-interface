@@ -4,6 +4,7 @@ import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -49,11 +50,23 @@ public class AircraftResource {
 	 *
 	 */
 
-	@Consumes(MediaType.APPLICATION_JSON)
 	@DELETE
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("delete-aircraft/{id}")
 	public void deleteAircraft(@PathParam("id") long aircraftId) {
 		DAO.getAircraftDao().deleteAircraft(aircraftId);
+	}
+
+	/**
+	 * Edit the aircraft stored at aircraftId
+	 * 
+	 */
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/modify-aircraft")
+	public void editAircraft(Aircraft newAircraft) {
+		DAO.getAircraftDao().editAircraft(newAircraft);
+
 	}
 
 }
