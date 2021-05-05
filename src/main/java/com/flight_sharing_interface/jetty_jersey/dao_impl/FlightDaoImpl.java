@@ -353,6 +353,7 @@ public class FlightDaoImpl implements FlightDao {
 	@SuppressWarnings("unchecked")
 	public int getAvailablePlaces(long flightId_) {
 		int availablePlaces;
+		int bookedPlaces = 0;
 		long aircraftId;
 		Flight flight;
 		Aircraft aircraft;
@@ -369,6 +370,11 @@ public class FlightDaoImpl implements FlightDao {
 			q.setFilter("flightId == flightId_");
 			bookings = (List<Booking>) q.execute(flightId_);
 
+			// If no booking then 0 bookedPlaces
+			if (bookings != null) {
+				bookedPlaces = bookings.size();
+			}
+
 			// fetching the aircraft id
 			q = pm.newQuery(Flight.class);
 			flight = pm.getObjectById(Flight.class, flightId_);
@@ -379,7 +385,7 @@ public class FlightDaoImpl implements FlightDao {
 			aircraft = pm.getObjectById(Aircraft.class, aircraftId);
 
 			// getting remaining places for the flight
-			availablePlaces = aircraft.getNumberOfPlaces() - bookings.size();
+			availablePlaces = aircraft.getNumberOfPlaces() - bookedPlaces;
 
 			tx.commit();
 
