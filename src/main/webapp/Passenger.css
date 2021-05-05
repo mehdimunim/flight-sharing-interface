@@ -67,8 +67,8 @@ body{
 
 }
 
-.content{
-  width: 330px;
+.content {
+  width: 400px;
   background: #dde1e7;
   margin: 2cm;
   border-radius: 10px;
@@ -187,3 +187,20 @@ button:focus{
 .signup a:hover{
   text-decoration: underline;
 }
+ .myTable {
+  width: 330px;
+  position: inherit;
+  margin-right: 2px;
+
+  }
+ .myTable th {
+   background: #f1f1f1;
+   font-weight: bold;
+   padding:20px;
+   font-size: 10px;
+    }
+ .myTable td {
+  background: #f9f9f9;
+  padding: 20px;
+   }
+          

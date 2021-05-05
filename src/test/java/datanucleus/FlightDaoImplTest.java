@@ -116,6 +116,8 @@ public class FlightDaoImplTest {
 
 		// TEST getAvailablePlaces
 
+		// Without bookings
+
 		Aircraft aircraft = new Aircraft();
 		aircraft.setModel("SR-71");
 		aircraft.setOwner("Hassna");
@@ -131,6 +133,13 @@ public class FlightDaoImplTest {
 
 		dao.addFlight(flight);
 
+		int places = dao.getAvailablePlaces(flight.getFlightId());
+
+		// the flight is empty
+		Assert.assertEquals(10, places);
+
+		// With bookings
+
 		Booking booking = new Booking();
 		booking.setFlightId(flight.getFlightId());
 		booking.setPassengerId(8);
@@ -143,7 +152,7 @@ public class FlightDaoImplTest {
 
 		dao2.addBooking(booking);
 
-		int places = dao.getAvailablePlaces(flight.getFlightId());
+		places = dao.getAvailablePlaces(flight.getFlightId());
 
 		Assert.assertEquals(8, places);
 
