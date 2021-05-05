@@ -39,6 +39,17 @@ function putServerData(url, data, success){
     }).done(success);
 }
 
+function postServerData(url, data, success){
+
+    $.ajax({
+		type: 'POST',	
+        url: url,
+		data: data,
+		contentType : 'application/json',
+        dataType: "json"
+    }).done(success);
+}
+
 
 
 	$(function(){
@@ -71,4 +82,23 @@ function putServerData(url, data, success){
 			
 			deleteServerData("ws/PassengerResource/delete-passenger/"+ id);
 	});
+	
+	
+	$("#buttonEdit").click(function(){
+			
+			var passenger = 
+				{
+				passengerId : $("#passengerId").val(),
+				firstName : $("#firstName").val(),
+				lastName : $("#lastName").val(),
+				civilStatut : $("#civilStatut").val(),
+				birthday : $("#birthday").val(),
+				email : $("#email").val()
+				};
+				
+				
+			postServerData("ws/PassengerResource/modify-passenger",JSON.stringify(passenger), function(result){
+			alert("Success " + result);
+		});
+		});
 });

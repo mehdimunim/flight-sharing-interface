@@ -48,18 +48,52 @@
             </tr>
         </table>
 		
-		  <div class="signup">Delete a passenger on board your flights using his ID :
 		
-		  </div>
-		  
-		  <div class="field">
-			<span class="fas fa-user"></span>
-				<input id="inputDelete" value="" placeholder="passenger ID" required"></input>
-		  </div>
-		<button id="buttonDelete">Delete Passenger</button>
 		</form>
 	</div>
 	
+	  <div class="content">
+   
+		<div class="text"> Updating Your Account Information </div>
+		<form action="#">
+		
+		<div class="field">
+				<span class="fas fa-user"></span>
+					<input type="text" name="passengerId" id="passengerId" value="" placeholder="passenger ID" required>
+		
+			  </div>
+			  
+			<div class="field">
+				<span class="fas fa-user"></span>
+				<input type="text" name="firstName" id="firstName" value="" placeholder="First Name" required>
+			  </div>
+
+			  <div class="field">
+				<span class="fas fa-user"></span>
+				<input type="text" name="lastName" id="lastName" value="" placeholder="Last Name" required>
+			  </div>
+
+			  <div class="field">
+				<span class="fas fa-user"></span>
+				<input type="text" name="civilStatut" id="civilStatut" value="" placeholder="Civil Statut" required>
+			  </div>
+
+			  <div class="field">
+				<span class="fas fa-user"></span>
+				<input type="date" name="birthday" id="birthday" value="" placeholder="Birthday date" required>
+			  </div>
+
+		 	 <div class="field">
+				<span class="fas fa-user"></span>
+				<input type="text" name="email" id="email" value="" placeholder="Email" required>
+		 	 </div>
+		  
+		<button id="buttonEdit" class="signup">Modify the information</button>
+		
+		
+		
+		</form>
+	</div>
 		 <style>
             table {
                 width: 90%;
@@ -81,4 +115,5 @@
 		<script type="text/javascript" src="Passenger.js"></script>
   </body>
   </html>
+
 
