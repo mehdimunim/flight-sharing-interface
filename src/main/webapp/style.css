@@ -108,7 +108,7 @@
     margin-bottom:25px;
     width:30%;
 	background-image: url(flightshare1.jpg);
-    margin-left:12cm;
+    margin-left:50%;
     margin-right:auto;
     text-align:center;
     border-radius:5px;
@@ -197,4 +197,44 @@
 }
 .buttons button:hover{
 	background: #cc0000;
+}
+
+.bottom-home{
+	background-color: white;
+    margin-top:200px;
+	width:100px;
+	height: 200px;
+	background-size: cover;
+}
+
+.bottom-home .info-col .about-col .discover-col{
+	display: block;
+	width:10px;
+	
+}
+
+.info-col{
+	text-align: left;
+	left:2%;
+	position: absolute;
+}
+
+.about-col{
+	
+	text-align: center;
+	position: absolute;
+	margin-left:30%;
+}
+
+.about-col a{
+	margin-top: 1%;
+
+}
+
+.discover-col{
+
+	text-align: right;
+	position: absolute;
+	left:60%;
+	
 }
