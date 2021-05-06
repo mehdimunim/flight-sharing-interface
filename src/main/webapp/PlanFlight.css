@@ -64,6 +64,7 @@
     border: 1px solid rgb(66, 61, 61);
     width: 450px;
     position: relative;
+    top:20%;
     
 
   }
@@ -77,7 +78,7 @@
   }
   #header h1 {
     color: #FFF;
-    margin-left: 20px;
+    margin-left: 150px;
     font-size: 1.3em
   }
   
@@ -102,7 +103,7 @@
     color: #6B6A6A;
     font-size: .9em;
   }
-  .info-box input[type=text], input[type=submit], select {
+  .info-box input[type=text], input[type=number],input[type=datetime-local],button[type=submit], select {
     border: none;
     outline: none;
     background: #E2E0E0;
@@ -164,7 +165,7 @@
     display: flex;
     justify-content: center;
   }
-  #flight-search input[type=submit] {
+  #flight-search button[type=submit] {
     background:#5C8CA7;
     color: white;
     padding: 0;

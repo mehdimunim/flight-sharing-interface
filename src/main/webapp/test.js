@@ -1,32 +1,27 @@
-function getServerData(url, success){
-	
-	var data = {
-   	 	id: 40 
-	};
+
+function getServerData(url){
     $.ajax({
-  		method: "POST",
-  		dataType: "json",
-  		data: JSON.stringify(data)
-	})
-  		.done(function( msg ) {
-    	alert( "Data Saved: " + Modification_made );
-  	});
-
-
-function callDone(resultDivi){
-	var templateModifyFlight = _.template($('#templateModifyFlight').html());
-
-	var html = templateModifyFlight({
-		"attribute":JSON.stringify(resultDivi)
+        dataType: "json",
+        url: url,
+		success: function(data) {
+				var row = $('<tr><td>' + data.model+ '</td><td>' + data.owner + '</td><td>' + data.numberOfPlaces + '</td></tr>');
+				$('#myTable').append(row);
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			alert('Error: ' + textStatus + ' - ' + errorThrown);
+		}
 	});
-
-	$("#resultDivi").append(html);
 }
+
+
+
 
 $(function(){
-	$("#btnModifyFlights").click(function(){
-		getServerData("ws/flightResource/flight",callDone);
-	});
+	$("#buttonGet").click(function(){
+			var aircraftId = $("#inputGet").val();
+			
+			getServerData("ws/AircraftResource/aircraft-info/"+ aircraftId);
+			});
+			
+		
 });
-
-}

@@ -2,7 +2,9 @@ package com.flight_sharing_interface.jetty_jersey.ws;
 
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -15,18 +17,24 @@ import com.flight_sharing_interface.jetty_jersey.dao.objects.Aircraft;
 @Path("/AircraftResource")
 public class AircraftResource {
 
-	// return information of a specific aircraft (from its ID)
+	/**
+	 * Fetch an aircraft from DB with its id
+	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/aircraft/{id}")
-	public Aircraft getAircraftInfo(@PathParam("id") long id) {
+	@Path("/aircraft-info/{id}")
+	public Aircraft getAircraft(@PathParam("id") long id) {
 		return DAO.getAircraftDao().getAircraft(id);
 	}
 
+	/**
+	 * Add a specific aircraft to DB
+	 * 
+	 */
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/aircraft")
-	public long addAircraftInfo(Aircraft aircraft) {
+	@Path("/add-aircraft")
+	public long addAircraft(Aircraft aircraft) {
 
 		if (aircraft == null) {
 			throw new BadRequestException("Missing payload");
@@ -36,4 +44,29 @@ public class AircraftResource {
 		}
 		return DAO.getAircraftDao().addAircraft(aircraft);
 	}
+
+	/**
+	 * Delete a specific aircraft (from its ID)
+	 *
+	 */
+
+	@DELETE
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("delete-aircraft/{id}")
+	public void deleteAircraft(@PathParam("id") long aircraftId) {
+		DAO.getAircraftDao().deleteAircraft(aircraftId);
+	}
+
+	/**
+	 * Edit the aircraft stored at aircraftId
+	 * 
+	 */
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/modify-aircraft")
+	public void editAircraft(Aircraft newAircraft) {
+		DAO.getAircraftDao().editAircraft(newAircraft);
+
+	}
+
 }

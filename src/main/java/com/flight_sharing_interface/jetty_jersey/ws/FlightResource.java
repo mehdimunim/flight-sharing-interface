@@ -1,6 +1,7 @@
 package com.flight_sharing_interface.jetty_jersey.ws;
 
-import java.time.LocalDate;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 
 import javax.ws.rs.BadRequestException;
@@ -20,13 +21,6 @@ import com.flight_sharing_interface.jetty_jersey.dao.objects.Flight;
 @Path("/FlightResource")
 public class FlightResource {
 
-	public static class flightsFromCriteria {
-		public String departure_aerodrome;
-		public String destination_aerodrome;
-		public LocalDate departureDate;
-		public LocalDate arrivalDate;
-	}
-
 	/**
 	 * return information of a specific flight (from its ID)
 	 *
@@ -34,48 +28,14 @@ public class FlightResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/flight-info/{id}")
-	public Flight getFlightInfo(@PathParam("id") int flightId) {
+	public Flight getFlight(@PathParam("id") long flightId) {
 		return DAO.getFlightDao().getFlight(flightId);
 	}
 
 	/**
-	 * returns flights based on specific criteria (departure aerodrome, desired
-	 * period)
-	 *
-	 */
-
-	@Consumes(MediaType.APPLICATION_JSON)
-	@POST
-	@Path("/search-flight/flights")
-	public List<Flight> getFlighsFromCriteria(flightsFromCriteria flights) {
-		return DAO.getFlightDao().getFlightsFromCriteria(flights);
-	}
-
-	/**
-	 * Edit information of a specific flight (from its ID)
-	 *
-	 */
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/edit-flight/{id}")
-	public void editFlight(@PathParam("id") int flightId) {
-		DAO.getFlightDao().editFlight(flightId);
-	}
-
-	/**
+	 * add flight to DB
 	 * 
-	 * Add flight in the database by the pilot (pilotId)
-	 *
-	 * 
-	 * @PUT
-	 * @Produces(MediaType.APPLICATION_JSON) @Path("/add-flight/{pilotId}") public
-	 *                                       void addFlight(@PathParam("pilotId")
-	 *                                       int pilotId) {
-	 *                                       DAO.getFlightDao().addFlight(pilotId);
-	 *                                       System.out.println("The flight has been
-	 *                                       added successfully !"); }
-	 **/
-
+	 */
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/add-flight")
@@ -98,8 +58,53 @@ public class FlightResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@DELETE
 	@Path("delete-flight/{id}")
-	public void deleteFlight(@PathParam("id") int id) {
-		DAO.getFlightDao().deleteFlight(id);
+	public void deleteFlight(@PathParam("id") long flightId) {
+		DAO.getFlightDao().deleteFlight(flightId);
+	}
+
+	/**
+	 * Get flights planned for the given pilot
+	 */
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/flightPlanned/{id}")
+	public List<Flight> getPlannedFlights(@PathParam("id") long pilotId) {
+		return DAO.getFlightDao().getPlannedFlights(pilotId);
+	}
+
+	/**
+	 * Get available places in the given flight
+	 */
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/availablePlaces/{id}")
+	public int getAvailablePlaces(@PathParam("id") long flightId) {
+		return DAO.getFlightDao().getAvailablePlaces(flightId);
+	}
+
+	/**
+	 * Get flights leaving at a given date and time
+	 */
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/search-flight/{departureDate}/{departureTime}")
+	public List<Flight> getFlightsWithDateTime(@PathParam("departureDate") Date departureDate,
+			@PathParam("departureTime") Time departureTime) {
+		return DAO.getFlightDao().getFlightsWithDateTime(departureDate, departureTime);
+	}
+
+	/**
+	 * Edit the flight stored at flightId
+	 * 
+	 * newFlight as input to be coherent with the ws
+	 */
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/modify-flight")
+	public void editFlight(Flight newFlight) {
+		DAO.getFlightDao().editFlight(newFlight);
 
 	}
+
 }

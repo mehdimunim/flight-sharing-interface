@@ -96,17 +96,27 @@ public class FlightDaoImplTest {
 
 		// TEST EDIT
 
-		outputFlight = dao.getFlight(flight.getFlightId());
-		// test price before edit
-		Assert.assertEquals(100, outputFlight.getPrice(), 1);
+		// Creating newFlight with the fields we want to update
+		Flight newFlight = new Flight();
+		newFlight.setFlightId(flightId);
+		newFlight.setMeetingPlace("EIDD");
+		newFlight.setPrice(1000);
 
-		dao.editFlight(flight.getFlightId(), null, null, 1000, null);
+		outputFlight = dao.getFlight(flight.getFlightId());
+		// test before edit
+		Assert.assertEquals(100, outputFlight.getPrice(), 1);
+		Assert.assertEquals("Roissy", outputFlight.getMeetingPlace());
+
+		dao.editFlight(newFlight);
 
 		// test after edit
 		outputFlight = dao.getFlight(flightId);
+		Assert.assertEquals("EIDD", outputFlight.getMeetingPlace());
 		Assert.assertEquals(1000, outputFlight.getPrice(), 1);
 
 		// TEST getAvailablePlaces
+
+		// Without bookings
 
 		Aircraft aircraft = new Aircraft();
 		aircraft.setModel("SR-71");
@@ -123,6 +133,13 @@ public class FlightDaoImplTest {
 
 		dao.addFlight(flight);
 
+		int places = dao.getAvailablePlaces(flight.getFlightId());
+
+		// the flight is empty
+		Assert.assertEquals(10, places);
+
+		// With bookings
+
 		Booking booking = new Booking();
 		booking.setFlightId(flight.getFlightId());
 		booking.setPassengerId(8);
@@ -135,7 +152,7 @@ public class FlightDaoImplTest {
 
 		dao2.addBooking(booking);
 
-		int places = dao.getAvailablePlaces(flight.getFlightId());
+		places = dao.getAvailablePlaces(flight.getFlightId());
 
 		Assert.assertEquals(8, places);
 

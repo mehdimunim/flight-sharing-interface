@@ -3,32 +3,79 @@
 <head>
 
 	<meta charset="UTF-8">
-	<title>Custom Website</title>
+	<title>Flight-sharing homepage</title>
 	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href = "https://fonts.googleapis.com/icon?family=Material+Icons" rel = "stylesheet">
+	
 </head>
 <body>
 	<div class="wrapper">
 			<nav class="navbar">
+				<img class="logo" src="logo_white_large.png">
 				<div class="container">
 	
 					  <div class="wrapper1">
 						<div class="search-container">
-						  <input type="text" class="date-from" placeholder="Departure aerodrome">
-						  <input type="time" class="date-to" placeholder="Period of time">
-						  <button type="submit" class="button">Search</button>
+						  <input type="text" class="date-from" placeholder="Departure aerodr....">
+						  <input type="datetime-local" class="date-to" placeholder="Period of time">
+						  <button type="submit" class="button"><i class="fa fa-search"></i></button>
 						</div>
 					  </div>
 					</div>
 				<ul>
-					<li><a class="active" href="#">Home</a></li>
-					<li><a href="Pilot.html">I am a Pilot</a></li>
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="Register.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-						<li><a href="Log_in.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-					  </ul>
+					<li><a class="active" href="#"><i class="fa fa-home"></i>Home</a></li>
+					<li><a href="Help.html"><span class="material-icons">help</span></a></li>
+					<li><a href="Pilot.html"><span class="fa fa-user"></span>I am a Pilot</a></li>
+					<li><a href="Register.html"><span class="fa fa-user-plus"></span>sign up </a>
+					</li>
+					<li><a href="Log_in.html"><i class="material-icons">login
+					</i></a></li>
 				</ul>
-			</nav>
-			
+			</nav>	
+			<div class="home">
+    
+				<h1>Welcome to our flight-sharing website</h1>
+					
 		</div>
+		<div class="home1">
+    	
+	</div>
+
+	<div class="home2">
+    
+</div>
+
+
+<div class = "bottom-home"> 
+	<div class = "info-col">
+		<h>Information</h><br>
+		<a>Safety & Trust</a><br>
+		<a>Insurance</a><br>
+		<a>Regulation</a><br>
+	</div>
+
+
+		<div class = "about-col">
+			<h>About Us</h><br>
+			<a>About</a><br>
+			<a>Blog</a><br>
+			<a>Contact us</a><br>
+			<a>Team of use</a><br>
+
+		</div>
+
+ 
+			<div class = "discover-col">
+				<h>Explore</h><br>
+				<a href= "BookFlight.html">List Aircraft</a><br>
+				<a href = "Search_flight.html">find a flight</a><br>
+				<a href ="#">Pilot Help</a><br>
+				<a href="#"> Passenger help</a><br>
+			</div>
+		</div>
+			
+
+		
 </body>
 </html>

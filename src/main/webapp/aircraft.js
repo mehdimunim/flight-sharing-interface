@@ -1,10 +1,39 @@
 
-function getServerData(url, success){
+
+
+
+function getServerData(url){
     $.ajax({
         dataType: "json",
-        url: url
-    }).done(success);
+        url: url,
+		success: function(data) {
+				var row = $('<tr><td>' + data.model+ '</td><td>' + data.owner + '</td><td>' + data.numberOfPlaces + '</td></tr>');
+				$('#myTable').append(row);
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			alert('Error: ' + textStatus + ' - ' + errorThrown);
+		}
+	});
 }
+
+
+
+function deleteServerData(url){
+
+    $.ajax({
+		type: 'DELETE',	
+        url: url, 
+		contentType : 'application/json',
+        dataType: "json",
+        success: function () {
+                    alert('Do you really want to cancel this aircraft ?');
+                },
+    });
+}
+
+
+
+	
 
 
 function putServerData(url, data, success){
@@ -18,30 +47,79 @@ function putServerData(url, data, success){
 }
 
 
+
+
+function postServerData(url, data, success){
+
+    $.ajax({
+		type: 'POST',	
+        url: url,
+		data: data,
+		contentType : 'application/json',
+        dataType: "json"
+    }).done(success);
+}
+
+
+
 function fillTable(container){
 	var template = _.template($('#templateRow').html());
 	var result = "";
 	
-	container.aircrafts.forEach(aircraft => result += template(aircraft));
+	container.forEach(aircraft => result += template(aircraft));
 	
 		$("#result").append(result);
 }
 
 
-$(function(){
-	$("#buttonAdd").click(function(){
-		var data = $("#inputAdd").val();
+	$(function(){
 		
-		putServerData("ws/AircraftResource/aircraft",data, function(result){
+		$("#buttonAdd").click(function(){
+			
+			var data = 
+				{
+				model : $("#model").val(),
+				owner : $("#owner").val(),
+				numberOfPlaces : $("#numberOfPlaces").val()
+				};
+				
+			putServerData("ws/AircraftResource/add-aircraft",JSON.stringify(data), function(result){
 			alert("Success " + result);
 		});
+		});
+		
+			$("#buttonGet").click(function(){
+			var aircraftId = $("#inputGet").val();
+			
+			getServerData("ws/AircraftResource/aircraft-info/"+ aircraftId);
+		});
+		
+		
+		$("#buttonDelete").click(function(){
+			var id = $("#inputDelete").val();
+			deleteServerData("ws/AircraftResource/delete-aircraft/"+ id,fillTable);
 	});
 	
-	$("#buttonGet").click(function(){
-		var id = $("#inputGet").val();
+	$("#buttonEdit").click(function(){
+			
+			var data = 
+				{
+				aircraftId : $("#aircraftId").val(),  
+				model : $("#model").val(),
+				owner : $("#owner").val(),
+				numberOfPlaces : $("#numberOfPlaces").val()
+				};
+				
+			postServerData("ws/AircraftResource/modify-aircraft",JSON.stringify(data), function(result){
+			alert("Success " + result);
+		});
+		});
+	
+	
 		
-		getServerData("ws/AircraftResource/aircraft/"+ id, fillTable);
-	});
+
+	
+
 });
 
 

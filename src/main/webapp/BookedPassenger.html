@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="BookFlight2.css">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Aircraft-form</title>
+
+  </head>
+  <body>
+  
+
+  
+  
+		<script id="templateRow" type="text/template">
+			<tr><td><%= model %></td><td><%= numberOfPlaces %></td><td><%= owner %></td></tr>
+		</script>
+  
+<nav class="navbar">
+				
+	<ul>
+	  <li><a a class="active" href="home.html">Home</a></li>
+	 
+	  <ul class="nav navbar-nav navbar-right">
+		</ul>
+	</ul>
+  </nav>
+		
+	  <div class="content">
+   
+		<div class="text">Booked Flight</div>
+		<form action="#">
+		
+		 <div class="signup">Private information of a booking : 
+		  </div>
+		
+			<div class="field">
+			<span class="fas fa-user"></span>
+				<input id="inputGet" value="" placeholder="booking ID" required></input>
+		  </div>
+		
+		<button id="buttonGet"> Show information </button>
+        <table id="myTable">
+		   <tr>
+                <th>Booking Id</th>
+                <th>Flight Id</th>
+                <th>Passenger Id</th>
+            </tr>
+        </table>
+        
+        
+     
+		
+		 <style>
+            table {
+                width: 90%;
+            }
+            th {
+                background: #f1f1f1;
+                font-weight: bold;
+                padding:20px;
+            }
+            td {
+                background: #f9f9f9;
+                padding: 10px;
+            }
+            </style>
+		
+		
+		</form>
+	</div>
+
+	
+	
+
+	    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+	    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+		<script type="text/javascript" src="BookFlight.js"></script>
+  </body>
+  </html>
+

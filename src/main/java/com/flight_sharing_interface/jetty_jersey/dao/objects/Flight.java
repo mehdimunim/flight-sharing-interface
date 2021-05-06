@@ -3,8 +3,6 @@ package com.flight_sharing_interface.jetty_jersey.dao.objects;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.DateTimeException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
@@ -42,10 +40,6 @@ public class Flight {
 	private double price;
 	private String meetingPlace;
 
-	// Defining children seems to be useful for postman
-	@Persistent(defaultFetchGroup = "true")
-	protected List<Flight> flights = null;
-
 	public Flight(int aircraftId, Date departureDate, Time departureTime, Date arrivalDate, Time arrivalTime,
 			String departureAerodrome, String arrivalAerodrome, double price, String meetingPlace, int pilotId)
 			throws Exception {
@@ -74,6 +68,9 @@ public class Flight {
 		this.meetingPlace = meetingPlace;
 
 		this.pilotId = pilotId;
+	}
+
+	public Flight() {
 	}
 
 	public long getFlightId() {
@@ -154,19 +151,6 @@ public class Flight {
 
 	public void setArrivalTime(Time arrivalTime) {
 		this.arrivalTime = arrivalTime;
-	}
-
-	public Flight() {
-		super();
-		this.flights = new ArrayList<Flight>();
-	}
-
-	public List<Flight> getFlights() {
-		return flights;
-	}
-
-	public void setFlights(List<Flight> flights) {
-		this.flights = flights;
 	}
 
 	public long getPilotId() {

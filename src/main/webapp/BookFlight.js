@@ -1,0 +1,98 @@
+
+
+
+function getServerData(url){
+    $.ajax({
+        dataType: "json",
+        url: url,
+		success: function(data) {
+				var row = $('<tr><td>' + data.bookingId+ '</td><td>' + data.flightId + '</td><td>' + data.passengerId + '</td></tr>');
+				$('#myTable').append(row);
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			alert('Error: ' + textStatus + ' - ' + errorThrown);
+		}
+	});
+}
+
+
+
+function deleteServerData(url){
+
+    $.ajax({
+		type: 'DELETE',	
+        url: url, 
+		contentType : 'application/json',
+        dataType: "json",
+        success: function () {
+                    alert('Do you really want to cancel this booking ?');
+                },
+    });
+}
+
+
+
+	
+
+
+function putServerData(url, data, success){
+    $.ajax({
+		type : 'PUT',
+		contentType : "application/json; charset=utf-8", 
+        dataType : "json",
+		data : data,
+        url: url
+    }).done(success);
+}
+
+
+
+
+function postServerData(url, data, success){
+
+    $.ajax({
+		type: 'POST',	
+        url: url,
+		data: data,
+		contentType : 'application/json',
+        dataType: "json"
+    }).done(success);
+}
+
+
+
+	$(function(){
+		
+			$("#buttonAdd").click(function(){
+			
+			var data = 
+				{
+				passengerId : $("#passengerId").val(),
+				flightId : $("#flightId").val(),
+				timestamp : $("#timestamp").val()
+				};
+				
+			putServerData("ws/BookingResource/add-booking",JSON.stringify(data), function(result){
+			alert("Success " + result);
+		});
+		});
+		
+		
+			$("#buttonGet").click(function(){
+			var aircraftId = $("#inputGet").val();
+			
+			getServerData("ws/BookingResource/booking-info/"+ aircraftId);
+		});
+		
+		
+		$("#buttonDelete").click(function(){
+			var id = $("#inputDelete").val();
+			deleteServerData("ws/BookingResource/delete-boooking/"+ id);
+	});
+	
+
+
+});
+
+
+
