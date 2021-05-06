@@ -1,36 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<link rel="stylesheet" href="Passenger.css">
 <head>
-<meta charset="ISO-8859-1">
-<title>Aircraft</title>
-</head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Flight-sharing</title>
 
-<link rel="shortcut icon" href="#">
-<body>
+  </head>
+  <body>
+  
+ 
+  
+<nav class="navbar">
+				
+	<ul>
+	 <li><a class = "active" href="#">Passenger</a></li>
+	  <li><a  href="home.html">Home</a></li>
+	  <ul class="nav navbar-nav navbar-right">
 
-		<script id="templateRow" type="text/template">
-			<tr><td><%= price  %></td><td><%= meeting_place %></td><td><%departure_aerodrome %></td><td><%= destination_aerodrome %></td><td><%= availabePlaces  %></td><td><%= pilot  %></td><td><%= passengers  %></td><td><%= departureDate  %></td></td><td><%= arrivalDate  %></td></tr>
-
-		</script>
-
-		<h1>Flight Information</h1>
+		</ul>
+	</ul>
+  </nav>
 		
-		<textarea id="inputAdd" rows="10" cols="80"></textarea>
-		<button id="buttonAdd">Add flight</button>
+	  <div class="content">
+   
+		<div class="text">Flight Information</div>
+		<form action="#">
 		
+		<div class="signup">Get the available seats of a flight by entering its id :
+		
+		  </div>
+		  
+		  <div class="field">
+			<span class="fas fa-user"></span>
+				<input id="inputGetPlaces" value="" placeholder="flight ID" required"></input>
+		  </div>
+		<button id="buttonGetPlaces">See Available Places</button>
+		<table id="myTable2"></table>
+		
+		
+		 <div class="signup">Get a flight's information by entering its ID :
+		
+		  </div>
+		  
+		<div class="field">
+			<span class="fas fa-user"></span>
+				<input id="inputGet" value="" placeholder="flight ID" required></input>
+		  </div>
+		
+		<button id="buttonGet">See Flight Info </button>
+		 <table id="myTable">
+		   <tr>
+		   
+                <th>Aircraft Id </th>
+                <th>Pilot Id</th>
+         
+          
+            </tr>
+        </table>
+		
+		
+		
+		</form>
+	</div>
+	
+		 <style>
+            table {
+                width: 90%;
+            }
+            th {
+                background: #f1f1f1;
+                font-weight: bold;
+                padding:20px;
+            }
+            td {
+                background: #f9f9f9;
+                padding: 10px;
+            }
+            </style>
 
-		<hr />
-		
-		<input id="inputGet"> </input>
-		<button id="buttonGet">Get Information Flight </button>
-		<table style="border: 1px solid black" id="result"></table>
-		
-		<input id="inputDelete"> </input>
-		<button id="buttonDelete">Delete  Flight </button>
-		<table style="border: 1px solid black" id="result"></table>
 		
 	    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 	    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 		<script type="text/javascript" src="Flight.js"></script>
-</body>
-</html>
+  </body>
+  </html>

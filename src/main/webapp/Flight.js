@@ -1,85 +1,57 @@
 
-function getServerData(url, success){
+
+
+function getServerData(url){
     $.ajax({
         dataType: "json",
-        url: url
-    }).done(success);
+        url: url,
+		success: function(data) {
+				var row = $('<tr><td>' + data.aircraftId + '</td><td>' + data.pilotId + '</td></tr>');
+				$('#myTable').append(row);
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			alert('Error: ' + textStatus + ' - ' + errorThrown);
+		}
+	});
 }
 
 
-function putServerData(url, data, success){
+
+
+
+
+function getPlaces(url){
     $.ajax({
-		type : 'PUT',
-		contentType : "application/json; charset=utf-8", 
-        dataType : "json",
-		data : data,
-        url: url
-    }).done(success);
-}
-
-
-function deleteServerData(url, success){
-
-    $.ajax({
-		type: 'DELETE',	
-		contentType : "application/json; charset=utf-8", 
-        dataType : "json",
-        url: url
-    }).done(success);
-}
-
-
-
-function fillTable(container){
-	var template = _.template($('#templateRow').html());
-	var result = "";
-	
-	container.flights.forEach(flight => result += template(flight));
-	
-		$("#result").append(result);
-}
-
-function callDone(result){
-	var templateExample = _.template($('#templateExample').html());
-	
-	var html = templateExample({
-		//"attribute":JSON.stringify(result[0].flightID)
-		"attribute":JSON.stringify(result)
+        dataType: "json",
+        url: url,
+		success: function(data) {
+				var row = $('<tr><td>' + data + '</td><td>');
+				$('#myTable2').append(row);
+		},
+		error: function(jqXHR, textStatus, errorThrown){
+			alert('Error: ' + textStatus + ' - ' + errorThrown);
+		}
 	});
-	//https://makitweb.com/return-json-response-ajax-using-jquery-php/
-	$("#result").append(html);
 }
 
 
-$(function(){
-	$("#buttonAdd").click(function(){
-		var data = $("#inputAdd").val();
+
+	$(function(){
 		
-		putServerData("ws/FlightResource/add-flight",data, function(result){
-			alert("Success " + result);
-		});
-	});
-	
-	$("#buttonGet").click(function(){
-		var id = $("#inputGet").val();
-		
-		getServerData("ws/FlightResource/flight-info/"+ id, fillTable);
-	});
-	
-	$("#buttonDelete").click(function(){
-			var id = $("#inputDelete").val();
-		deleteServerData("ws/FlightResource/delete-flight/",callDone);
+		$("#buttonGet").click(function(){
+			var flightId = $("#inputGet").val();
 			
+			getServerData("ws/FlightResource/flight-info/"+ flightId);
 		});
+		
+		$("#buttonGetPlaces").click(function(){
+			var id = $("#inputGetPlaces").val();
+			
+			getPlaces("ws/FlightResource/availablePlaces/"+ id);
+		});
+		
+	
 });
-
-
-
-
-
-
-
-
 
 
 

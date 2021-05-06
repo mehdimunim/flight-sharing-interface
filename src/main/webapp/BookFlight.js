@@ -1,13 +1,12 @@
 
 
 
-
 function getServerData(url){
     $.ajax({
         dataType: "json",
         url: url,
 		success: function(data) {
-				var row = $('<tr><td>' + data.model+ '</td><td>' + data.owner + '</td><td>' + data.numberOfPlaces + '</td></tr>');
+				var row = $('<tr><td>' + data.bookingId+ '</td><td>' + data.flightId + '</td><td>' + data.passengerId + '</td></tr>');
 				$('#myTable').append(row);
 		},
 		error: function(jqXHR, textStatus, errorThrown){
@@ -26,7 +25,7 @@ function deleteServerData(url){
 		contentType : 'application/json',
         dataType: "json",
         success: function () {
-                    alert('Do you really want to cancel this aircraft ?');
+                    alert('Do you really want to cancel this booking ?');
                 },
     });
 }
@@ -62,68 +61,38 @@ function postServerData(url, data, success){
 
 
 
-function fillTable(container){
-	var template = _.template($('#templateRow').html());
-	var result = "";
-	
-	container.forEach(aircraft => result += template(aircraft));
-	
-		$("#result").append(result);
-}
-
-
 	$(function(){
 		
-		$("#buttonAdd").click(function(){
+			$("#buttonAdd").click(function(){
 			
 			var data = 
 				{
-				model : $("#model").val(),
-				owner : $("#owner").val(),
-				numberOfPlaces : $("#numberOfPlaces").val()
+				passengerId : $("#passengerId").val(),
+				flightId : $("#flightId").val(),
+				timestamp : $("#timestamp").val()
 				};
 				
-			putServerData("ws/AircraftResource/add-aircraft",JSON.stringify(data), function(result){
+			putServerData("ws/BookingResource/add-booking",JSON.stringify(data), function(result){
 			alert("Success " + result);
 		});
 		});
 		
+		
 			$("#buttonGet").click(function(){
 			var aircraftId = $("#inputGet").val();
 			
-			getServerData("ws/AircraftResource/aircraft-info/"+ aircraftId);
+			getServerData("ws/BookingResource/booking-info/"+ aircraftId);
 		});
 		
 		
 		$("#buttonDelete").click(function(){
 			var id = $("#inputDelete").val();
-			deleteServerData("ws/AircraftResource/delete-aircraft/"+ id,fillTable);
+			deleteServerData("ws/BookingResource/delete-boooking/"+ id);
 	});
 	
-	$("#buttonEdit").click(function(){
-			
-			var data = 
-				{
-				aircraftId : $("#aircraftId").val(),  
-				model : $("#model").val(),
-				owner : $("#owner").val(),
-				numberOfPlaces : $("#numberOfPlaces").val()
-				};
-				
-			postServerData("ws/AircraftResource/modify-aircraft",JSON.stringify(data), function(result){
-			alert("Success " + result);
-		});
-		});
-	
-	
-		
 
-	
 
 });
-
-
-
 
 
 

@@ -1,65 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="Passenger.css">
+<link rel="stylesheet" href="BookFlight2.css">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Flight-sharing</title>
+	<title>Aircraft-form</title>
 
   </head>
   <body>
   
- 
+
+  
+  
+		<script id="templateRow" type="text/template">
+			<tr><td><%= model %></td><td><%= numberOfPlaces %></td><td><%= owner %></td></tr>
+		</script>
   
 <nav class="navbar">
 				
 	<ul>
-	 <li><a class = "active" href="#">Passenger</a></li>
-	  <li><a  href="home.html">Home</a></li>
+	  <li><a a class="active" href="home.html">Home</a></li>
+	 
 	  <ul class="nav navbar-nav navbar-right">
-
 		</ul>
 	</ul>
   </nav>
 		
 	  <div class="content">
    
-		<div class="text">Passenger Information</div>
+		<div class="text">Booked Flight</div>
 		<form action="#">
 		
-		
-		 <div class="signup">Get a passenger's information by entering his ID :
-		
+		 <div class="signup">Private information of a booking : 
 		  </div>
-		  
-		<div class="field">
+		
+			<div class="field">
 			<span class="fas fa-user"></span>
-				<input id="inputGet" value="" placeholder="passenger ID" required></input>
+				<input id="inputGet" value="" placeholder="booking ID" required></input>
 		  </div>
 		
-		<button id="buttonGet">See Passenger Info </button>
-		 <table id="myTable">
+		<button id="buttonGet"> Show information </button>
+        <table id="myTable">
 		   <tr>
-		   
-                <th>First Name</th>
-                <th>Last Name</th>
-          
+                <th>Booking Id</th>
+                <th>Flight Id</th>
+                <th>Passenger Id</th>
             </tr>
         </table>
+        
+        
+     
 		
-		  <div class="signup">Delete a passenger on board your flights using his ID :
-		
-		  </div>
-		  
-		  <div class="field">
-			<span class="fas fa-user"></span>
-				<input id="inputDelete" value="" placeholder="passenger ID" required"></input>
-		  </div>
-		<button id="buttonDelete">Delete Passenger</button>
-		</form>
-	</div>
-	
 		 <style>
             table {
                 width: 90%;
@@ -74,11 +66,17 @@
                 padding: 10px;
             }
             </style>
-
 		
+		
+		</form>
+	</div>
+
+	
+	
+
 	    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 	    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-		<script type="text/javascript" src="Passenger.js"></script>
+		<script type="text/javascript" src="BookFlight.js"></script>
   </body>
   </html>
 

@@ -6,7 +6,7 @@ function getServerData(url){
         dataType: "json",
         url: url,
 		success: function(data) {
-				var row = $('<tr><td>' + data.firstName+ '</td><td>' + data.lastName + '</td><td>' + data.civilStatut + '</td></tr>'+ data.birthday + '</td></tr>' + data.email + '</td></tr>');
+				var row = $('<tr><td>' + data.firstName+ '</td><td>' + data.lastName + '</td></tr>');
 				$('#myTable').append(row);
 		},
 		error: function(jqXHR, textStatus, errorThrown){
@@ -36,6 +36,17 @@ function putServerData(url, data, success){
         dataType : "json",
 		data : data,
         url: url
+    }).done(success);
+}
+
+function postServerData(url, data, success){
+
+    $.ajax({
+		type: 'POST',	
+        url: url,
+		data: data,
+		contentType : 'application/json',
+        dataType: "json"
     }).done(success);
 }
 
@@ -71,4 +82,23 @@ function putServerData(url, data, success){
 			
 			deleteServerData("ws/PassengerResource/delete-passenger/"+ id);
 	});
+	
+	
+	$("#buttonEdit").click(function(){
+			
+			var passenger = 
+				{
+				passengerId : $("#passengerId").val(),
+				firstName : $("#firstName").val(),
+				lastName : $("#lastName").val(),
+				civilStatut : $("#civilStatut").val(),
+				birthday : $("#birthday").val(),
+				email : $("#email").val()
+				};
+				
+				
+			postServerData("ws/PassengerResource/modify-passenger",JSON.stringify(passenger), function(result){
+			alert("Success " + result);
+		});
+		});
 });

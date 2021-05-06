@@ -20,4 +20,10 @@ public interface AircraftDao {
 	 */
 	void deleteAircraft(long aircraftId);
 
+	/**
+	 * Edit the aircraft stored at aircraftId
+	 * 
+	 */
+	void editAircraft(Aircraft newAircraft);
+
 }

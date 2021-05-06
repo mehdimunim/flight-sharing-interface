@@ -84,4 +84,31 @@ public class AircraftDaoImpl implements AircraftDao {
 		}
 
 	}
+
+	public void editAircraft(Aircraft newAircraft) {
+		long aircraftId = newAircraft.getAircraftId();
+		Aircraft aircraft;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+
+			// searching aircraft with the same id as newAircraft
+			aircraft = pm.getObjectById(Aircraft.class, aircraftId);
+
+			// updating aircraft's field
+			aircraft.setModel(newAircraft.getModel());
+			aircraft.setNumberOfPlaces(newAircraft.getNumberOfPlaces());
+			aircraft.setOwner(newAircraft.getOwner());
+
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+
+	}
+
 }
