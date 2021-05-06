@@ -24,6 +24,9 @@
   
   </nav>
 
+ 
+   
+
   <a href="BookFlight.html">
     <button class="book">
         View booked flights
@@ -54,6 +57,102 @@
       Confirm a booking 
   </button>
 </a>
+
+<div id="search-form">
+  <div id="header">
+    <h1>Plan for flight</h1>
+  </div>
+
+    <div class="flight" id="flightbox">
+      
+      <form id="flight-form">
+      <!-- TRIP TYPE -->
+    
+      
+      <!-- FROM/TO -->
+      <div id="flight-depart">
+        <div class="info-box" id = "depart-box">
+          <label for="">Departure aerodrome</label>
+          <input type="text" id="dep-from" />
+          <div id="depart-res"></div>
+        </div>
+        <div class="info-box" id="arrive-box">
+          <label for=""> Arrival aerodrome</label>
+          <input type="text" id="dep-to" />
+          <div id="arrive-res"> </div>
+      </div>
+        
+      </div>
+      
+      <div id="flight-dates">
+        <div class="info-box">
+          <label for="">Departure Datetime</label>
+          <input type="datetime-local" id="leave-datetime"/>
+        </div>
+    <div class="info-box">
+          <label for="">Arrival Datetime</label>
+          <input type="datetime-local" id="arrival-time"/>
+        </div>
+  
+        </div>
+        <!--Flight info(number)-->
+
+        <div id="flight-dates">
+          <div class="info-box">
+            <label for="">Price per passenger</label>
+            <input type="number" id="price"/>
+          </div>
+      <div class="info-box">
+            <label for="">Number of available place</label>
+            <input type="number" id="sits"/>
+          </div>
+          
+    
+          </div>
+
+       <!--Flight info-->
+
+       <div id="flight-dates">
+          <div class="info-box">
+            <label for="">Meeting place</label>
+            <input type="text" id="leave-datetime"/>
+          </div>
+          
+          </div>
+
+
+          <div id="flight-dates">
+            <div class="info-box">
+              <label for="">Meeting place</label>
+              <input type="text" id="meetPlace"/>
+            </div>
+        <div class="info-box">
+              <label for="">AircraftID</label>
+              <input type="number" id="AircraftID"/>
+            </div>
+            
+            </div>
+
+            <div id="flight-dates">
+              
+              <div class="info-box">
+                <label for="">FlightID</label>
+                <input type="number" id="flightID"/>
+              </div>
+          <div class="info-box">
+                <label for="">PilotID</label>
+                <input type="number" id="pilotID"/>
+              </div>
+              
+              </div>
+    
+      <!-- Plan button -->
+    <div id="flight-search">
+      <div class="info-box">
+        <button type="submit" id="search-flight" >Plan</button>
+      </div>
+    </div> 
+
 
 
    

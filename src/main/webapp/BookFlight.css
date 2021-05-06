@@ -117,10 +117,10 @@ tbody {
     height:300px;
     overflow:auto;
 }
-thead {
+thead{
     display:table;
-    width:1000px;
-    table-layout:fixed;
+    width:100%;
+    table-layout:absolute;
     background-color: grey;
     font-size:initial;
     font-family:sans-serif;
@@ -135,10 +135,11 @@ thead {
 tbody tr{
     display:table;
     width:1000px;
-    table-layout:fixed;
+    table-layout:absolute;
     font-size:unset;
     text-align: left;
     padding: 8px;
     border: 1px solid #ddd;
     color:white
 }
+
